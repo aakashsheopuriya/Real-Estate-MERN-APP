@@ -2,16 +2,15 @@ const express = require("express");
 const userController = require("../controllers/user.controller");
 const Router = express.Router();
 
-const multer = require("multer");//multer is a middleware
+const multer = require("multer"); //multer is a middleware
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null,'uploads/')
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix +".png")
-  }
-})
+    cb(null, file.originalname);
+  },
+});
 const upload = multer({ storage: storage });
 
 Router.get("/", function (req, res) {
@@ -20,7 +19,6 @@ Router.get("/", function (req, res) {
     status: 1,
   }); //json data response
 });
-
 
 Router.get("/api/get-users", userController.getUsers);
 
@@ -32,6 +30,6 @@ Router.post("/api/reset-password", userController.resetPassword);
 
 Router.post("/api/emailsend", userController.userEmailSend);
 
-Router.post("/api/upload",upload.single("image"),userController.userUpload);
+Router.post("/api/upload", upload.single("image"), userController.userUpload);
 
 module.exports = Router;

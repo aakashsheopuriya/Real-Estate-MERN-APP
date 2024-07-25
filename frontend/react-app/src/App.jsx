@@ -1,11 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
 import FirstApp from './FirstApp';
+import Login from './views/publicView/Login';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div>
+      <Login/>
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -19,9 +21,8 @@ function App() {
           Learn React by durgesh sir at universal ,vijaynagarm campus.
         </a>
         <FirstApp/>
-        <FirstApp/>
 
-      </header>
+      </header> */}
     </div>
   );
 }

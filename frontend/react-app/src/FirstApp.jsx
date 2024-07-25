@@ -1,22 +1,23 @@
-import React from "react";
-
-
-function FirstApp(){
-
-    const amount=19;
-    console.log("amount=",amount);
-
-   return(
+import React, { useState } from "react";
+import "./App.css";
+function FirstApp() {
+  const [amount,setAmount]=useState(0);
+  console.log("amount=", amount);
+  const handleIncreament=()=>{
+    setAmount(amount+1);
+  }
+  const handleDecreament=()=>{
+    setAmount(amount-1);
+  }
+  return (
     <div>
-        <h1>
-            Increament/Decreament App
-        </h1>
-        <button onClick={()=>alert("hello all on increament")}>+</button>
-        <span>{amount}</span>
-        <button onClick={()=>alert("hello all on decreament")}>-</button>
-    </div>
-   )
+      <h1>Increament/Decreament App</h1>
+      <button onClick={() =>handleIncreament()}>+</button>
+      <span>{amount}</span>
 
+      <button onClick={() => handleDecreament()}>-</button>
+    </div>
+  );
 }
 
-export default FirstApp
+export default FirstApp;

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors=require("cors");
 const path=require("path");
 const hbs=require('hbs');
 
@@ -9,6 +10,8 @@ const userRouter = require("./routes/user.route");
 const port = 9000;
 const app = express();
 
+
+app.use(cors({origin:"*"}));
 //set view-engine
 app.set('view-engine','hbs');
 app.set('views','views');

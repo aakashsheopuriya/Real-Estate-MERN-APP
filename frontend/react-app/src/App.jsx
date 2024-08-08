@@ -2,11 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import FirstApp from './FirstApp';
 import Login from './views/publicView/Login';
+import Signup from './views/AuthenticateView/Signup';
 
 function App() {
   return (
     <div>
-      <Login/>
+      {/* <Login/> */}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -23,6 +24,7 @@ function App() {
         <FirstApp/>
 
       </header> */}
+      <Signup />
     </div>
   );
 }

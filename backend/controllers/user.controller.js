@@ -1,4 +1,7 @@
+const message = require("../constant/message");
+const fs=require("fs");
 const users = require("../data/user.data");
+const User=require("../models/user.model");
 const emailSend = require("../helper/email-send");
 const otpGenerator = require("otp-generator");
 const getUsers = async (req, res) => {
@@ -76,13 +79,34 @@ const userEmailSend = async function (req, res) {
 };
 
 const userUpload = async (req, res) => {
+  console.log("req.params.email",req.params.email);
   console.log("req", req.file);
-  if(req.file.filename){
-    res.send({ message: "file uloading success", status: 1 });
-  }
-  else res.send({ message: "failed to upload file", status: 0 });
+  const userFind = await User.findOne({ username :req.params.email});
+    console.log("userFind", userFind);
+    if (userFind) {
+      const userUpdate=await User.updateOne({username:req.params.email},{$set:{image:req.params.email+"-"+req.file.originalname}});
+      console.log("userUpdate",userUpdate);
+      if(userUpdate){
+        res.send({message:"image uploaded successfully",status:1,image:req.params.email+"-"+req.file.originalname});
+      }else{
+        res.send({message:"image uploaded failed",status:0});
+      }
+    } else {
+      res.send({message:"user not found",statu:0});
+    }
 };
 
+
+const profileDownload=async(req,res)=>{
+   const image=req.params.image;
+   fs.readFile(`./uploads/${image}`,function(err,data){
+    if(data){
+      res.send(data);
+    }else{
+      res.send({message:"something went srong!",status:0});
+    }
+   })
+}
 module.exports = {
   getUsers,
   getUserById,
@@ -90,4 +114,5 @@ module.exports = {
   resetPassword,
   userEmailSend,
   userUpload,
+  profileDownload
 };

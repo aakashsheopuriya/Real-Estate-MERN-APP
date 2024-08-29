@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, req.params.email+"-"+file.originalname);//durgesh@gmail.com-wqeywqewtrwruewryewryew.png
   },
 });
 const upload = multer({ storage: storage });
@@ -30,6 +30,8 @@ Router.post("/api/reset-password", userController.resetPassword);
 
 Router.post("/api/emailsend", userController.userEmailSend);
 
-Router.post("/api/upload", upload.single("image"), userController.userUpload);
+Router.post("/api/upload/:email", upload.single("image"), userController.userUpload);
+
+Router.get("/api/download/:image",userController.profileDownload)
 
 module.exports = Router;

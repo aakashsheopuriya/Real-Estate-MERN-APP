@@ -17,6 +17,9 @@ const userSchema=new mongoose.Schema({
     },
     status:{
         type:Boolean
+    },
+    image:{
+        type:String
     }
 })
 

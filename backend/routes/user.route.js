@@ -34,4 +34,7 @@ Router.post("/api/upload/:email", upload.single("image"), userController.userUpl
 
 Router.get("/api/download/:image",userController.profileDownload)
 
+Router.get("/api/profile/delete/:image",userController.profileDelete)
+
+
 module.exports = Router;

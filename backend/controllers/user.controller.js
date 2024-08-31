@@ -1,7 +1,7 @@
 const message = require("../constant/message");
-const fs=require("fs");
+const fs = require("fs");
 const users = require("../data/user.data");
-const User=require("../models/user.model");
+const User = require("../models/user.model");
 const emailSend = require("../helper/email-send");
 const otpGenerator = require("otp-generator");
 const getUsers = async (req, res) => {
@@ -14,17 +14,16 @@ const getUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   console.log("req.params.id", req.params.id);
-  const user = users.filter((data) => {
-    return data.id == req.params.id;
-  });
-  if (user.length > 0) {
+  const id = req.params.id;
+  const userFind = await User.findOne({ username: id });
+  if (userFind) {
     res.send({
       message: "specific user fetched successfully",
       status: 1,
-      user: user,
+      user: userFind,
     });
   } else {
-    res.send({ message: `user not found with id ${req.params.id}`, status: 0 });
+    res.send({ message: "specific user not found successfully", status: 0 });
   }
 };
 
@@ -79,34 +78,55 @@ const userEmailSend = async function (req, res) {
 };
 
 const userUpload = async (req, res) => {
-  console.log("req.params.email",req.params.email);
+  console.log("req.params.email", req.params.email);
   console.log("req", req.file);
-  const userFind = await User.findOne({ username :req.params.email});
-    console.log("userFind", userFind);
-    if (userFind) {
-      const userUpdate=await User.updateOne({username:req.params.email},{$set:{image:req.params.email+"-"+req.file.originalname}});
-      console.log("userUpdate",userUpdate);
-      if(userUpdate){
-        res.send({message:"image uploaded successfully",status:1,image:req.params.email+"-"+req.file.originalname});
-      }else{
-        res.send({message:"image uploaded failed",status:0});
-      }
+  const userFind = await User.findOne({ username: req.params.email });
+  console.log("userFind", userFind);
+  if (userFind) {
+    const userUpdate = await User.updateOne(
+      { username: req.params.email },
+      { $set: { image: req.params.email + "-" + req.file.originalname } }
+    );
+    console.log("userUpdate", userUpdate);
+    if (userUpdate) {
+      res.send({
+        message: "image uploaded successfully",
+        status: 1,
+        image: req.params.email + "-" + req.file.originalname,
+      });
     } else {
-      res.send({message:"user not found",statu:0});
+      res.send({ message: "image uploaded failed", status: 0 });
     }
+  } else {
+    res.send({ message: "user not found", statu: 0 });
+  }
 };
 
-
-const profileDownload=async(req,res)=>{
-   const image=req.params.image;
-   fs.readFile(`./uploads/${image}`,function(err,data){
-    if(data){
+const profileDownload = async (req, res) => {
+  const image = req.params.image;
+  fs.readFile(`./uploads/${image}`, function (err, data) {
+    if (data) {
       res.send(data);
-    }else{
-      res.send({message:"something went srong!",status:0});
+    } else {
+      res.send({ message: "something went srong!", status: 0 });
     }
-   })
-}
+  });
+};
+
+const profileDelete = async (req, res) => {
+  console.log("calling profileDelete ***********");
+  
+  const image = req.params.image;
+  console.log("calling profileDelete image ***********",image);
+
+  fs.unlink(`./uploads/${image}`, function (err, data) {
+    if (err) {
+      res.send({ message: "something went srong!", status: 0 });
+    } else {
+      res.send({message:"old image deleted successfully",status:1});
+    }
+  });
+};
 module.exports = {
   getUsers,
   getUserById,
@@ -114,5 +134,6 @@ module.exports = {
   resetPassword,
   userEmailSend,
   userUpload,
-  profileDownload
+  profileDownload,
+  profileDelete,
 };

@@ -6,6 +6,9 @@ import Signup from './views/AuthenticateView/Signup';
 import UserProfile from './views/AuthenticateView/UserProfile';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 import WebsiteLayout from './views/AuthenticateView/WebsiteLayout';
+import UserDashboard from './views/AuthenticateView/UserDashboard';
+import CreatProperty from './views/AuthenticateView/Seller/CreatProperty';
+import MyProperty from './views/AuthenticateView/Seller/MyProperty';
 
 function App() {
   return (
@@ -35,8 +38,10 @@ function App() {
 
 <Routes>
   <Route path='/' element={<WebsiteLayout/>}>
-  <Route index element={<UserProfile/>}></Route>
-
+  <Route index element={<UserDashboard/>}></Route>
+  <Route path="/profile" element={<UserProfile/>}></Route>
+  <Route path="/create" element={<CreatProperty/>}></Route>
+  <Route path="/my-property" element={<MyProperty/>}></Route>
   </Route>
 </Routes>
 </BrowserRouter>

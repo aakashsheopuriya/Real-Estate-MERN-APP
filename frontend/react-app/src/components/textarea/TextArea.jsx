@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function TextArea() {
+export default function TextArea({className,onChange}) {
   return (
     <div>
-        <textarea></textarea>
+        <textarea className={className} onChange={onChange}></textarea>
     </div>
   )
 }

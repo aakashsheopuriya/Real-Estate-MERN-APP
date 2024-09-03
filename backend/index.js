@@ -4,7 +4,7 @@ const path=require("path");
 const hbs=require('hbs');
 
 const bodyParser = require("body-parser"); //parse the req.body.parameter or parse the incoming request
-const studentRouter = require("./routes/student.route");
+const sellerRouter = require("./routes/seller.route");
 const commonRouter=require("./routes/common.route");
 const userRouter = require("./routes/user.route");
 const port = 9000;
@@ -33,7 +33,7 @@ app.get("/loginpage",(req,res)=>{
 app.use("/",commonRouter);
 
 //student router endpoint
-app.use("/student",studentRouter);
+app.use("/seller",sellerRouter);
 
 //user router endpoint
 app.use("/user",userRouter);

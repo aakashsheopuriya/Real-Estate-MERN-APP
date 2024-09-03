@@ -1,28 +1,19 @@
 const mongoose = require("mongoose");
 const propertySchema = new mongoose.Schema({
-  firstname: {
+  title:{
+    type:String
+  },
+  propertyDetails: {
     type: String,
   },
-  lastname: {
+  services: {
+    type: Array,
+  },
+  images: {
     type: String,
   },
-  properyDetails:{
-    type:String
-  },
-  benefits:{
-    type:String
-  },
-  services:{
-    type:String
-  },
-  images:{
-    type:String
-  },
-  area:{
-    type:String
-  },
-  price:{
-    type:Number
+  price: {
+    type: Number,
   },
   sellerId: {
     type: String,
@@ -36,12 +27,12 @@ const propertySchema = new mongoose.Schema({
   status: {
     type: String,
   },
-  createdAt:{
-    type:Date
+  createdAt: {
+    type: Date,
   },
-  updatedAt:{
-    type:Date
-  }
+  updatedAt: {
+    type: Date,
+  },
 });
 
 const Property = new mongoose.model("Property", propertySchema);

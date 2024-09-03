@@ -4,8 +4,8 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 export default function WebsiteLayout() {
   return (
     <>
-      <div className="flex justify-between items-center bg-slate-200 font-serif h-12 text-sm">
-        <div className="text-3xl hover:text-gray-500 hover:cursor-pointer pl-2">
+      <div className="flex justify-between items-center bg-slate-200 font-serif h-12 text-sm drop-shadow-md">
+        <div className="text-blue-700 text-3xl hover:text-blue-500 hover:cursor-pointer pl-2">
           logo
         </div>
         <div>
@@ -14,7 +14,7 @@ export default function WebsiteLayout() {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  `hover:text-red-500 ${isActive ? "text-red-300" : "text-black"}`
+                  `hover:text-blue-700 ${isActive ? "text-blue-500" : "text-black"}`
                 }
               >
                 Home
@@ -24,7 +24,7 @@ export default function WebsiteLayout() {
               <NavLink
                 to="/create"
                 className={({ isActive }) =>
-                  `hover:text-red-500 ${isActive ? "text-red-300" : "text-black"}`
+                  `hover:text-blue-700 ${isActive ? "text-blue-500" : "text-black"}`
                 }
               >
                 Create Property
@@ -33,7 +33,7 @@ export default function WebsiteLayout() {
 
             <li>
               <NavLink to="/my-property" className={({ isActive }) =>
-                  `hover:text-red-500 ${isActive ? "text-red-300" : "text-black"}`
+                  `hover:text-blue-700 ${isActive ? "text-blue-500" : "text-black"}`
                 }>My Property</NavLink>
             </li>
           </ul>

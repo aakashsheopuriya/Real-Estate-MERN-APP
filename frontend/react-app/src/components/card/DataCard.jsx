@@ -12,7 +12,8 @@ export default function DataCard({data}) {
         style={{
           width: 300,
         }}
-      >
+      >\
+      <img src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${data.image}`} alt="not found" width={100} height={100}></img>
         <p>{data.propertyDetails}</p>
         <p>{data.price} (in INR)</p>
         <p>{data.address}</p>

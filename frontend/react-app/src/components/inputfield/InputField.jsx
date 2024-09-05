@@ -4,6 +4,7 @@ export default function InputField({ type,value, name, placeholder,onChange ,cla
   return (
     <>
       <input type={type} name={name} value={value} placeholder={placeholder} onChange={onChange} className={className}></input>
+      {/* {value?.length>50&&"Error"} */}
     </>
   );
 }

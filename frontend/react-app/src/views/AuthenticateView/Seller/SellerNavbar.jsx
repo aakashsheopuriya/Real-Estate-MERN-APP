@@ -13,7 +13,7 @@ function SellerNavbar() {
   };
   return (
     <>
-      <div className="flex justify-between items-center bg-slate-200 font-serif h-12 text-sm drop-shadow-md">
+      <div className="fixed z-10 top-0 w-full flex justify-between items-center bg-slate-200 font-serif h-12 text-sm drop-shadow-md">
         <div className="text-blue-700 text-3xl hover:text-blue-500 hover:cursor-pointer pl-2">
           logo
         </div>

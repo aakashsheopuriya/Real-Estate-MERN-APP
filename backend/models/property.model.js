@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const propertySchema = new mongoose.Schema({
-  title:{
-    type:String
+  title: {
+    type: String,
   },
   propertyDetails: {
     type: String,
@@ -9,7 +9,7 @@ const propertySchema = new mongoose.Schema({
   services: {
     type: Array,
   },
-  images: {
+  image: {
     type: String,
   },
   price: {

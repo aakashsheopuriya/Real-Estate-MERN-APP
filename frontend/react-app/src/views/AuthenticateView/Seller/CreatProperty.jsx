@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Label from "../../../components/label/Label";
 import InputField from "../../../components/inputfield/InputField";
 import TextArea from "../../../components/textarea/TextArea";
 import { InputNumber, Select } from "antd";
 import axios from "axios";
 import BreadCrumbs from "../../../components/breadcrumbs/BreadCrumbs";
+import { Link } from "react-router-dom";
 
 export default function CreatProperty() {
   const id = "durgesh2@gmail.com";
@@ -70,14 +71,27 @@ export default function CreatProperty() {
     },
   ];
 
-  // useEffe(()=>{
-
-  // })
+  useEffect(() => {
+    console.log("useEffect call");
+    if (
+      title?.trim().length > 0 &&
+      contact?.trim().length > 0 &&
+      description?.trim()?.length > 0 &&
+      address?.trim().length > 0 &&
+      price > 0 &&
+      services?.length > 0 &&
+      imagePreview
+    ) {
+      setIsButtonDisable(false);
+    } else {
+      setIsButtonDisable(true);
+    }
+  }, [title, contact, description, address, price, services, imagePreview]);
 
   return (
     <div className="relative top-11 bg-slate-100 h-screen">
       <div className="">
-        <BreadCrumbs items={items} />
+        <BreadCrumbs items={items}  />
       </div>
       <div className="">
         <div className="flex justify-center">

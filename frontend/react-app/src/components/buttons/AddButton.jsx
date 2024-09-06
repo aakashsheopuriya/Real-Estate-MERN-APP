@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function AddButton({ name, onClick,disabledStatus}) {
+export default function AddButton({ name, onClick,disabledStatus,className}) {
   return (
     <div>
-      <button onClick={onClick} disabled={disabledStatus} style={disabledStatus?{cursor:"not-allowed"}:{cursor:"pointer"}}>{name}</button>
+      <button className={className} onClick={onClick} disabled={disabledStatus} style={disabledStatus?{cursor:"not-allowed"}:{cursor:"pointer"}}>{name}</button>
     </div>
   );
 }

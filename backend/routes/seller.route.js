@@ -1,12 +1,13 @@
 const express = require("express");
 
 const multer = require("multer"); //multer is a middleware
+const {ObjectId} =require("mongodb");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, req.params.email + "-" + file.originalname); //durgesh@gmail.com-wqeywqewtrwruewryewryew.png
+    cb(null, req.params.id + "-" + file.originalname); //durgesh@gmail.com-wqeywqewtrwruewryewryew.png
   },
 });
 const upload = multer({ storage: storage });
@@ -41,19 +42,19 @@ Router.post("/api/create/:id", async (req, res) => {
   const isInserted = await insertProperty.save();
   console.log("isInserted", isInserted);
   if (isInserted) {
-    res.send({ message: "Property Created Successfully", status: true });
+    res.send({ message: "Property Created Successfully", status: true ,property:isInserted});
   } else {
     res.send({ message: "something went wrong !", status: false });
   }
 });
 
-Router.post("/api/upload/:email", upload.single("image"), async (req, res) => {
+Router.post("/api/upload/:email/:id", upload.single("image"), async (req, res) => {
   console.log("req.params.email", req.params.email);
   console.log("req", req.file);
 
   const propertyUpdate = await Property.updateOne(
-    { sellerId: req.params.email },
-    { $set: { image: req.params.email + "-" + req.file.originalname } }
+    { sellerId: req.params.email,_id:new ObjectId(req.params.id) },
+    { $set: { image: req.params.id + "-" + req.file.originalname } }
   );
   console.log("propertyUpdate", propertyUpdate);
   if (propertyUpdate) {

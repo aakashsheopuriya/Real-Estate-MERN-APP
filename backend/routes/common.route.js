@@ -4,8 +4,8 @@ const Router = express.Router();
 const message = require("../constant/message");
 const dbConnect = require("../db/dbConnect");
 // const student = require("../controllers/student.controller");
+const commonController=require("../controllers/common.controller");
 const User = require("../models/user.model");
-console.log("user=",User);
 
 Router.post("/api/login", async function (req, res) {
   console.log("req body data", req.body);
@@ -130,4 +130,9 @@ Router.get("/api/delete/:email", async (req, res) => {
     res.send({ message: "User not Deleted", status: 0 });
   }
 });
+
+
+//get sepcific property details by Id
+
+Router.get("/api/get-property/:id",commonController.getPropertyById);
 module.exports = Router;

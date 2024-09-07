@@ -48,8 +48,9 @@ export default function CreatProperty() {
     );
     console.log("backend seller create property backend res", res);
     if (res.data.status) {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/seller/api/upload/${id}`,
+      // return;
+      const result = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/seller/api/upload/${id}/${res.data.property._id}`,
         formData,
         {
           headers: {
@@ -57,7 +58,7 @@ export default function CreatProperty() {
           },
         }
       );
-      alert(`${res.data.message}`);
+      alert(`${result.data.message}`);
     } else {
       alert(`${res.data.message}`);
     }
@@ -89,9 +90,9 @@ export default function CreatProperty() {
   }, [title, contact, description, address, price, services, imagePreview]);
 
   return (
-    <div className="relative top-11 bg-slate-100 h-screen">
+    <div className="">
       <div className="">
-        <BreadCrumbs items={items}  />
+        <BreadCrumbs items={items} />
       </div>
       <div className="">
         <div className="flex justify-center">

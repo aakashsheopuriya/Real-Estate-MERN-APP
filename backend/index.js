@@ -30,7 +30,7 @@ app.get("/loginpage",(req,res)=>{
 })
 
 //common router endpoint
-app.use("/",commonRouter);
+app.use("/common",commonRouter);
 
 //student router endpoint
 app.use("/seller",sellerRouter);

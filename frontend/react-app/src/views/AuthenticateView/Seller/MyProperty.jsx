@@ -32,9 +32,9 @@ export default function MyProperty() {
   ];
   return (
     <>
-    <div className="m-2 bg-slate-100 h-screen">
-      <div className="relative top-11 ">
-        <div className="flex justify-between">
+    <div className="m-2 bg-slate-100">
+      <div className=" ">
+        <div className="flex justify-between pb-3 pr-2">
           <div className="">
             <BreadCrumbs items={items} />
           </div>
@@ -46,13 +46,16 @@ export default function MyProperty() {
             data={property}
           />
         </div>
-        <div className="grid grid-cols-4 space-5 gap-2 m-4 p-4 drop-shadow-md ">
+        <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
           {property.map((data) => {
             return <DataCard data={data} />;
           })}
         </div>
+        </div>
+        
         {/* </div> */}
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center p-3">
           <AddButton
             name="More"
             className="flex justify-center items-center bg-blue-700 text-white p-2 w-20 rounded-xl hover:bg-blue-400"

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchInput from "../../../components/searchdata/SearchInput";
-import {SettingOutlined, UserOutlined} from '@ant-design/icons'
+import { SettingOutlined, UserOutlined,LoginOutlined} from "@ant-design/icons";
 function SellerNavbar() {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -73,7 +73,7 @@ function SellerNavbar() {
               }}
             /> */}
             <div className="w-4 m-2 hover:cursor-pointer">
-            <UserOutlined/>
+              <UserOutlined />
             </div>
           </div>
           <div
@@ -84,9 +84,25 @@ function SellerNavbar() {
           </div>
         </div>
         <Drawer title="Settings" onClose={onClose} open={open}>
-          <p>Change Property Status</p>
-          <p>Edit Profile</p>
-          <p>Add Discount to all properties</p>
+          <ul type="none">
+            <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
+              <Link to="/account-information">Account Information</Link>
+            </li>
+            <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
+              <Link>Language setting</Link>
+            </li>
+
+            <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
+              <Link>Help & Support</Link>
+            </li>
+
+            <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
+              <Link>Privacy & Policies</Link>
+            </li>
+            <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
+              <Link><LoginOutlined />SignOut</Link>
+            </li>
+          </ul>
         </Drawer>
       </div>
     </>

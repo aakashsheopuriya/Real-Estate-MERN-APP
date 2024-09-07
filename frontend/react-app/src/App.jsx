@@ -11,6 +11,7 @@ import CreatProperty from "./views/AuthenticateView/Seller/CreatProperty";
 import MyProperty from "./views/AuthenticateView/Seller/MyProperty";
 import NoPage from "./views/publicView/NoPage";
 import PropertyDetails from "./views/AuthenticateView/Seller/PropertyDetails";
+import Account from "./views/AuthenticateView/pages/Account";
 
 function App() {
   return (
@@ -43,7 +44,11 @@ function App() {
           <Route path="/profile" element={<UserProfile />}></Route>
           <Route path="/create" element={<CreatProperty />}></Route>
           <Route path="/my-property" element={<MyProperty />}></Route>
-          <Route path="/get-specific-property" element={<PropertyDetails />}></Route>
+          <Route
+            path="/get-specific-property/:id"
+            element={<PropertyDetails />}
+          ></Route>
+          <Route path="/account-information" element={<Account />}></Route>
 
           <Route path="*" element={<NoPage />}></Route>
         </Route>

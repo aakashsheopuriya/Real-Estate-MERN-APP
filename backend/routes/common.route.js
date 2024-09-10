@@ -135,4 +135,7 @@ Router.get("/api/delete/:email", async (req, res) => {
 //get sepcific property details by Id
 
 Router.get("/api/get-property/:id",commonController.getPropertyById);
+
+Router.post("/api/otp-sent",commonController.resetPassword);
+
 module.exports = Router;

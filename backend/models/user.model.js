@@ -20,6 +20,9 @@ const userSchema=new mongoose.Schema({
     },
     image:{
         type:String
+    },
+    forgotOtp:{
+        type:String
     }
 })
 

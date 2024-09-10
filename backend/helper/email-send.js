@@ -1,8 +1,7 @@
 const nodemailer = require("nodemailer");
 const emailSend = async (user,otp,type) => {
   try {
-    const email = "12365ak@gmail.com";
-    console.log("email in /api/emailsend api", email);
+  
     var transport = nodemailer.createTransport({
       host: "smtp.gmail.com", //gmail hostname
       port: 465,

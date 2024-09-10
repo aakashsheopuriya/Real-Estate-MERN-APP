@@ -34,7 +34,7 @@ function SellerNavbar() {
             </li>
             <li>
               <NavLink
-                to="/create"
+                to="/dashboard/create"
                 className={({ isActive }) =>
                   `hover:text-blue-700 ${
                     isActive ? "text-blue-500" : "text-black"
@@ -47,7 +47,7 @@ function SellerNavbar() {
 
             <li>
               <NavLink
-                to="/my-property"
+                to="/dashboard/my-property"
                 className={({ isActive }) =>
                   `hover:text-blue-700 ${
                     isActive ? "text-blue-500" : "text-black"

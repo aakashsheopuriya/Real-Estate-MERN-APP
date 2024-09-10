@@ -12,6 +12,7 @@ import MyProperty from "./views/AuthenticateView/Seller/MyProperty";
 import NoPage from "./views/publicView/NoPage";
 import PropertyDetails from "./views/AuthenticateView/Seller/PropertyDetails";
 import Account from "./views/AuthenticateView/pages/Account";
+import Forgot from "./views/publicView/Forgot";
 
 function App() {
   return (
@@ -39,19 +40,24 @@ function App() {
     // </div>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<WebsiteLayout />}>
+        <Route path="/" element={<Login />}></Route>
+        <Route path="/forgot-password" element={<Forgot/>}></Route>
+        <Route path="/Signup-Now" element={<Signup/>}></Route>
+        <Route path="/dashboard" element={<WebsiteLayout />}>
           <Route index element={<UserDashboard />}></Route>
-          <Route path="/profile" element={<UserProfile />}></Route>
-          <Route path="/create" element={<CreatProperty />}></Route>
-          <Route path="/my-property" element={<MyProperty />}></Route>
+          <Route path="profile" element={<UserProfile />}></Route>
+          <Route path="create" element={<CreatProperty />}></Route>
+          <Route path="my-property" element={<MyProperty />}></Route>
           <Route
-            path="/get-specific-property/:id"
+            path="get-specific-property/:id"
             element={<PropertyDetails />}
           ></Route>
-          <Route path="/account-information" element={<Account />}></Route>
+          <Route path="account-information" element={<Account />}></Route>
 
           <Route path="*" element={<NoPage />}></Route>
         </Route>
+        <Route path="*" element={<NoPage />}></Route>
+
       </Routes>
     </BrowserRouter>
   );

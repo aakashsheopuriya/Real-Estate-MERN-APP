@@ -8,7 +8,8 @@ import BreadCrumbs from "../../../components/breadcrumbs/BreadCrumbs";
 import { Link } from "react-router-dom";
 
 export default function CreatProperty() {
-  const id = "durgesh2@gmail.com";
+  const id = localStorage.getItem("email");
+  console.log("id",id);
   const [title, setTitle] = useState("");
   const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");

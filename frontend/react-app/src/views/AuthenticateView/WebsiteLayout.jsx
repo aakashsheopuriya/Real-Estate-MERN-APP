@@ -7,10 +7,11 @@ export default function WebsiteLayout() {
   return (
     <>
       <SellerNavbar />
+
       <div className="bg-slate-100 min-h-screen">
-      <main className="relative top-14 ">
-        <Outlet />
-      </main>
+        <main className="relative top-14 ">
+          <Outlet />
+        </main>
       </div>
     </>
   );

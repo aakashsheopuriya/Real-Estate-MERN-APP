@@ -7,7 +7,7 @@ import AddButton from "../../../components/buttons/AddButton";
 
 export default function MyProperty() {
   const [property, setProperty] = useState([]);
-  const id = "durgesh2@gmail.com";
+  const id = localStorage.getItem("email");
   const getSpecificProperty = async () => {
     const property = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/seller/api/get-property/${id}`

@@ -4,7 +4,7 @@ const Router = express.Router();
 const message = require("../constant/message");
 const dbConnect = require("../db/dbConnect");
 // const student = require("../controllers/student.controller");
-const commonController=require("../controllers/common.controller");
+const commonController = require("../controllers/common.controller");
 const User = require("../models/user.model");
 
 Router.post("/api/login", async function (req, res) {
@@ -62,8 +62,8 @@ Router.post("/api/register", async function (req, res) {
         credits: 1000,
         status: 1, //1=Active,0=InActive
       });
-      const isInserted=await insertUser.save();
-      console.log("isInserted",isInserted);
+      const isInserted = await insertUser.save();
+      console.log("isInserted", isInserted);
       if (isInserted) {
         res.send({
           message: message.success.registerMessage,
@@ -131,11 +131,13 @@ Router.get("/api/delete/:email", async (req, res) => {
   }
 });
 
-
 //get sepcific property details by Id
 
-Router.get("/api/get-property/:id",commonController.getPropertyById);
+Router.get("/api/get-property/:id", commonController.getPropertyById);
 
-Router.post("/api/otp-sent",commonController.resetPassword);
+Router.post("/api/otp-sent", commonController.resetPassword);
+
+Router.post("/api/otp-verify", commonController.otpVerify);
+Router.post("/api/newpassword-update", commonController.newPasswordUpdate);
 
 module.exports = Router;

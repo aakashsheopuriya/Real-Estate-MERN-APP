@@ -1,6 +1,6 @@
 const message = require("../constant/message");
 const fs = require("fs");
-const users = require("../data/user.data");
+// const users = require("../data/user.data");
 const User = require("../models/user.model");
 const emailSend = require("../helper/email-send");
 const otpGenerator = require("otp-generator");

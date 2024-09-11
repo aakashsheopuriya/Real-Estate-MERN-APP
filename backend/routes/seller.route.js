@@ -1,7 +1,7 @@
 const express = require("express");
 
 const multer = require("multer"); //multer is a middleware
-const {ObjectId} =require("mongodb");
+const { ObjectId } = require("mongodb");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
@@ -42,31 +42,39 @@ Router.post("/api/create/:id", async (req, res) => {
   const isInserted = await insertProperty.save();
   console.log("isInserted", isInserted);
   if (isInserted) {
-    res.send({ message: "Property Created Successfully", status: true ,property:isInserted});
+    res.send({
+      message: "Property Created Successfully",
+      status: true,
+      property: isInserted,
+    });
   } else {
     res.send({ message: "something went wrong !", status: false });
   }
 });
 
-Router.post("/api/upload/:email/:id", upload.single("image"), async (req, res) => {
-  console.log("req.params.email", req.params.email);
-  console.log("req", req.file);
+Router.post(
+  "/api/upload/:email/:id",
+  upload.single("image"),
+  async (req, res) => {
+    console.log("req.params.email", req.params.email);
+    console.log("req", req.file);
 
-  const propertyUpdate = await Property.updateOne(
-    { sellerId: req.params.email,_id:new ObjectId(req.params.id) },
-    { $set: { image: req.params.id + "-" + req.file.originalname } }
-  );
-  console.log("propertyUpdate", propertyUpdate);
-  if (propertyUpdate) {
-    res.send({
-      message: "image uploaded successfully",
-      status: 1,
-      image: req.params.email + "-" + req.file.originalname,
-    });
-  } else {
-    res.send({ message: "image uploaded failed", status: 0 });
+    const propertyUpdate = await Property.updateOne(
+      { sellerId: req.params.email, _id: new ObjectId(req.params.id) },
+      { $set: { image: req.params.id + "-" + req.file.originalname } }
+    );
+    console.log("propertyUpdate", propertyUpdate);
+    if (propertyUpdate) {
+      res.send({
+        message: "image uploaded successfully",
+        status: 1,
+        image: req.params.email + "-" + req.file.originalname,
+      });
+    } else {
+      res.send({ message: "image uploaded failed", status: 0 });
+    }
   }
-});
+);
 
 // Router.get("/api/download/:id",async(req,res)=>{
 //   const id=req.params.id;
@@ -81,6 +89,19 @@ Router.get("/api/get-property/:id", async (req, res) => {
     message: "fetched specific property successfully",
     status: true,
     property: isPropertyFind,
+  });
+});
+
+Router.get("/api/property-delete/:id", async (req, res) => {
+  const id = req.params.id;
+  const isPropertyFind = await Property.find({ _id: new ObjectId(id) });
+
+  const propertyDelete = await Property.deleteOne({ _id: new ObjectId(id) });
+
+  console.log("isPropertyFind", propertyDelete);
+  res.send({
+    message: "delete property successfully",
+    status: true,
   });
 });
 

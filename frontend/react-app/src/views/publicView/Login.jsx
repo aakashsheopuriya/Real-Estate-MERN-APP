@@ -84,7 +84,7 @@ export default function Login() {
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
 
-              <Link to="/forgot-password" className="login-form-forgot">
+              <Link to="/forgot-password" className="login-form-forgot font-medium">
                 Forgot Password
               </Link>
             </Form.Item>
@@ -98,7 +98,7 @@ export default function Login() {
                 Login
               </Button>
               <span className="ml-2 gap-2">
-                Or <Link to="/Signup-Now">Register Now</Link>
+                Or <Link to="/Signup-Now" className="font-medium">Register Now</Link>
               </span>
             </Form.Item>
             {message}

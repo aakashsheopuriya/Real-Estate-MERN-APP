@@ -21,7 +21,7 @@ const propertySchema = new mongoose.Schema({
   address: {
     type: String,
   },
-  contactNumer: {
+  contactNumber: {
     type: String,
   },
   status: {

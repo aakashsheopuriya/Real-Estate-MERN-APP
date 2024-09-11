@@ -4,7 +4,7 @@ import InputField from "../../components/inputfield/InputField";
 import AddButton from "../../components/buttons/AddButton";
 import Required from "../../components/mandatory/Required";
 import axios from "axios";
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 export default function Signup() {
   const [firstname, setFirstname] = useState("");
@@ -55,7 +55,7 @@ export default function Signup() {
 
         <div>
           <div>
-            <Label title="firstname" className="block text-gray-700" />
+            <Label title="Firstname" className=" font-bold block text-gray-700" />
             <InputField
               className="w-full px-4 py-2 border border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="text"
@@ -113,8 +113,8 @@ export default function Signup() {
             }
           />
           <div className=" mt-2">
-          <Link to="/" className=" hover:text-blue-500 transition-colors duration-200 ">
-            Go to Login page
+          <Link to="/" className=" font-bold hover:text-blue-500 transition-colors duration-200 ">
+          <ArrowLeftOutlined /> Go to Login page
             
           </Link>
           </div>

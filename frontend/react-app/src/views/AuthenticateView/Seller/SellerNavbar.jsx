@@ -1,9 +1,12 @@
-import { Drawer } from "antd";
-import React, { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Drawer, Popover } from "antd";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import SearchInput from "../../../components/searchdata/SearchInput";
-import { SettingOutlined, UserOutlined,LoginOutlined} from "@ant-design/icons";
+import {
+  SettingOutlined,
+  UserOutlined,
+  LoginOutlined,
+} from "@ant-design/icons";
 function SellerNavbar() {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -12,6 +15,32 @@ function SellerNavbar() {
   const onClose = () => {
     setOpen(false);
   };
+
+  const [openSignoutPopup, setOpenSignoutPopup] = useState(false);
+  const hideSignoutPopup = () => {
+    setOpenSignoutPopup(false);
+    localStorage.removeItem("email");
+  };
+  const handleOpenSignoutPopupChange = (newOpen) => {
+    setOpenSignoutPopup(newOpen);
+  };
+
+  const [openLanguage, setOpenLanguage] = useState(false);
+  const hideLanguage = () => {
+    setOpenLanguage(false);
+  };
+  const handleOpenLanguageChange = (newOpen) => {
+    setOpenLanguage(newOpen);
+  };
+
+  const navigate = useNavigate();
+  const email = localStorage.getItem("email");
+  useEffect(() => {
+    console.log("email in SellerNavbar.jsx", email);
+    if (!email) {
+      navigate("/");
+    }
+  }, [email]);
   return (
     <>
       <div className="fixed z-10 top-0 w-full flex justify-between items-center bg-slate-200 font-serif h-12 text-sm drop-shadow-md">
@@ -86,21 +115,54 @@ function SellerNavbar() {
         <Drawer title="Settings" onClose={onClose} open={open}>
           <ul type="none">
             <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
-              <Link to="/account-information">Account Information</Link>
+              <Link to="/dashboard/account-information">
+                Account Information
+              </Link>
             </li>
+            <Popover
+              content={<a onClick={hideLanguage}>English</a>}
+              title="Languages"
+              trigger="click"
+              open={openLanguage}
+              onOpenChange={handleOpenLanguageChange}
+            >
+              <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
+                <Link>Language settings</Link>
+              </li>
+            </Popover>
+
             <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
-              <Link>Language setting</Link>
+              <Link to="/dashboard/help-and-support">Help & Support</Link>
             </li>
 
             <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
-              <Link>Help & Support</Link>
+              <Link to="/dashboard/privacy-and-policies">
+                Privacy & Policies
+              </Link>
             </li>
-
-            <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
-              <Link>Privacy & Policies</Link>
-            </li>
-            <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
-              <Link><LoginOutlined />SignOut</Link>
+            <li
+              // onClick={() => localStorage.removeItem("email")}
+              className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white"
+            >
+              <Popover
+                content={
+                  <a
+                    onClick={hideSignoutPopup}
+                    className="text-white bg-red-500 px-4 py-2 rounded-lg flex justify-center items-center"
+                  >
+                    Yes
+                  </a>
+                }
+                title="Really Want to Signout"
+                trigger="click"
+                open={openSignoutPopup}
+                onOpenChange={() => handleOpenSignoutPopupChange()}
+              >
+                <Link>
+                  <LoginOutlined />
+                  <span className="ml-2">SignOut</span>
+                </Link>
+              </Popover>
             </li>
           </ul>
         </Drawer>

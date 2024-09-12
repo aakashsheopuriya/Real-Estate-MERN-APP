@@ -4,7 +4,7 @@ import FirstApp from "./FirstApp";
 import Login from "./views/publicView/Login";
 import Signup from "./views/AuthenticateView/Signup";
 import UserProfile from "./views/AuthenticateView/UserProfile";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import WebsiteLayout from "./views/AuthenticateView/WebsiteLayout";
 import UserDashboard from "./views/AuthenticateView/UserDashboard";
 import CreatProperty from "./views/AuthenticateView/Seller/CreatProperty";
@@ -13,36 +13,17 @@ import NoPage from "./views/publicView/NoPage";
 import PropertyDetails from "./views/AuthenticateView/Seller/PropertyDetails";
 import Account from "./views/AuthenticateView/pages/Account";
 import Forgot from "./views/publicView/Forgot";
+import PropertyEdit from "./views/AuthenticateView/Seller/PropertyEdit";
+import HelpAndSupport from "./views/AuthenticateView/pages/HelpAndSupport";
+import PrivacyAndPolicies from "./views/AuthenticateView/pages/PrivacyAndPolicies";
 
 function App() {
   return (
-    // <div>
-    //   {/* <Login/> */}
-    //   {/* <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React by durgesh sir at universal ,vijaynagarm campus.
-    //     </a>
-    //     <FirstApp/>
-
-    //   </header> */}
-    //   {/* <Signup /> */}
-
-    //   <UserProfile/>
-    // </div>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />}></Route>
-        <Route path="/forgot-password" element={<Forgot/>}></Route>
-        <Route path="/Signup-Now" element={<Signup/>}></Route>
+        <Route path="/forgot-password" element={<Forgot />}></Route>
+        <Route path="/Signup-Now" element={<Signup />}></Route>
         <Route path="/dashboard" element={<WebsiteLayout />}>
           <Route index element={<UserDashboard />}></Route>
           <Route path="profile" element={<UserProfile />}></Route>
@@ -52,12 +33,17 @@ function App() {
             path="get-specific-property/:id"
             element={<PropertyDetails />}
           ></Route>
+          <Route path="property/:id/edit" element={<PropertyEdit />}></Route>
           <Route path="account-information" element={<Account />}></Route>
+          <Route path="help-and-support" element={<HelpAndSupport />}></Route>
+          <Route
+            path="privacy-and-policies"
+            element={<PrivacyAndPolicies />}
+          ></Route>
 
           <Route path="*" element={<NoPage />}></Route>
         </Route>
         <Route path="*" element={<NoPage />}></Route>
-
       </Routes>
     </BrowserRouter>
   );

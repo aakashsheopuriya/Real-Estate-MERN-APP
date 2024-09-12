@@ -5,11 +5,13 @@ import TextArea from "../../../components/textarea/TextArea";
 import { InputNumber, Select } from "antd";
 import axios from "axios";
 import BreadCrumbs from "../../../components/breadcrumbs/BreadCrumbs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-export default function CreatProperty() {
-  const id = localStorage.getItem("email");
-  console.log("id",id);
+export default function PropertyEdit() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  console.log("id", id);
+  const email=localStorage.getItem("email");
   const [title, setTitle] = useState("");
   const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
@@ -19,6 +21,8 @@ export default function CreatProperty() {
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
   const [isButtonDisable, setIsButtonDisable] = useState(true);
+  const [imageName,setImageName]=useState("");
+  const [property, setProperty] = useState([]);
 
   const handleChange = (value) => {
     console.log("changed", value);
@@ -39,7 +43,7 @@ export default function CreatProperty() {
     const formData = new FormData();
     formData.append("image", image);
     const res = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/seller/api/create/${id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/seller/api/property/update/${id}`,
       { title, contact, description, address, price, services },
       {
         headers: {
@@ -51,7 +55,7 @@ export default function CreatProperty() {
     if (res.data.status) {
       // return;
       const result = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/seller/api/upload/${res.data.property._id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/seller/api/upload/${id}`,
         formData,
         {
           headers: {
@@ -69,9 +73,28 @@ export default function CreatProperty() {
       title: "home",
     },
     {
-      title: "create property",
+      title: "edit property",
     },
   ];
+
+  const getSpecificPropertyDetails = async () => {
+    const res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/common/api/get-property/${id}`
+    );
+    console.log("backend res", res);
+    if (res.data.property) {
+      setTitle(res.data.property.title);
+      setContact(res.data.property.contactNumber);
+      setDescription(res.data.property.propertyDetails);
+      setAddress(res.data.property.address);
+      setPrice(res.data.property.price);
+      setServices(res.data.property.services);
+      setImageName(res.data.property.image);
+    } else {
+      //   navigate("/dashboard/my-property");
+      setProperty([]);
+    }
+  };
 
   useEffect(() => {
     console.log("useEffect call");
@@ -89,6 +112,10 @@ export default function CreatProperty() {
       setIsButtonDisable(true);
     }
   }, [title, contact, description, address, price, services, imagePreview]);
+
+  useEffect(() => {
+    getSpecificPropertyDetails();
+  }, []);
 
   return (
     <div className="">
@@ -113,6 +140,7 @@ export default function CreatProperty() {
               <InputField
                 name="contact"
                 placeholder="Enter conatct"
+                value={contact}
                 className="border border-gray-400  rounded-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300"
                 onChange={(e) => setContact(e.target.value)}
               />
@@ -124,6 +152,7 @@ export default function CreatProperty() {
                 placeholder="Enter Description"
                 className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 w-full"
                 onChange={(e) => setDescription(e.target.value)}
+                value={description}
               />
             </div>
             <div className=" grid gap-y-2">
@@ -133,11 +162,13 @@ export default function CreatProperty() {
                 placeholder="Enter Address"
                 className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 w-full"
                 onChange={(e) => setAddress(e.target.value)}
+                value={address}
               />
             </div>
             <div className="mt-4 grid gap-y-2">
               <Label title="Property Price" />
               <InputNumber
+                value={price}
                 min={1}
                 max={10000000}
                 defaultValue={0}
@@ -151,6 +182,7 @@ export default function CreatProperty() {
                 showSearch
                 placeholder="Select a service"
                 optionFilterProp="label"
+                defaultValue={services}
                 mode="multiple"
                 onChange={onChange}
                 onSearch={onSearch}
@@ -182,9 +214,16 @@ export default function CreatProperty() {
             <div>
               {/* <Label title="Property Image"/>
           <InputField type="file"/> */}
-              {imagePreview && (
+              {imagePreview ? (
                 <img
                   src={imagePreview}
+                  alt="not found"
+                  width={100}
+                  height={100}
+                ></img>
+              ) : (
+                <img
+                  src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageName}`}
                   alt="not found"
                   width={100}
                   height={100}
@@ -203,7 +242,7 @@ export default function CreatProperty() {
             onClick={handleCreate}
             disabled={isButtonDisable}
           >
-            Create
+            Save
           </button>
         </div>
       </div>

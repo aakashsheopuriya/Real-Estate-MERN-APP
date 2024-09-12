@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import DataCard from "../../../components/card/DataCard";
 import { Button, Popconfirm,message } from "antd";
 import SinglePropertyPage from "./SinglePropertyPage";
@@ -58,7 +58,7 @@ export default function PropertyDetails() {
             <Button danger>Delete</Button>
           </Popconfirm>
         </div>
-        <button>Edit</button>
+        <button><Link to={`/dashboard/property/${id}/edit`}>Edit</Link></button>
       </div>
       <div></div>
     </div>

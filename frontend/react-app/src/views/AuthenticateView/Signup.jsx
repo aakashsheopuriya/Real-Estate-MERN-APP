@@ -4,7 +4,11 @@ import InputField from "../../components/inputfield/InputField";
 import AddButton from "../../components/buttons/AddButton";
 import Required from "../../components/mandatory/Required";
 import axios from "axios";
-import { ArrowLeftOutlined, EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  EyeInvisibleOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 export default function Signup() {
   const [firstname, setFirstname] = useState("");
@@ -55,7 +59,10 @@ export default function Signup() {
 
         <div>
           <div>
-            <Label title="Firstname" className=" font-bold block text-gray-700" />
+            <Label
+              title="Firstname"
+              className=" font-bold block text-gray-700"
+            />
             <InputField
               className="w-full px-4 py-2 border border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="text"
@@ -104,6 +111,19 @@ export default function Signup() {
               disabledStatus={password ? false : true}
             />
           </div>
+          <div className="mt-4">
+            <Label title="User Type" className="block text-gray-700" />
+            <select
+              className="w-full px-4 py-2 border border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              name="userType"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="">Select user type</option>
+              <option value="buyer">Buyer</option>
+              <option value="seller">Seller</option>
+            </select>
+          </div>
           <AddButton
             name="Submit"
             className=" mt-2 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
@@ -113,10 +133,12 @@ export default function Signup() {
             }
           />
           <div className=" mt-2">
-          <Link to="/" className=" font-bold hover:text-blue-500 transition-colors duration-200 ">
-          <ArrowLeftOutlined /> Go to Login page
-            
-          </Link>
+            <Link
+              to="/"
+              className=" font-bold hover:text-blue-500 transition-colors duration-200 "
+            >
+              <ArrowLeftOutlined /> Go to Login page
+            </Link>
           </div>
         </div>
       </div>

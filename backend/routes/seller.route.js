@@ -53,14 +53,14 @@ Router.post("/api/create/:id", async (req, res) => {
 });
 
 Router.post(
-  "/api/upload/:email/:id",
+  "/api/upload/:id",
   upload.single("image"),
   async (req, res) => {
-    console.log("req.params.email", req.params.email);
+    console.log("req.params.email", req.params.id);
     console.log("req", req.file);
 
     const propertyUpdate = await Property.updateOne(
-      { sellerId: req.params.email, _id: new ObjectId(req.params.id) },
+      { _id: new ObjectId(req.params.id) },
       { $set: { image: req.params.id + "-" + req.file.originalname } }
     );
     console.log("propertyUpdate", propertyUpdate);
@@ -75,6 +75,34 @@ Router.post(
     }
   }
 );
+
+Router.post("/api/property/update/:id", async (req, res) => {
+  console.log("req.params.id", req.params.id);
+  const { title, description, contact, address, price, services } = req.body;
+
+  const propertyUpdate = await Property.updateOne(
+    { _id: new ObjectId(req.params.id) },
+    {
+      $set: {
+        title: title,
+        contactNumber: contact,
+        propertyDetails: description,
+        price: price,
+        services,
+        address,
+      },
+    }
+  );
+  console.log("propertyUpdate", propertyUpdate);
+  if (propertyUpdate) {
+    res.send({
+      message: "Propert details updated successfully",
+      status: true,
+    });
+  } else {
+    res.send({ message: "image uploaded failed", status: false });
+  }
+});
 
 // Router.get("/api/download/:id",async(req,res)=>{
 //   const id=req.params.id;

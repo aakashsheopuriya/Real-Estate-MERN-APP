@@ -1,10 +1,8 @@
-import logo from "./logo.svg";
 import "./App.css";
-import FirstApp from "./FirstApp";
 import Login from "./views/publicView/Login";
 import Signup from "./views/AuthenticateView/Signup";
 import UserProfile from "./views/AuthenticateView/UserProfile";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WebsiteLayout from "./views/AuthenticateView/WebsiteLayout";
 import UserDashboard from "./views/AuthenticateView/UserDashboard";
 import CreatProperty from "./views/AuthenticateView/Seller/CreatProperty";

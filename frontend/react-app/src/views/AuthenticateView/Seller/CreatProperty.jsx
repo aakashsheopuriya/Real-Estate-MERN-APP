@@ -5,7 +5,6 @@ import TextArea from "../../../components/textarea/TextArea";
 import { InputNumber, Select } from "antd";
 import axios from "axios";
 import BreadCrumbs from "../../../components/breadcrumbs/BreadCrumbs";
-import { Link } from "react-router-dom";
 
 export default function CreatProperty() {
   const id = localStorage.getItem("email");

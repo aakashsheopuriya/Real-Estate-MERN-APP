@@ -41,17 +41,16 @@ Router.post("/api/login", async function (req, res) {
 });
 
 Router.post("/api/register", async function (req, res) {
-  console.log("req data", req);
-  console.log("req body data", req.body);
   const { firstname, lastname, username, password, role } = req.body;
   if (firstname && lastname && username && password) {
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
-    console.log("hashPassword=", hashPassword);
     const userFind = await User.findOne({ username });
-    console.log("userFind", userFind);
     if (userFind) {
-      res.send({ message: "user already registered please login", status: 0 });
+      res.send({
+        message: "This email is alredy registered, Please go to Login page",
+        status: 0,
+      });
     } else {
       const insertUser = new User({
         firstname,
@@ -63,16 +62,15 @@ Router.post("/api/register", async function (req, res) {
         status: 1, //1=Active,0=InActive
       });
       const isInserted = await insertUser.save();
-      console.log("isInserted", isInserted);
       if (isInserted) {
         res.send({
-          message: message.success.registerMessage,
+          message: "Registration Successful, Redirecting to Login page...",
           status: 1,
           data: { firstname, lastname, username, password },
         });
       } else {
         res.send({
-          message: "User registrationm failed",
+          message: "All fields are required",
           status: 0,
         });
       }

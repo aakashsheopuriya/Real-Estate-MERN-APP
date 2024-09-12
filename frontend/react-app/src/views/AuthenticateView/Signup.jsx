@@ -2,33 +2,47 @@ import React, { useEffect, useState } from "react";
 import Label from "../../components/label/Label";
 import InputField from "../../components/inputfield/InputField";
 import AddButton from "../../components/buttons/AddButton";
-import Required from "../../components/mandatory/Required";
 import axios from "axios";
 import {
   ArrowLeftOutlined,
   EyeInvisibleOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function Signup() {
+  const navigate = useNavigate();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
-  const [role, setRole] = useState("Renter");
+  const [role, setRole] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [messageColor, setMessageColor] = useState(false);
+
+
 
   const handleSubmit = async () => {
-    alert(`${firstname} ${lastname} ${username} ${password} ${role}`);
     try {
-      const res = await axios.post("http://localhost:9000/register", {
-        firstname,
-        lastname,
-        username,
-        password,
-        role,
-      });
-      console.log("res from backend", res);
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/common/api/register`,
+        {
+          firstname,
+          lastname,
+          username,
+          password,
+          role,
+        }
+      );
+      if (res) {
+        setSuccessMessage(res.data.message);
+      }
+      if (res.data.status) {
+        setMessageColor(true)
+        setTimeout(() => {
+          navigate("/");
+        }, 5000);
+      }
     } catch (err) {
       console.log("error in backend", err);
     }
@@ -40,15 +54,6 @@ export default function Signup() {
   const handleHide = () => {
     setType("password");
   };
-
-  useEffect(() => {
-    const getFirstname = () => {
-      console.log("render");
-    };
-    getFirstname();
-  }, [firstname]);
-
-  console.log("firstname", firstname);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-50">
@@ -106,8 +111,10 @@ export default function Signup() {
             />
             <AddButton
               className="absolute top-6 right-4 p-2"
-              name={type == "text" ? <EyeInvisibleOutlined /> : <EyeOutlined />}
-              onClick={type == "text" ? () => handleHide() : () => hadleShow()}
+              name={
+                type === "text" ? <EyeInvisibleOutlined /> : <EyeOutlined />
+              }
+              onClick={type === "text" ? () => handleHide() : () => hadleShow()}
               disabledStatus={password ? false : true}
             />
           </div>
@@ -132,6 +139,15 @@ export default function Signup() {
               firstname && lastname && username && password ? false : true
             }
           />
+          <div
+            className={
+              messageColor
+                ? "font-medium text-blue-600 mt-3"
+                : "font-medium text-red-500 mt-3"
+            }
+          >
+            {successMessage}
+          </div>
           <div className=" mt-2">
             <Link
               to="/"

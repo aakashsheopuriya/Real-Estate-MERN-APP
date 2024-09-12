@@ -23,6 +23,9 @@ const userSchema=new mongoose.Schema({
     },
     forgotOtp:{
         type:String
+    },
+    role:{
+        type:String
     }
 })
 

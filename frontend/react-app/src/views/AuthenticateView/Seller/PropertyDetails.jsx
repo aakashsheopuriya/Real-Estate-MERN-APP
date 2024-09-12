@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import DataCard from "../../../components/card/DataCard";
-import { Button, Popconfirm,message } from "antd";
+import { Button, Popconfirm, message } from "antd";
 import SinglePropertyPage from "./SinglePropertyPage";
 
 export default function PropertyDetails() {
@@ -32,7 +31,7 @@ export default function PropertyDetails() {
 
   const cancel = (e) => {
     console.log(e);
-    message.error('Click on No');
+    message.error("Click on No");
   };
   useEffect(() => {
     getSpecificPropertyDetails();
@@ -44,23 +43,38 @@ export default function PropertyDetails() {
         <div className="">{/* <BreadCrumbs items={items} /> */}</div>
         <div>
           {/* <DataCard data={property} /> */}
-          <SinglePropertyPage data={property}/>
+          <SinglePropertyPage data={property} />
         </div>
-        <div>
-          <Popconfirm
-            title="Delete the task"
-            description="Are you sure to delete this task?"
-            onConfirm={()=>handleDelete(id)}
-            onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button danger>Delete</Button>
-          </Popconfirm>
+        <div className="flex justify-center items-center p-5">
+          <div>
+            <Popconfirm
+              title="Remove this property from this site?"
+              description=""
+              onConfirm={() => handleDelete(id)}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button className="bg-red-500 text-white py-2 mr-2 px-4 rounded hover:bg-red-600">
+                Delete
+              </Button>
+            </Popconfirm>
+          </div>
+          <div>
+            <Popconfirm
+              title="Edit property details?"
+              description=""
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                <Link to={`/dashboard/property/${id}/edit`}>Edit</Link>
+              </Button>
+            </Popconfirm>
+          </div>
         </div>
-        <button><Link to={`/dashboard/property/${id}/edit`}>Edit</Link></button>
       </div>
-      <div></div>
     </div>
   );
 }

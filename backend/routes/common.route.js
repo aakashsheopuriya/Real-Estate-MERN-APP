@@ -99,21 +99,24 @@ Router.get("/api/get-role/:email", async (req, res) => {
 
 //user details update
 Router.post("/api/user-update/:email", async (req, res) => {
-  const email = req.params.email;
-  console.log("email=", email);
-  const { firstname, lastname } = req.body;
-  const users = await dbConnect();
-  const userFind = await users.findOne({ username: email });
-  console.log("userFind", userFind);
-  const userUpdate = await users.updateOne(
-    { username: email },
-    { $set: { firstname: firstname, lastname: lastname } }
-  );
-  console.log("userUpdate", userUpdate);
-  if (userUpdate.modifiedCount > 0) {
-    res.send({ message: "User details updated successfully", status: 1 });
-  } else {
-    res.send({ message: "User details not updated", status: 0 });
+  try {
+    const email = req.params.email;
+    console.log("email=", email);
+    const { firstname, lastname, address } = req.body;
+    const userFind = await User.findOne({ username: email });
+    console.log("userFind", userFind);
+    const userUpdate = await User.updateOne(
+      { username: email },
+      { $set: { firstname: firstname, lastname: lastname, address: address } }
+    );
+    console.log("userUpdate", userUpdate);
+    if (userUpdate) {
+      res.send({ message: "User details updated successfully", status: true });
+    } else {
+      res.send({ message: "User details not updated", status: false });
+    }
+  } catch (error) {
+    console.log("in catch block", error.message);
   }
 });
 

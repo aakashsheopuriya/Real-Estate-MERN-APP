@@ -14,6 +14,7 @@ import Forgot from "./views/publicView/Forgot";
 import PropertyEdit from "./views/AuthenticateView/Seller/PropertyEdit";
 import HelpAndSupport from "./views/AuthenticateView/pages/HelpAndSupport";
 import PrivacyAndPolicies from "./views/AuthenticateView/pages/PrivacyAndPolicies";
+import EditUserDetails from "./views/AuthenticateView/pages/EditUserDetails";
 
 function App() {
   return (
@@ -37,6 +38,11 @@ function App() {
           <Route
             path="privacy-and-policies"
             element={<PrivacyAndPolicies />}
+          ></Route>
+
+          <Route
+            path="edit-details"
+            element={<EditUserDetails />}
           ></Route>
 
           <Route path="*" element={<NoPage />}></Route>

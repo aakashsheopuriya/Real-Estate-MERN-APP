@@ -4,6 +4,7 @@ const fs = require("fs");
 const User = require("../models/user.model");
 const emailSend = require("../helper/email-send");
 const otpGenerator = require("otp-generator");
+const { ObjectId } = require("mongodb");
 const getUsers = async (req, res) => {
   res.send({
     message: "all users data fetched successfully",
@@ -80,12 +81,13 @@ const userEmailSend = async function (req, res) {
 const userUpload = async (req, res) => {
   console.log("req.params.email", req.params.email);
   console.log("req", req.file);
-  const userFind = await User.findOne({ username: req.params.email });
+  const userFind = await User.findOne({ _id: new ObjectId(req.params.email) });
   console.log("userFind", userFind);
   if (userFind) {
+    console.log("userFind._id.toString()", userFind._id.toString());
     const userUpdate = await User.updateOne(
-      { username: req.params.email },
-      { $set: { image: req.params.email + "-" + req.file.originalname } }
+      { _id: new ObjectId(req.params.email) },
+      { $set: { image: userFind._id.toString() + "-" + req.file.originalname } }
     );
     console.log("userUpdate", userUpdate);
     if (userUpdate) {
@@ -115,15 +117,15 @@ const profileDownload = async (req, res) => {
 
 const profileDelete = async (req, res) => {
   console.log("calling profileDelete ***********");
-  
+
   const image = req.params.image;
-  console.log("calling profileDelete image ***********",image);
+  console.log("calling profileDelete image ***********", image);
 
   fs.unlink(`./uploads/${image}`, function (err, data) {
     if (err) {
       res.send({ message: "something went srong!", status: 0 });
     } else {
-      res.send({message:"old image deleted successfully",status:1});
+      res.send({ message: "old image deleted successfully", status: 1 });
     }
   });
 };

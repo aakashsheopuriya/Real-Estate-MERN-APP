@@ -1,7 +1,6 @@
 import { Drawer, Popover } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import SearchInput from "../../../components/searchdata/SearchInput";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   SettingOutlined,
   UserOutlined,
@@ -51,7 +50,7 @@ function SellerNavbar() {
           <ul className="flex justify-center gap-5  ">
             <li>
               <NavLink
-                to="/"
+                to="/dashboard"
                 className={({ isActive }) =>
                   `hover:text-blue-700 ${
                     isActive ? "text-blue-500" : "text-black"
@@ -120,7 +119,7 @@ function SellerNavbar() {
               </Link>
             </li>
             <Popover
-              content={<a onClick={hideLanguage}>English</a>}
+              content={<Link onClick={hideLanguage}>English</Link>}
               title="Languages"
               trigger="click"
               open={openLanguage}
@@ -146,12 +145,12 @@ function SellerNavbar() {
             >
               <Popover
                 content={
-                  <a
+                  <Link
                     onClick={hideSignoutPopup}
                     className="text-white bg-red-500 px-4 py-2 rounded-lg flex justify-center items-center"
                   >
                     Yes
-                  </a>
+                  </Link>
                 }
                 title="Really Want to Signout"
                 trigger="click"

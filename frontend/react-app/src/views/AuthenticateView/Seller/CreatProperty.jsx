@@ -48,7 +48,6 @@ export default function CreatProperty() {
     );
     console.log("backend seller create property backend res", res);
     if (res.data.status) {
-      // return;
       const result = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/seller/api/upload/${res.data.property._id}`,
         formData,

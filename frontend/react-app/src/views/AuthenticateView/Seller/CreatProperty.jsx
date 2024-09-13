@@ -8,7 +8,6 @@ import BreadCrumbs from "../../../components/breadcrumbs/BreadCrumbs";
 
 export default function CreatProperty() {
   const id = localStorage.getItem("email");
-  console.log("id",id);
   const [title, setTitle] = useState("");
   const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
@@ -20,16 +19,12 @@ export default function CreatProperty() {
   const [isButtonDisable, setIsButtonDisable] = useState(true);
 
   const handleChange = (value) => {
-    console.log("changed", value);
     setPrice(value);
   };
   const onChange = (value) => {
-    console.log(`selected ${value}`);
     setServices([...services, value]);
   };
-  const onSearch = (value) => {
-    console.log("search:", value);
-  };
+  const onSearch = (value) => {};
   const imageChange = (e) => {
     setImage(e.target.files[0]);
     setImagePreview(window.URL.createObjectURL(e.target.files[0]));
@@ -46,7 +41,6 @@ export default function CreatProperty() {
         },
       }
     );
-    console.log("backend seller create property backend res", res);
     if (res.data.status) {
       const result = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/seller/api/upload/${res.data.property._id}`,
@@ -72,7 +66,6 @@ export default function CreatProperty() {
   ];
 
   useEffect(() => {
-    console.log("useEffect call");
     if (
       title?.trim().length > 0 &&
       contact?.trim().length > 0 &&

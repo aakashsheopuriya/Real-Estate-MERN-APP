@@ -2,14 +2,14 @@ const express = require("express");
 const userController = require("../controllers/user.controller");
 const Router = express.Router();
 
-const multer = require("multer"); //multer is a middleware
+const multer = require("multer");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     console.log("req.params.email in upload function",req.params.email);
-    cb(null, req.params.email+"-"+file.originalname);//durgesh@gmail.com-wqeywqewtrwruewryewryew.png
+    cb(null, req.params.email+"-"+file.originalname);
   },
 });
 const upload = multer({ storage: storage });
@@ -18,7 +18,7 @@ Router.get("/", function (req, res) {
   res.send({
     message: "welcome to the user root",
     status: 1,
-  }); //json data response
+  });
 });
 
 Router.get("/api/get-users", userController.getUsers);

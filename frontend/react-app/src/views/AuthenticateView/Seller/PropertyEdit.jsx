@@ -10,8 +10,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 export default function PropertyEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
-  console.log("id", id);
-  const email=localStorage.getItem("email");
+  const email = localStorage.getItem("email");
   const [title, setTitle] = useState("");
   const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
@@ -21,20 +20,16 @@ export default function PropertyEdit() {
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
   const [isButtonDisable, setIsButtonDisable] = useState(true);
-  const [imageName,setImageName]=useState("");
+  const [imageName, setImageName] = useState("");
   const [property, setProperty] = useState([]);
 
   const handleChange = (value) => {
-    console.log("changed", value);
     setPrice(value);
   };
   const onChange = (value) => {
-    console.log(`selected ${value}`);
     setServices([...services, value]);
   };
-  const onSearch = (value) => {
-    console.log("search:", value);
-  };
+  const onSearch = (value) => {};
   const imageChange = (e) => {
     setImage(e.target.files[0]);
     setImagePreview(window.URL.createObjectURL(e.target.files[0]));
@@ -51,7 +46,6 @@ export default function PropertyEdit() {
         },
       }
     );
-    console.log("backend seller create property backend res", res);
     if (res.data.status) {
       // return;
       const result = await axios.post(
@@ -81,7 +75,6 @@ export default function PropertyEdit() {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/common/api/get-property/${id}`
     );
-    console.log("backend res", res);
     if (res.data.property) {
       setTitle(res.data.property.title);
       setContact(res.data.property.contactNumber);
@@ -97,7 +90,6 @@ export default function PropertyEdit() {
   };
 
   useEffect(() => {
-    console.log("useEffect call");
     if (
       title?.trim().length > 0 &&
       contact?.trim().length > 0 &&

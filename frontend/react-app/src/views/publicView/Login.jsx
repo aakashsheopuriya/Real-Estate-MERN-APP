@@ -12,7 +12,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const onFinish = async (values) => {
-    console.log("Received values of form: ", values);
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/common/api/login`,
@@ -21,7 +20,6 @@ export default function Login() {
           password: values.password,
         }
       );
-      console.log("backend res", res);
       if (res.data.status == 0) {
         // alert(`${res.data.message}`);
         setMessage(res.data.message);

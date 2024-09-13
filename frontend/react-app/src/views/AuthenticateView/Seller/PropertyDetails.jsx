@@ -7,13 +7,11 @@ import SinglePropertyPage from "./SinglePropertyPage";
 export default function PropertyDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  console.log("id", id);
   const [property, setProperty] = useState({});
   const getSpecificPropertyDetails = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/common/api/get-property/${id}`
     );
-    console.log("backend res", res);
     if (res.data.property) {
       setProperty(res.data.property);
     } else {
@@ -25,12 +23,10 @@ export default function PropertyDetails() {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/seller/api/property-delete/${id}`
     );
-    console.log("res", res.data.message);
     getSpecificPropertyDetails();
   };
 
   const cancel = (e) => {
-    console.log(e);
     message.error("Click on No");
   };
   useEffect(() => {

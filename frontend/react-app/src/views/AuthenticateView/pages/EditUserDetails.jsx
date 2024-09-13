@@ -22,9 +22,7 @@ export default function EditUserDetails() {
       `${process.env.REACT_APP_BACKEND_URL}/common/api/user-update/${email}`,
       { firstname, lastname, address }
     );
-    console.log("res in user upadte", res);
     if (res.data.status) {
-      console.log("in svae image block");
       const result = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/user/api/upload/${id}`,
         formData,
@@ -34,7 +32,6 @@ export default function EditUserDetails() {
           },
         }
       );
-      console.log("result after file saved", result);
       if (result.data.status) {
         alert(`${result.data.message}`);
       } else {
@@ -47,15 +44,12 @@ export default function EditUserDetails() {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/user/api/user/${email}`
     );
-    console.log("res", res);
     setFirstname(res.data.user.firstname);
     setLastname(res.data.user.lastname);
     setAddress(res.data.user.address);
     setImageName(res.data.user.image);
     setId(res.data.user._id);
   };
-
-  console.log("id", id);
 
   const imageChange = (e) => {
     setImage(e.target.files[0]);

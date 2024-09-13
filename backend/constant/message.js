@@ -12,5 +12,3 @@ const message = {
 }
 
 module.exports = message;
-
-//tidc pbqy ntbx hhif

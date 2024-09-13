@@ -14,7 +14,6 @@ const getUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  console.log("req.params.id", req.params.id);
   const id = req.params.id;
   const userFind = await User.findOne({ username: id });
   if (userFind) {
@@ -29,7 +28,6 @@ const getUserById = async (req, res) => {
 };
 
 const userDelete = function (req, res) {
-  console.log("req.params.id", req.params.id);
   let isFind = false; //false
   for (var i in users) {
     if (req.params.id == users[i].id) {
@@ -60,7 +58,6 @@ const resetPassword = async function (req, res) {
     specialChars: false,
     lowerCaseAlphabets: false,
   });
-  console.log("otp", otp);
   const message = await emailSend(email, otp, "reset");
   if (message) {
     res.send({
@@ -79,17 +76,12 @@ const userEmailSend = async function (req, res) {
 };
 
 const userUpload = async (req, res) => {
-  console.log("req.params.email", req.params.email);
-  console.log("req", req.file);
   const userFind = await User.findOne({ _id: new ObjectId(req.params.email) });
-  console.log("userFind", userFind);
   if (userFind) {
-    console.log("userFind._id.toString()", userFind._id.toString());
     const userUpdate = await User.updateOne(
       { _id: new ObjectId(req.params.email) },
       { $set: { image: userFind._id.toString() + "-" + req.file.originalname } }
     );
-    console.log("userUpdate", userUpdate);
     if (userUpdate) {
       res.send({
         message: "image uploaded successfully",
@@ -116,10 +108,7 @@ const profileDownload = async (req, res) => {
 };
 
 const profileDelete = async (req, res) => {
-  console.log("calling profileDelete ***********");
-
   const image = req.params.image;
-  console.log("calling profileDelete image ***********", image);
 
   fs.unlink(`./uploads/${image}`, function (err, data) {
     if (err) {

@@ -5,9 +5,7 @@ export default function UserProfile() {
   const handleChange = async (e) => {
     if(imageName!=""){
       const res=await axios.get(`http://localhost:9000/user/api/profile/delete/${imageName}`);
-      console.log("response on delete existing user profile");
     }
-    console.log("e", e.target.files[0]);
     const formData = new FormData();
     formData.append("image", e.target.files[0]);
     const res = await axios.post(
@@ -19,14 +17,11 @@ export default function UserProfile() {
         },
       }
     );
-    console.log("res", res);
     setImageName(res.data.image);
   };
-  console.log("imageName", imageName);
 
 const getSpecificUserDetails=async()=>{
   const res=await axios.get("http://localhost:9000/user/api/user/durgesh@gmail.com");
-  console.log("res",res);
   if(res.data.status==1){
     setImageName(res.data.user.image);
   }

@@ -12,7 +12,6 @@ export default function MyProperty() {
     const property = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/seller/api/get-property/${id}`
     );
-    console.log("property from backend", property);
     if (property.data.status) {
       setProperty(property.data.property);
     }

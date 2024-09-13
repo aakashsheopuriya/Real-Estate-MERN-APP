@@ -35,7 +35,6 @@ function SellerNavbar() {
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
   useEffect(() => {
-    console.log("email in SellerNavbar.jsx", email);
     if (!email) {
       navigate("/");
     }

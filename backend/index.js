@@ -1,42 +1,35 @@
 const express = require("express");
-const cors=require("cors");
-const path=require("path");
-const hbs=require('hbs');
+const cors = require("cors");
+const path = require("path");
+const hbs = require("hbs");
 
 const bodyParser = require("body-parser"); //parse the req.body.parameter or parse the incoming request
 const sellerRouter = require("./routes/seller.route");
-const commonRouter=require("./routes/common.route");
+const commonRouter = require("./routes/common.route");
 const userRouter = require("./routes/user.route");
 const port = 9000;
 const app = express();
 
-
-app.use(cors({origin:"*"}));
+app.use(cors({ origin: "*" }));
 //set view-engine
-app.set('view-engine','hbs');
-app.set('views','views');
+app.set("view-engine", "hbs");
+app.set("views", "views");
 
-const dbConnect=require("./db/dbConnect");
+const dbConnect = require("./db/dbConnect");
 dbConnect();
-const Property=require("./models/property.model");
-console.log("Property",Property);
-
 
 // parse incoming body data in the form of application/json
 app.use(bodyParser.json());
 
-app.get("/loginpage",(req,res)=>{
-  res.render("login.hbs",{data:{name:"Durgesh",address:"Indore,(M.P.)"}});
-})
 
 //common router endpoint
-app.use("/common",commonRouter);
+app.use("/common", commonRouter);
 
 //Seller router endpoint
-app.use("/seller",sellerRouter);
+app.use("/seller", sellerRouter);
 
 //user router endpoint
-app.use("/user",userRouter);
+app.use("/user", userRouter);
 
 app.listen(port, function () {
   console.log(`listening on port http://localhost:${port}`);

@@ -103,20 +103,22 @@ function SellerNavbar() {
             </li>
           </ul>
         </div>
-        <div className="flex">
-          <div className="">
-            {imageNameData ? (
-              <img
-                src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageNameData}`}
-                alt="Preview"
-                className="relative top-1 w-6 h-6 object-cover rounded-full"
-              />
-            ) : (
-              <div className="w-4 m-2 hover:cursor-pointer">
-                <UserOutlined />
-              </div>
-            )}
-          </div>
+        <div className="flex gap-1">
+          <Link to="/dashboard/account-information">
+            <div className="">
+              {imageNameData ? (
+                <img
+                  src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageNameData}`}
+                  alt="Preview"
+                  className="relative top-1 w-6 h-6 object-cover rounded-full"
+                />
+              ) : (
+                <div className="w-4 m-2 hover:cursor-pointer">
+                  <UserOutlined />
+                </div>
+              )}
+            </div>
+          </Link>
           <div
             className="inline-flex h-4 w-4 m-2 hover:cursor-pointer"
             onClick={showDrawer}
@@ -126,11 +128,11 @@ function SellerNavbar() {
         </div>
         <Drawer title="Settings" onClose={onClose} open={open}>
           <ul type="none">
-            <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
-              <Link to="/dashboard/account-information">
+            <Link to="/dashboard/account-information">
+              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
                 Account Information
-              </Link>
-            </li>
+              </li>
+            </Link>
             <Popover
               content={<Link onClick={hideLanguage}>English</Link>}
               title="Languages"
@@ -138,24 +140,23 @@ function SellerNavbar() {
               open={openLanguage}
               onOpenChange={handleOpenLanguageChange}
             >
-              <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
-                <Link>Language settings</Link>
-              </li>
-            </Popover>
-
-            <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
-              <Link to="/dashboard/help-and-support">Help & Support</Link>
-            </li>
-
-            <li className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white">
-              <Link to="/dashboard/privacy-and-policies">
-                Privacy & Policies
+              <Link>
+                <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
+                  Language settings
+                </li>
               </Link>
-            </li>
-            <li
-              // onClick={() => localStorage.removeItem("email")}
-              className="bg-blue-500 p-3 m-2 gap-2 rounded-2xl text-white"
-            >
+            </Popover>
+            <Link to="/dashboard/help-and-support">
+              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
+                Help & Support
+              </li>
+            </Link>
+            <Link to="/dashboard/privacy-and-policies">
+              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
+                Privacy & Policies
+              </li>
+            </Link>
+            <li className="bg-slate-500 hover:bg-slate-300 p-3 m-2 gap-2 rounded-2xl text-white absolute bottom-2 right-2">
               <Popover
                 content={
                   <Link
@@ -165,14 +166,14 @@ function SellerNavbar() {
                     Yes
                   </Link>
                 }
-                title="Really Want to Signout"
+                title="Do you want to Signout ?"
                 trigger="click"
                 open={openSignoutPopup}
                 onOpenChange={() => handleOpenSignoutPopupChange()}
               >
-                <Link>
-                  <LoginOutlined />
-                  <span className="ml-2">SignOut</span>
+                <Link className=" hover:text-red-700 font-semibold p-4">
+                  <span>SignOut</span>
+                  <LoginOutlined className="ml-3" />
                 </Link>
               </Popover>
             </li>

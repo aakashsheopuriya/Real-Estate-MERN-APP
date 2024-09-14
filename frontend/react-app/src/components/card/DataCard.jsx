@@ -9,7 +9,7 @@ export default function DataCard({ data }) {
         <Link to={`/dashboard/get-specific-property/${data?._id}`}>
           <Card
             title={data?.title}
-            extra={<a href="#">View</a>}
+            extra="View"
             style={{
               width: "300px",
               height: "240px",

@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import SellerNavbar from "./Seller/SellerNavbar";
 import AddButton from "../../components/buttons/AddButton";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 export default function WebsiteLayout() {
   const navigate = useNavigate();
@@ -16,8 +17,8 @@ export default function WebsiteLayout() {
         <div className="bg-slate-100 min-h-screen">
           <main className="relative top-14 ">
             <AddButton
-              name="Back"
-              className="bg-blue-400 rounded-xl p-2 m-2"
+              name={<ArrowLeftOutlined />}
+              className="fixed bottom-10 right-10 z-10 bg-blue-700 text-white px-5 p-2 rounded-xl hover:bg-blue-500 transition-all"
               onClick={() => handleBack()}
             />
             <Outlet />

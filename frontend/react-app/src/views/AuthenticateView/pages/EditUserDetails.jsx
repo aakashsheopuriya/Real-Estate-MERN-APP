@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Label from "../../../components/label/Label";
 import InputField from "../../../components/inputfield/InputField";
 import AddButton from "../../../components/buttons/AddButton";
 import axios from "axios";
+import ImageContext, {
+  ImageContextData,
+} from "../../../context/ImageContextData";
 
 export default function EditUserDetails() {
+  const { imageNameData, setImageNameData } = useContext(ImageContextData);
   const email = localStorage.getItem("email");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -32,8 +36,10 @@ export default function EditUserDetails() {
           },
         }
       );
+      console.log("result in upload image data", result);
       if (result.data.status) {
         alert(`${result.data.message}`);
+        setImageNameData(result.data.image);
       } else {
         alert(`${result.data.message}`);
       }
@@ -49,6 +55,7 @@ export default function EditUserDetails() {
     setAddress(res.data.user.address);
     setImageName(res.data.user.image);
     setId(res.data.user._id);
+    setImageNameData(res.data.user.image);
   };
 
   const imageChange = (e) => {

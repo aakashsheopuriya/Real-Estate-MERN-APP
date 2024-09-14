@@ -1,12 +1,19 @@
 import { Drawer, Popover } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   SettingOutlined,
   UserOutlined,
   LoginOutlined,
 } from "@ant-design/icons";
+import ImageContext, {
+  ImageContextData,
+} from "../../../context/ImageContextData";
+import axios from "axios";
+console.log(ImageContext);
 function SellerNavbar() {
+  const { imageNameData, setImageNameData } = useContext(ImageContextData);
+  console.log("imageName from context in seller navbar.jsx", imageNameData);
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -34,11 +41,21 @@ function SellerNavbar() {
 
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
+
+  const getSpecificUserDetails = async () => {
+    const res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/user/api/user/${email}`
+    );
+    setImageNameData(res.data.user.image);
+  };
+
   useEffect(() => {
     if (!email) {
       navigate("/");
     }
-  }, [email]);
+    getSpecificUserDetails();
+  }, [email, navigate]);
+
   return (
     <>
       <div className="fixed z-10 top-0 w-full flex justify-between items-center bg-slate-200 font-serif h-12 text-sm drop-shadow-md">
@@ -88,20 +105,17 @@ function SellerNavbar() {
         </div>
         <div className="flex">
           <div className="">
-            {/* <input
-              type="text"
-            placeholder="search"
-              className="border border-gray-400 bg-white  rounded-sm p-1 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300"
-            /> */}
-            {/* <SearchInput
-              placeholder="input search text"
-              style={{
-                width: 200,
-              }}
-            /> */}
-            <div className="w-4 m-2 hover:cursor-pointer">
-              <UserOutlined />
-            </div>
+            {imageNameData ? (
+              <img
+                src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageNameData}`}
+                alt="Preview"
+                className="relative top-1 w-6 h-6 object-cover rounded-full"
+              />
+            ) : (
+              <div className="w-4 m-2 hover:cursor-pointer">
+                <UserOutlined />
+              </div>
+            )}
           </div>
           <div
             className="inline-flex h-4 w-4 m-2 hover:cursor-pointer"

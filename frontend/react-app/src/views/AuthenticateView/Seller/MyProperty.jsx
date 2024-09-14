@@ -47,8 +47,8 @@ export default function MyProperty() {
         </div>
         <div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
-          {property?.length>0?property.map((data) => {
-            return <DataCard data={data} />;
+          {property?.length>0?property.map((data ,index) => {
+            return <DataCard key={index} data={data} />;
           }):"No property found ,create first"}
         </div>
         </div>

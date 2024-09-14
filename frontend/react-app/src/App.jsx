@@ -40,10 +40,7 @@ function App() {
             element={<PrivacyAndPolicies />}
           ></Route>
 
-          <Route
-            path="edit-details"
-            element={<EditUserDetails />}
-          ></Route>
+          <Route path="edit-details" element={<EditUserDetails />}></Route>
 
           <Route path="*" element={<NoPage />}></Route>
         </Route>

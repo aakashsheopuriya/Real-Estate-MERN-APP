@@ -22,8 +22,11 @@ export default function CreatProperty() {
     setPrice(value);
   };
   const onChange = (value) => {
-    setServices([...services, value]);
+    console.log(value);
+    setServices(value);
   };
+
+  console.log("services", services);
   const onSearch = (value) => {};
   const imageChange = (e) => {
     setImage(e.target.files[0]);

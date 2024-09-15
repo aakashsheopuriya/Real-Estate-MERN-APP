@@ -85,7 +85,7 @@ export default function CreatProperty() {
   }, [title, contact, description, address, price, services, imagePreview]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 my-10">
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-4xl w-full">
         <div className="mb-6">
           <BreadCrumbs items={items} />

@@ -1,4 +1,5 @@
 import "./App.css";
+import "./index.css"
 import Login from "./views/publicView/Login";
 import Signup from "./views/AuthenticateView/Signup";
 import UserProfile from "./views/AuthenticateView/UserProfile";

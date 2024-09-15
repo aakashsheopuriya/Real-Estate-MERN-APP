@@ -46,7 +46,7 @@ function SellerNavbar() {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/user/api/user/${email}`
     );
-    setImageNameData(res.data.user.image);
+    setImageNameData(res?.data?.user?.image);
   };
 
   useEffect(() => {
@@ -58,8 +58,9 @@ function SellerNavbar() {
 
   return (
     <>
-      <div className="fixed z-10 top-0 w-full flex justify-between items-center bg-slate-200 font-serif h-12 text-sm drop-shadow-md">
+      <div className="sticky z-10 top-0 w-full flex justify-between items-center bg-white  h-12 text-sm drop-shadow-md">
         <div className="text-blue-700 text-3xl hover:text-blue-500 hover:cursor-pointer pl-2">
+          {/* <img src={`${process.env.PUBLIC_URL}/logo.jpg`} alt="" className="h-6 rounded-lg " /> */}
           logo
         </div>
         <div>
@@ -126,10 +127,10 @@ function SellerNavbar() {
             <SettingOutlined />
           </div>
         </div>
-        <Drawer title="Settings" onClose={onClose} open={open}>
+        <Drawer title="Settings" onClose={onClose} open={open} className="font-poppins">
           <ul type="none">
             <Link to="/dashboard/account-information">
-              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
+              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white ">
                 Account Information
               </li>
             </Link>

@@ -21,7 +21,7 @@ Router.get("/", function (req, res) {
   });
 });
 
-Router.get("/api/get-users", userController.getUsers);
+// Router.get("/api/get-users", userController.getUsers);
 
 Router.get("/api/user/:id", userController.getUserById);
 

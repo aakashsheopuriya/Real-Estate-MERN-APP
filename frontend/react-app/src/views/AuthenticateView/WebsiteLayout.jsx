@@ -8,17 +8,16 @@ import BuyerNavBar from "./Buyer/BuyerNavBar";
 
 export default function WebsiteLayout() {
   const navigate = useNavigate();
-  const role=localStorage.getItem("role");
-  console.log("role",role);
+  const role = localStorage.getItem("role");
   const handleBack = () => {
     navigate(-1);
   };
   return (
     <>
-      <div className="bg-slate-100 min-h-screen font-poppins">
-      {role==="buyer"?<BuyerNavBar/>:<SellerNavbar/>}
+      <div className="bg-slate-100 flex flex-col min-h-screen font-poppins">
+        {role === "buyer" ? <BuyerNavBar /> : <SellerNavbar />}
 
-        <div className="bg-slate-100 min-h-screen">
+        <div className="bg-slate-100 flex-grow">
           <main className="">
             <AddButton
               name={<ArrowLeftOutlined />}

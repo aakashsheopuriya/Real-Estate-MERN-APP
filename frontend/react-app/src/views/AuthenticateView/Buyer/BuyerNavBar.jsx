@@ -10,7 +10,6 @@ import { ImageContextData } from "../../../context/ImageContextData";
 import axios from "axios";
 function BuyerNavBar() {
   const { imageNameData, setImageNameData } = useContext(ImageContextData);
-  console.log("imageName from context in seller navbar.jsx", imageNameData);
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -103,7 +102,7 @@ function BuyerNavBar() {
           </ul>
         </div>
         <div className="flex gap-1">
-          <Link to="/seller-dashboard/account-information">
+          <Link to="/buyer-dashboard/account-information">
             <div className="">
               {imageNameData ? (
                 <img
@@ -132,7 +131,7 @@ function BuyerNavBar() {
           className="font-poppins"
         >
           <ul type="none">
-            <Link to="/dashboard/account-information">
+            <Link to="/buyer-dashboard/account-information">
               <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white ">
                 Account Information
               </li>
@@ -150,12 +149,12 @@ function BuyerNavBar() {
                 </li>
               </Link>
             </Popover>
-            <Link to="/dashboard/help-and-support">
+            <Link to="/buyer-dashboard/help-and-support">
               <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
                 Help & Support
               </li>
             </Link>
-            <Link to="/dashboard/privacy-and-policies">
+            <Link to="/buyer-dashboard/privacy-and-policies">
               <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
                 Privacy & Policies
               </li>

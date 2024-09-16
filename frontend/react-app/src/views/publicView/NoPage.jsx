@@ -1,19 +1,25 @@
-import React from 'react'
-import AddButton from '../../components/buttons/AddButton'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import AddButton from "../../components/buttons/AddButton";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function NoPage() {
-    const navigate=useNavigate();
-    const handleBack=async ()=>{
-         navigate(-1);
-    }
+  const navigate = useNavigate();
+  const handleBack = async () => {
+    navigate(-1);
+  };
   return (
-    <div className="relative top-11 bg-slate-100 h-screen">
-     No Page Found
-    <div className="">
-      {/* <BreadCrumbs items={items} /> */}
-      <AddButton name="Back" className="text-white bg-blue-700 p-3 m-5 border border-gray-300 rounded-xl hover:bg-slate-900" onClick={handleBack}/>
+    <div>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <h1 className="text-6xl font-bold text-blue-600 mb-4">404</h1>
+        <p className="text-xl text-gray-600 mb-8">Oops! Page not found.</p>
+        <Link
+          onClick={handleBack}
+          to="/"
+          className="px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition duration-300"
+        >
+          Back
+        </Link>
+      </div>
     </div>
-    </div>
-  )
+  );
 }

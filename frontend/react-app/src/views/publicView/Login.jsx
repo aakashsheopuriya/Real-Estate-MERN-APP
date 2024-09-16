@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Login.css";
 
@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -20,12 +21,18 @@ export default function Login() {
           password: values.password,
         }
       );
-      if (res.data.status == 0) {
+      if (res.data.status === 0) {
         // alert(`${res.data.message}`);
         setMessage(res.data.message);
       } else {
         localStorage.setItem("email", values.username);
-        navigate("/dashboard");
+        localStorage.setItem("role", res.data.role);
+
+        if (res.data.role === "buyer") {
+          navigate("/buyer-dashboard");
+        } else {
+          navigate("/seller-dashboard");
+        }
       }
     } catch (err) {
       console.log("backend error", err.message);
@@ -33,6 +40,23 @@ export default function Login() {
     setUsername(values.username);
     setPassword(values.password);
   };
+
+  const email = localStorage.getItem("email");
+  const role = localStorage.getItem("role");
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("email") &&
+      localStorage.getItem("role") === "buyer"
+    ) {
+      navigate("/buyer-dashboard");
+    } else if (
+      localStorage.getItem("email") &&
+      localStorage.getItem("role") === "seller"
+    ) {
+      navigate("/seller-dashboard");
+    }
+  }, [email, role]);
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -82,7 +106,10 @@ export default function Login() {
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
 
-              <Link to="/forgot-password" className="login-form-forgot font-medium">
+              <Link
+                to="/forgot-password"
+                className="login-form-forgot font-medium"
+              >
                 Forgot Password
               </Link>
             </Form.Item>
@@ -96,7 +123,10 @@ export default function Login() {
                 Login
               </Button>
               <span className="ml-2 gap-2">
-                Or <Link to="/Signup-Now" className="font-medium">Register Now</Link>
+                Or{" "}
+                <Link to="/Signup-Now" className="font-medium">
+                  Register Now
+                </Link>
               </span>
             </Form.Item>
             {message}

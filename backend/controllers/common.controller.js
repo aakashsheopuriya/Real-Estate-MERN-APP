@@ -8,12 +8,15 @@ const User = require("../models/user.model");
 const login = async function (req, res) {
   const { username, password } = req.body;
   if (username && password) {
-    // const users = await dbConnect();
     const userFind = await User.findOne({ username });
     if (userFind) {
       bcrypt.compare(password, userFind.password, function (err, result) {
         if (result) {
-          res.send({ message: "user login successfully", status: 1 });
+          res.send({
+            message: "user login successfully",
+            status: 1,
+            role: userFind.role,
+          });
         } else {
           res.send({
             message: "entered email or password is invalid,please check again",

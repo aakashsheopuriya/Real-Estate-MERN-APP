@@ -110,123 +110,117 @@ export default function PropertyEdit() {
   }, []);
 
   return (
-    <div className="">
-      <div className="">
-        <BreadCrumbs items={items} />
-      </div>
-      <div className="">
-        <div className="flex justify-center">
-          <div className="mt-9 grid grid-cols-2 m-5 gap-y-8 gap-x-4">
-            <div className=" grid gap-y-2">
-              <Label title="Title" />
-              <InputField
-                name="title"
-                value={title}
-                placeholder="Enter property title "
-                className="border border-gray-400  rounded-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300"
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </div>
-            <div className=" grid gap-y-2">
-              <Label title="Contact no." />
-              <InputField
-                name="contact"
-                placeholder="Enter conatct"
-                value={contact}
-                className="border border-gray-400  rounded-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300"
-                onChange={(e) => setContact(e.target.value)}
-              />
-            </div>
-            <div className=" grid gap-y-2">
-              <Label title="Description" />
-              <TextArea
-                name="Description"
-                placeholder="Enter Description"
-                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 w-full"
-                onChange={(e) => setDescription(e.target.value)}
-                value={description}
-              />
-            </div>
-            <div className=" grid gap-y-2">
-              <Label title="Address" />
-              <TextArea
-                name="Address"
-                placeholder="Enter Address"
-                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 w-full"
-                onChange={(e) => setAddress(e.target.value)}
-                value={address}
-              />
-            </div>
-            <div className="mt-4 grid gap-y-2">
-              <Label title="Property Price" />
-              <InputNumber
-                value={price}
-                min={1}
-                max={10000000}
-                defaultValue={0}
-                onChange={handleChange}
-                className=" overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300"
-              />
-            </div>
-            <div className="mt-4 grid gap-y-2">
-              <Label title="Property services" />
-              <Select
-                showSearch
-                placeholder="Select a service"
-                optionFilterProp="label"
-                defaultValue={services}
-                mode="multiple"
-                onChange={onChange}
-                onSearch={onSearch}
-                className="focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300"
-                options={[
-                  {
-                    value: "Parking available",
-                    label: "Parking available",
-                  },
-                  {
-                    value: "Garden and park",
-                    label: "Garden and park",
-                  },
-                  {
-                    value: "Temple",
-                    label: "Temple",
-                  },
-                  {
-                    value: "Small Grocery and medical shop",
-                    label: "Small Grocery and medical shop",
-                  },
-                ]}
-              />
-            </div>
-            <div>
-              <Label title="Property Image" />
-              <InputField type="file" onChange={(e) => imageChange(e)} />
-            </div>
-            <div>
-              {/* <Label title="Property Image"/>
-          <InputField type="file"/> */}
-              {imagePreview ? (
-                <img
-                  src={imagePreview}
-                  alt="not found"
-                  width={100}
-                  height={100}
-                ></img>
-              ) : (
-                <img
-                  src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageName}`}
-                  alt="not found"
-                  width={100}
-                  height={100}
-                ></img>
-              )}
-            </div>
-          </div>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 my-10">
+      <div className="bg-white shadow-lg rounded-lg p-6 max-w-4xl w-full">
+        <div className="mb-6">
+          <BreadCrumbs items={items} />
         </div>
-        <div className="flex justify-center items-center">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid gap-y-2">
+            <Label title="Title" />
+            <InputField
+              name="title"
+              value={title}
+              placeholder="Enter property title"
+              className="border border-gray-400 rounded-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 w-full"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+
+          <div className="grid gap-y-2">
+            <Label title="Contact no." />
+            <InputField
+              name="contact"
+              value={contact}
+              placeholder="Enter contact"
+              className="border border-gray-400 rounded-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 w-full"
+              onChange={(e) => setContact(e.target.value)}
+            />
+          </div>
+
+          <div className="grid gap-y-2 md:col-span-2">
+            <Label title="Description" />
+            <TextArea
+              name="Description"
+              value={description}
+              placeholder="Enter description"
+              className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 w-full"
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+
+          <div className="grid gap-y-2 md:col-span-2">
+            <Label title="Address" />
+            <TextArea
+              name="Address"
+              value={address}
+              placeholder="Enter address"
+              className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 w-full"
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+
+          <div className="mt-4 grid gap-y-2">
+            <Label title="Property Price" />
+            <InputNumber
+              value={price}
+              min={1}
+              max={10000000}
+              defaultValue={0}
+              onChange={handleChange}
+              className="w-full focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300"
+            />
+          </div>
+
+          <div className="mt-4 grid gap-y-2">
+            <Label title="Property Services" />
+            <Select
+              showSearch
+              placeholder="Select a service"
+              defaultValue={services}
+              optionFilterProp="label"
+              mode="multiple"
+              onChange={onChange}
+              onSearch={onSearch}
+              className="w-full focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300"
+              options={[
+                { value: "Parking available", label: "Parking available" },
+                { value: "Garden and park", label: "Garden and park" },
+                { value: "Temple", label: "Temple" },
+                {
+                  value: "Small Grocery and medical shop",
+                  label: "Small Grocery and medical shop",
+                },
+              ]}
+            />
+          </div>
+
+          <div className="grid gap-y-2">
+            <Label title="Property Image" />
+            <InputField type="file" onChange={(e) => imageChange(e)} />
+          </div>
+
+          {imagePreview ? (
+            <img
+              src={imagePreview}
+              alt="not found"
+              width={100}
+              height={100}
+            ></img>
+          ) : (
+            <img
+              src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageName}`}
+              alt="not found"
+              width={100}
+              height={100}
+            ></img>
+          )}
+        </div>
+
+        <div className="flex justify-center mt-6">
           <button
-            className={`bg-blue-700 text-white p-2 rounded-xl hover:bg-blue-400 ${
+            className={`bg-blue-700 text-white p-3 rounded-xl hover:bg-blue-500 transition-all ${
               isButtonDisable
                 ? "cursor-not-allowed bg-blue-400"
                 : "cursor-pointer"

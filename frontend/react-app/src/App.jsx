@@ -1,5 +1,5 @@
 import "./App.css";
-import "./index.css"
+import "./index.css";
 import Login from "./views/publicView/Login";
 import Signup from "./views/AuthenticateView/Signup";
 import UserProfile from "./views/AuthenticateView/UserProfile";
@@ -16,6 +16,9 @@ import PropertyEdit from "./views/AuthenticateView/Seller/PropertyEdit";
 import HelpAndSupport from "./views/AuthenticateView/pages/HelpAndSupport";
 import PrivacyAndPolicies from "./views/AuthenticateView/pages/PrivacyAndPolicies";
 import EditUserDetails from "./views/AuthenticateView/pages/EditUserDetails";
+import AllProperty from "./views/AuthenticateView/Buyer/AllProperty";
+import Wishlist from "./views/AuthenticateView/Buyer/Wishlist";
+import SpecificProperty from "./views/AuthenticateView/Buyer/SpecificProperty";
 
 function App() {
   return (
@@ -24,7 +27,9 @@ function App() {
         <Route path="/" element={<Login />}></Route>
         <Route path="/forgot-password" element={<Forgot />}></Route>
         <Route path="/Signup-Now" element={<Signup />}></Route>
-        <Route path="/dashboard" element={<WebsiteLayout />}>
+
+        {/* seller website layout start */}
+        <Route path="/seller-dashboard" element={<WebsiteLayout />}>
           <Route index element={<UserDashboard />}></Route>
           <Route path="profile" element={<UserProfile />}></Route>
           <Route path="create" element={<CreatProperty />}></Route>
@@ -42,9 +47,34 @@ function App() {
           ></Route>
 
           <Route path="edit-details" element={<EditUserDetails />}></Route>
+          <Route path="*" element={<NoPage />}></Route>
+        </Route>
+        {/* seller website layout end */}
+
+        {/* buyer website layout start */}
+        <Route path="/buyer-dashboard" element={<WebsiteLayout />}>
+          <Route index element={<UserDashboard />}></Route>
+          <Route path="profile" element={<UserProfile />}></Route>
+          <Route
+            path="specific/get-specific-property/:id"
+            element={<SpecificProperty />}
+          ></Route>
+          <Route path="account-information" element={<Account />}></Route>
+          <Route path="help-and-support" element={<HelpAndSupport />}></Route>
+          <Route
+            path="privacy-and-policies"
+            element={<PrivacyAndPolicies />}
+          ></Route>
+
+          <Route path="edit-details" element={<EditUserDetails />}></Route>
+
+          <Route path="all-property" element={<AllProperty />}></Route>
+          <Route path="my-wishlist" element={<Wishlist />}></Route>
 
           <Route path="*" element={<NoPage />}></Route>
         </Route>
+        {/* buyer websiter layout end */}
+
         <Route path="*" element={<NoPage />}></Route>
       </Routes>
     </BrowserRouter>

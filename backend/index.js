@@ -7,6 +7,7 @@ const bodyParser = require("body-parser"); //parse the req.body.parameter or par
 const sellerRouter = require("./routes/seller.route");
 const commonRouter = require("./routes/common.route");
 const userRouter = require("./routes/user.route");
+const buyerRouter=require("./routes/buyer.route");
 const port = 9000;
 const app = express();
 
@@ -30,6 +31,10 @@ app.use("/seller", sellerRouter);
 
 //user router endpoint
 app.use("/user", userRouter);
+
+//buyer router endpoint
+app.use("/buyer", buyerRouter);
+
 
 app.listen(port, function () {
   console.log(`listening on port http://localhost:${port}`);

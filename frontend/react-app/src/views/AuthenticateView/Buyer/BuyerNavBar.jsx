@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { ImageContextData } from "../../../context/ImageContextData";
 import axios from "axios";
-function SellerNavbar() {
+function BuyerNavBar() {
   const { imageNameData, setImageNameData } = useContext(ImageContextData);
   console.log("imageName from context in seller navbar.jsx", imageNameData);
   const [open, setOpen] = useState(false);
@@ -23,6 +23,7 @@ function SellerNavbar() {
   const hideSignoutPopup = () => {
     setOpenSignoutPopup(false);
     localStorage.removeItem("email");
+    localStorage.removeItem("role");
   };
   const handleOpenSignoutPopupChange = (newOpen) => {
     setOpenSignoutPopup(newOpen);
@@ -64,7 +65,7 @@ function SellerNavbar() {
           <ul className="flex justify-center gap-5  ">
             <li>
               <NavLink
-                to="/dashboard"
+                to="/buyer-dashboard"
                 className={({ isActive }) =>
                   `hover:text-blue-700 ${
                     isActive ? "text-blue-500" : "text-black"
@@ -76,27 +77,27 @@ function SellerNavbar() {
             </li>
             <li>
               <NavLink
-                to="/seller-dashboard/create"
+                to="/buyer-dashboard/all-property"
                 className={({ isActive }) =>
                   `hover:text-blue-700 ${
                     isActive ? "text-blue-500" : "text-black"
                   }`
                 }
               >
-                Create Property
+                All Property
               </NavLink>
             </li>
 
             <li>
               <NavLink
-                to="/seller-dashboard/my-property"
+                to="/buyer-dashboard/my-wishlist"
                 className={({ isActive }) =>
                   `hover:text-blue-700 ${
                     isActive ? "text-blue-500" : "text-black"
                   }`
                 }
               >
-                My Property
+                Wishlist
               </NavLink>
             </li>
           </ul>
@@ -131,7 +132,7 @@ function SellerNavbar() {
           className="font-poppins"
         >
           <ul type="none">
-            <Link to="/seller-dashboard/account-information">
+            <Link to="/dashboard/account-information">
               <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white ">
                 Account Information
               </li>
@@ -149,12 +150,12 @@ function SellerNavbar() {
                 </li>
               </Link>
             </Popover>
-            <Link to="/seller-dashboard/help-and-support">
+            <Link to="/dashboard/help-and-support">
               <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
                 Help & Support
               </li>
             </Link>
-            <Link to="/seller-dashboard/privacy-and-policies">
+            <Link to="/dashboard/privacy-and-policies">
               <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
                 Privacy & Policies
               </li>
@@ -187,4 +188,4 @@ function SellerNavbar() {
   );
 }
 
-export default SellerNavbar;
+export default BuyerNavBar;

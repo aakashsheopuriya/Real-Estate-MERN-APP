@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { EnvironmentOutlined } from "@ant-design/icons";
 
 export default function DataCard({ data }) {
+  const role=localStorage.getItem("role");
   return (
     <div className="flex justify-center w-full p-4 ">
       {data ? (
-        <Link to={`/dashboard/get-specific-property/${data?._id}`}>
+        <Link to={role==="seller"?`/seller-dashboard/get-specific-property/${data?._id}`:`/buyer-dashboard/specific/get-specific-property/${data?._id}`}>
           <Card
             title={data?.title}
             extra="View"

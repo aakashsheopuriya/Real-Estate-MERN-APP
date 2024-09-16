@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Popconfirm, message } from "antd";
-import SinglePropertyPage from "./SinglePropertyPage";
+import SinglePropertyPage from "../Seller/SinglePropertyPage";
 
-export default function PropertyDetails() {
+export default function SpecificProperty() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [property, setProperty] = useState({});
@@ -52,7 +52,7 @@ export default function PropertyDetails() {
               cancelText="No"
             >
               <Button className="bg-red-500 text-white py-2 mr-2 px-4 rounded hover:bg-red-600">
-                Delete
+                Request to buy
               </Button>
             </Popconfirm>
           </div>
@@ -65,7 +65,8 @@ export default function PropertyDetails() {
               cancelText="No"
             >
               <Button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-                <Link to={`/seller-dashboard/property/${id}/edit`}>Edit</Link>
+                <Link to={`/dashboard/property/${id}/edit`}>Add 
+                Wishlist</Link>
               </Button>
             </Popconfirm>
           </div>

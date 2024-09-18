@@ -19,6 +19,7 @@ import EditUserDetails from "./views/AuthenticateView/pages/EditUserDetails";
 import AllProperty from "./views/AuthenticateView/Buyer/AllProperty";
 import Wishlist from "./views/AuthenticateView/Buyer/Wishlist";
 import SpecificProperty from "./views/AuthenticateView/Buyer/SpecificProperty";
+import BuyerDashboard from "./views/AuthenticateView/Buyer/BuyerDashboard";
 
 function App() {
   return (
@@ -53,7 +54,7 @@ function App() {
 
         {/* buyer website layout start */}
         <Route path="/buyer-dashboard" element={<WebsiteLayout />}>
-          <Route index element={<UserDashboard />}></Route>
+          <Route index element={<BuyerDashboard />}></Route>
           <Route path="profile" element={<UserProfile />}></Route>
           <Route
             path="specific/get-specific-property/:id"

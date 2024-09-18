@@ -14,7 +14,7 @@ export default function WebsiteLayout() {
   };
   return (
     <>
-      <div className="bg-slate-100 flex flex-col min-h-screen font-poppins">
+      <div className="flex flex-col min-h-screen font-poppins">
         {role === "buyer" ? <BuyerNavBar /> : <SellerNavbar />}
 
         <div className="bg-slate-100 flex-grow">

@@ -17,4 +17,6 @@ Router.get("/api/get-property/:id", sellerController.getPropertyById);
 
 Router.get("/api/property-delete/:id", sellerController.propertyDelete);
 
+Router.get("/api/get-all-seller", sellerController.getAllSeller);
+
 module.exports = Router;

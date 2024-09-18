@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./Login.css";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
@@ -8,10 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [messageColor, setMessageColor] = useState(true);
+
   const onFinish = async (values) => {
     try {
       const res = await axios.post(
@@ -24,6 +24,7 @@ export default function Login() {
       if (res.data.status === 0) {
         // alert(`${res.data.message}`);
         setMessage(res.data.message);
+        setMessageColor(false);
       } else {
         localStorage.setItem("email", values.username);
         localStorage.setItem("role", res.data.role);
@@ -129,7 +130,15 @@ export default function Login() {
                 </Link>
               </span>
             </Form.Item>
-            {message}
+            <div
+              className={
+                messageColor
+                  ? "font-medium text-blue-600 mt-3"
+                  : "font-medium text-red-500 mt-3"
+              }
+            >
+              {message}
+            </div>
           </Form>
         </div>
       </div>

@@ -1,4 +1,5 @@
 const Property = require("../models/property.model");
+const User = require("../models/user.model");
 const { ObjectId } = require("mongodb");
 
 const createProperty = async (req, res) => {
@@ -86,6 +87,18 @@ const propertyDelete = async (req, res) => {
     status: true,
   });
 };
+const getAllSeller = async (req, res) => {
+  const isFind = await User.find({ role: "seller" });
+  if (isFind) {
+    res.send({
+      message: "fetched All seller",
+      status: true,
+      seller: isFind,
+    });
+  } else {
+    res.send({ message: "failed", status: false });
+  }
+};
 
 module.exports = {
   createProperty,
@@ -93,4 +106,5 @@ module.exports = {
   propertyUpdate,
   getPropertyById,
   propertyDelete,
+  getAllSeller,
 };

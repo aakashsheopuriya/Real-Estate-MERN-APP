@@ -16,7 +16,6 @@ Router.post(
 Router.get("/api/get-property/:id", sellerController.getPropertyById);
 
 Router.get("/api/get-all-property", async (req, res) => {
-  const { limit, offset } = req.params;
   const allProperty = await Property.find();
   res.send({
     message: "fetched specific property successfully",

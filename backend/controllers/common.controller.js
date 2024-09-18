@@ -19,7 +19,7 @@ const login = async function (req, res) {
           });
         } else {
           res.send({
-            message: "entered email or password is invalid,please check again",
+            message: "Entered Username or Password is invalid, please try again",
             status: 0,
           });
         }
@@ -152,18 +152,18 @@ const resetPassword = async function (req, res) {
     );
     if (userUpdate.modifiedCount > 0) {
       res.send({
-        message: "otp sent in your email address,please check",
+        message:`Verification OPT is successfully sent to ${email},  please verify.`,
         status: true,
       });
     } else {
       res.send({
-        message: "otp sent failed,please check back later",
+        message: "Entered usernme or email is incorrect, try again!",
         status: false,
       });
     }
   } else {
     res.send({
-      message: "otp sent failed,please check back later",
+      message: "Entered usernme or email is incorrect, try again!",
       status: false,
     });
   }
@@ -180,12 +180,12 @@ const newPasswordUpdate = async function (req, res) {
   );
   if (userUpdate.modifiedCount > 0) {
     res.send({
-      message: "new password has been reset,please login now",
+      message: "Your password is reset successfully, Redirecting to login page",
       status: true,
     });
   } else {
     res.send({
-      message: "Reset failed , please try back later",
+      message: "Password reset proccess failed, please try again later",
       status: false,
     });
   }
@@ -196,9 +196,9 @@ const otpVerify = async function (req, res) {
 
   const userFind = await User.findOne({ username: email });
   if (userFind.forgotOtp == otp) {
-    res.send({ message: "otp verified successfully", status: true });
+    res.send({ message: "OTP verified successfully, Create new password.", status: true });
   } else {
-    res.send({ message: "otp invalid", status: false });
+    res.send({ message: "Entered OTP is incorrect, please check or try agein later.", status: false });
   }
 };
 

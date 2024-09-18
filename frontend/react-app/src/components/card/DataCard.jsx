@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { EnvironmentOutlined } from "@ant-design/icons";
 
 export default function DataCard({ data }) {
-  console.log("data in DataCard", data);
   const role = localStorage.getItem("role");
   return (
     // <div className="flex justify-center w-full p-4 ">

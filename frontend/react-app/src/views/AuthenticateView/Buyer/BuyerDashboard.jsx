@@ -1,19 +1,32 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import DataCard from "../../../components/card/DataCard";
+import SellerCard from "../../../components/card/SellerCard";
 
 const BuyerDashboard = () => {
-  const getAllProperty = async () => {
-  const property = await axios.get(
-    `${process.env.REACT_APP_BACKEND_URL}/buyer/api/get-all-property`
-  );
-  if (property.data.status) {
-    console.log(property)
-  }
-};
+  const [property, setProperty] = useState([]);
+  const [allSeller, setAllSeller] = useState([]);
 
-useEffect(()=>{
-  getAllProperty()
-},[])
+  const getAllProperty = async () => {
+    const property = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/buyer/api/get-all-property`
+    );
+    if (property.data.status) {
+      setProperty(property.data.property.slice(0, 4));
+    }
+  };
+
+  const getAllSellers = async () => {
+    const allSeller = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/seller/api/get-all-seller`
+    );
+    setAllSeller(allSeller.data.seller.slice(0, 4));
+  };
+
+  useEffect(() => {
+    getAllProperty();
+    getAllSellers();
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Welcome Section */}
@@ -62,20 +75,11 @@ useEffect(()=>{
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {/* Example Property Card */}
-            {[1, 2, 3, 4].map((property) => (
-              <div key={property} className="bg-white p-4 shadow-md rounded-lg">
-                <img
-                  src={`https://via.placeholder.com/300?text=Property+${property}`}
-                  alt={`Property ${property}`}
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
-                <h3 className="text-lg font-bold mb-2">
-                  Beautiful Apartment {property}
-                </h3>
-                <p className="text-gray-600">Location: New York City</p>
-                <p className="text-blue-600 mt-2 font-semibold">$500,000</p>
-              </div>
-            ))}
+            {property?.length > 0
+              ? property.map((data, index) => {
+                  return <DataCard key={index} data={data} />;
+                })
+              : "No property found ,create first"}
           </div>
         </div>
       </section>
@@ -84,24 +88,15 @@ useEffect(()=>{
       <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-6">
-            <h2 className="text-3xl font-semibold">Featured Sellers</h2>
+            <h2 className="text-3xl font-semibold">Our Best Sellers</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {/* Example Seller Card */}
-            {[1, 2, 3].map((seller) => (
-              <div
-                key={seller}
-                className="bg-gray-100 p-4 shadow-md rounded-lg text-center"
-              >
-                <img
-                  src={`https://via.placeholder.com/150?text=Seller+${seller}`}
-                  alt={`Seller ${seller}`}
-                  className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
-                />
-                <h3 className="text-lg font-bold mb-2">Seller {seller}</h3>
-                <p className="text-gray-600">Top-rated real estate agent</p>
-              </div>
-            ))}
+            {allSeller?.length > 0
+              ? allSeller.map((data, index) => {
+                  return <SellerCard key={index} data={data} />;
+                })
+              : "No property found ,create first"}
           </div>
         </div>
       </section>

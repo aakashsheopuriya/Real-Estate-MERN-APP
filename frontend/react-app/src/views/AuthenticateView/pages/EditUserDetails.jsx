@@ -17,9 +17,9 @@ export default function EditUserDetails() {
   const [imagePreview, setImagePreview] = useState("");
   const [imageName, setImageName] = useState("");
   const [id, setId] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSaveDetails = async () => {
-    alert("called");
     const formData = new FormData();
     formData.append("image", image);
     const res = await axios.post(
@@ -38,10 +38,10 @@ export default function EditUserDetails() {
       );
       console.log("result in upload image data", result);
       if (result.data.status) {
-        alert(`${result.data.message}`);
+        setMessage(result.data.message);
         setImageNameData(result.data.image);
       } else {
-        alert(`${result.data.message}`);
+        setMessage(result.data.message);
       }
     }
   };
@@ -152,6 +152,7 @@ export default function EditUserDetails() {
           className="bg-blue-700 text-white p-3 mt-6 rounded-xl w-full"
           onClick={handleSaveDetails}
         />
+        <div className="font-medium text-blue-600 mt-3">{message}</div>
       </div>
     </>
   );

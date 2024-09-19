@@ -22,6 +22,7 @@ export default function PropertyEdit() {
   const [isButtonDisable, setIsButtonDisable] = useState(true);
   const [imageName, setImageName] = useState("");
   const [property, setProperty] = useState([]);
+  
 
   const handleChange = (value) => {
     setPrice(value);

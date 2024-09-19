@@ -84,12 +84,12 @@ const userUpload = async (req, res) => {
     );
     if (userUpdate) {
       res.send({
-        message: "image uploaded successfully",
+        message: "Updated successfully",
         status: 1,
         image: req.params.email + "-" + req.file.originalname,
       });
     } else {
-      res.send({ message: "image uploaded failed", status: 0 });
+      res.send({ message: " failed", status: 0 });
     }
   } else {
     res.send({ message: "user not found", statu: 0 });

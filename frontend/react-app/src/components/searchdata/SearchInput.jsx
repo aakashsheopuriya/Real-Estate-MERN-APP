@@ -2,21 +2,37 @@ import { Select } from "antd";
 import React, { useState } from "react";
 
 export default function SearchInput(props) {
-    const [data, setData] = useState([]);
-    const [value, setValue] = useState();
-    const handleSearch = (newValue) => {
+  const [data, setData] = useState([]);
+  const [value, setValue] = useState();
+  const handleSearch = (newValue) => {
     //   fetch(newValue, setData);
-         const filterData=props.data.filter((item)=>{
-            return item.title.includes(newValue)
-         })
+    const filterData = props.data.filter((item) => {
+      return item.title.includes(newValue);
+    });
 
-         console.log("filterData",filterData);
-         setData(filterData)
+    console.log("filterData", filterData);
+    if (filterData?.length > 0) {
+      setData(filterData);
+      props.getSearchData(filterData);
+    } else {
+      setData([]);
+      props.getSearchData([]);
+    }
+    props.isSearch(true);
+  };
+  const handleChange = (newValue) => {
+    setValue(newValue);
+    const filterData = props.data.filter((item) => {
+      return item.title.includes(newValue);
+    });
 
-    };
-    const handleChange = (newValue) => {
-      setValue(newValue);
-    };
+    console.log("filterData", filterData);
+    if (filterData?.length > 0) {
+      setData(filterData);
+      props.getSearchData(filterData);
+    }
+    // props.getSearchData()
+  };
   return (
     <div>
       <Select
@@ -30,7 +46,7 @@ export default function SearchInput(props) {
         onSearch={handleSearch}
         onChange={handleChange}
         notFoundContent={null}
-        options={(data|| []).map((d) => ({
+        options={(data || []).map((d) => ({
           value: d.title,
           label: d.title,
         }))}

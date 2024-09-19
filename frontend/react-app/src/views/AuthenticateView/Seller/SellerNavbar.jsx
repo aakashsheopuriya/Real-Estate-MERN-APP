@@ -10,7 +10,6 @@ import { ImageContextData } from "../../../context/ImageContextData";
 import axios from "axios";
 function SellerNavbar() {
   const { imageNameData, setImageNameData } = useContext(ImageContextData);
-  console.log("imageName from context in seller navbar.jsx", imageNameData);
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);

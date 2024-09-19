@@ -2,10 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DataCard from "../../../components/card/DataCard";
 import SellerCard from "../../../components/card/SellerCard";
+import { useNavigate } from "react-router-dom";
 
 const BuyerDashboard = () => {
   const [property, setProperty] = useState([]);
   const [allSeller, setAllSeller] = useState([]);
+  const navigate = useNavigate();
 
   const getAllProperty = async () => {
     const property = await axios.get(
@@ -55,9 +57,9 @@ const BuyerDashboard = () => {
             {/* Location Filter */}
             <select className="border border-gray-300 p-3 w-full md:w-1/4 rounded-md">
               <option value="">Filter by Location</option>
-              <option value="New York">New York</option>
-              <option value="Los Angeles">Los Angeles</option>
-              <option value="Chicago">Chicago</option>
+              <option value="Indore">Indore</option>
+              <option value="Dewas">Dewas</option>
+              <option value="Bhopal">Bhopal</option>
             </select>
             {/* Search Button */}
             <button className="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700">
@@ -83,6 +85,17 @@ const BuyerDashboard = () => {
           </div>
         </div>
       </section>
+
+      <div className="flex justify-center  bg-gray-100 mb-4">
+        <button
+          className={`bg-blue-700 text-white p-3 rounded-xl hover:bg-blue-500 transition-all cursor-pointer`}
+          onClick={() => {
+            navigate("/buyer-dashboard/all-property");
+          }}
+        >
+          View all properties
+        </button>
+      </div>
 
       {/* Featured Sellers Section */}
       <section className="py-10 bg-white">

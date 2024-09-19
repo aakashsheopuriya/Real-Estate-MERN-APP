@@ -12,7 +12,6 @@ export default function AllProperty() {
   const [totalProperty, setTotalProperty] = useState(1);
   const [searchData, setSearchData] = useState([]);
   const [isSearch, setIsSearch] = useState(false);
-  console.log("searchData", searchData);
   const getAllProperty = async () => {
     const property = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/buyer/api/get-all-property`
@@ -20,7 +19,6 @@ export default function AllProperty() {
     if (property.data.status) {
       setTotalProperty(property.data.property);
       setProperty(property.data.property.slice(0, item * page));
-      console.log("all properties are = ", property.data.property.slice(0, 8));
     }
   };
 
@@ -44,7 +42,7 @@ export default function AllProperty() {
             <div className="">
               <BreadCrumbs items={items} />
             </div>
-            <div className="fixed top-14 right-10">
+            <div className="fixed top-14 right-10 z-10">
               <SearchInput
                 placeholder="input search text"
                 style={{

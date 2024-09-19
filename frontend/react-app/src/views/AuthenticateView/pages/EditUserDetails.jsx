@@ -3,9 +3,7 @@ import Label from "../../../components/label/Label";
 import InputField from "../../../components/inputfield/InputField";
 import AddButton from "../../../components/buttons/AddButton";
 import axios from "axios";
-import ImageContext, {
-  ImageContextData,
-} from "../../../context/ImageContextData";
+import { ImageContextData } from "../../../context/ImageContextData";
 
 export default function EditUserDetails() {
   const { imageNameData, setImageNameData } = useContext(ImageContextData);
@@ -36,7 +34,6 @@ export default function EditUserDetails() {
           },
         }
       );
-      console.log("result in upload image data", result);
       if (result.data.status) {
         setMessage(result.data.message);
         setImageNameData(result.data.image);

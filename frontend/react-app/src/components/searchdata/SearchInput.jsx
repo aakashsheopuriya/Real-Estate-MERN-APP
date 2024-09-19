@@ -10,7 +10,6 @@ export default function SearchInput(props) {
       return item.title.includes(newValue);
     });
 
-    console.log("filterData", filterData);
     if (filterData?.length > 0) {
       setData(filterData);
       props.getSearchData(filterData);
@@ -26,7 +25,6 @@ export default function SearchInput(props) {
       return item.title.includes(newValue);
     });
 
-    console.log("filterData", filterData);
     if (filterData?.length > 0) {
       setData(filterData);
       props.getSearchData(filterData);

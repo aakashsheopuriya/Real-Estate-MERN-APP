@@ -17,9 +17,7 @@ export default function MyProperty() {
     }
   };
 
-  const handleMoreData = async () => {
-    alert("fetched seccessfully");
-  };
+
   useEffect(() => {
     getSpecificProperty();
   }, []);
@@ -55,11 +53,11 @@ export default function MyProperty() {
         
         {/* </div> */}
         <div className="flex justify-center items-center p-3">
-          <AddButton
+          {/* <AddButton
             name="More"
             className="flex justify-center items-center bg-blue-700 text-white p-2 w-20 rounded-xl hover:bg-blue-400"
             onClick={handleMoreData}
-          />
+          /> */}
         </div>
       </div>
       </div>

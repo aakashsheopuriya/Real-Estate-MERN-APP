@@ -36,10 +36,10 @@ const SinglePropertyPage = ({ data }) => {
     <div className="flex flex-col md:flex-row max-w-4xl mx-auto p-4 bg-white shadow-lg rounded-lg">
       {/* Image Section */}
       <div className="w-full md:w-1/2">
-        <img 
+        <img
           src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${data.image}`}
           alt="Property"
-          className="w-[420px] h-[420px] object-cover rounded-lg"
+          className="w-[420px] h-[420px] object-cover rounded-lg transform transition-transform duration-300 hover:scale-105"
         />
       </div>
 

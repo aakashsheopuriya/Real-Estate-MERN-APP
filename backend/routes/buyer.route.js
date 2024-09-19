@@ -68,9 +68,7 @@ Router.post("/api/add-to-request", async (req, res) => {
 
 Router.get("/api/get-wishlist/:email", async (req, res) => {
   const email = req.params.email;
-  console.log("email in get-wishlist api", email);
   const wishlistProperty = await Wishlist.find();
-  console.log(`wishlist property for buyer ${email} are ${wishlistProperty}`);
   let totalProperty = [];
   if (wishlistProperty.length > 0) {
     for (let i in wishlistProperty) {
@@ -79,8 +77,6 @@ Router.get("/api/get-wishlist/:email", async (req, res) => {
       });
       propertyDetails[0];
       const total = await Property.find();
-      console.log("total number of property", total);
-
       totalProperty.push(propertyDetails[0]);
     }
     res.send({
@@ -95,9 +91,7 @@ Router.get("/api/get-wishlist/:email", async (req, res) => {
 
 Router.get("/api/get-requested-property-status/:email/:propertyId", async (req, res) => {
   const {email,propertyId} = req.params;
-  console.log("email in get-requested-property-status api", email , propertyId);
   const requestProperty = await RequestProperty.find({buyerId:email,propertyId});
-  console.log(`wishlist property for buyer ${email} are ${requestProperty}`);
   if (requestProperty.length > 0) {
     res.send({
       message: "fetched property successfully",

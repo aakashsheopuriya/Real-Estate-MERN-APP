@@ -33,12 +33,12 @@ const propertyImageUpload = async (req, res) => {
   );
   if (propertyUpdate) {
     res.send({
-      message: "image uploaded successfully",
+      message: "Updated Successfully, Redirecting to my properties page",
       status: 1,
       image: req.params.email + "-" + req.file.originalname,
     });
   } else {
-    res.send({ message: "image uploaded failed", status: 0 });
+    res.send({ message: "Failed, try again later", status: 0 });
   }
 };
 

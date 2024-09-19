@@ -16,16 +16,13 @@ export default function SpecificProperty() {
   const [username, setUsername] = useState("");
   const [sellerId, setSellerId] = useState("");
   const [requestedStatus, setRequestedStatus] = useState("");
+  const [confirmMessage, setConfirmMessage] = useState("");
 
   const getSpecificPropertyDetails = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/common/api/get-property/${id}`
     );
     if (res.data.property) {
-      console.log(
-        "res.data.property in specificproperty details page",
-        res.data.property
-      );
       setProperty(res.data.property);
       setPropertyId(res.data.property._id);
       setPropertyStatus(res.data.property.status);
@@ -40,13 +37,11 @@ export default function SpecificProperty() {
     const result = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/buyer/api/get-requested-property-status/${userId}/${id}`
     );
-    console.log("result from requested property statius", result);
     if (result.data.property?.length > 0) {
       setRequestedStatus(result.data.property[0]?.status);
     }
   };
 
-  console.log("requestedStatus", requestedStatus);
   const getSpecificUserDetails = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/user/api/user/${email}`
@@ -69,16 +64,10 @@ export default function SpecificProperty() {
         },
       }
     );
-
-    console.log("response from backend in handle to request to buy", res);
     setRequestedStatus(res.data.requestedProperty?.status);
   };
 
   const handleAddToWishlist = async () => {
-    // console.log("propertyId", propertyId);
-    // console.log("propertyStatus", propertyStatus);
-    // console.log("userId", userId);
-    // console.log("username", username);
     const res = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/buyer/api/add-to-wishlist`,
       { propertyId, propertyStatus, userId, username },
@@ -89,9 +78,9 @@ export default function SpecificProperty() {
       }
     );
     if (res.data.status) {
-      alert(`${res.data.message}`);
+      setConfirmMessage(res.data.message);
     } else {
-      alert(`${res.data.message}`);
+      setConfirmMessage(res.data.message);
     }
   };
 
@@ -143,6 +132,9 @@ export default function SpecificProperty() {
               </Button>
             </Popconfirm>
           </div>
+        </div>
+        <div className="font-medium text-blue-600 mt-3 flex items-center justify-center">
+          {confirmMessage}
         </div>
       </div>
     </div>

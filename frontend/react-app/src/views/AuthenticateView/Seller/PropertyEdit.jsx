@@ -5,12 +5,10 @@ import TextArea from "../../../components/textarea/TextArea";
 import { InputNumber, Select } from "antd";
 import axios from "axios";
 import BreadCrumbs from "../../../components/breadcrumbs/BreadCrumbs";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function PropertyEdit() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const email = localStorage.getItem("email");
   const [title, setTitle] = useState("");
   const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
@@ -21,8 +19,9 @@ export default function PropertyEdit() {
   const [imagePreview, setImagePreview] = useState("");
   const [isButtonDisable, setIsButtonDisable] = useState(true);
   const [imageName, setImageName] = useState("");
-  const [property, setProperty] = useState([]);
-  
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  // const [property, setProperty] = useState([]);
 
   const handleChange = (value) => {
     setPrice(value);
@@ -48,7 +47,6 @@ export default function PropertyEdit() {
       }
     );
     if (res.data.status) {
-      // return;
       const result = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/seller/api/upload/${id}`,
         formData,
@@ -58,9 +56,12 @@ export default function PropertyEdit() {
           },
         }
       );
-      alert(`${result.data.message}`);
+      setMessage(result.data.message);
+      setTimeout(() => {
+        navigate("/seller-dashboard/my-property");
+      }, 3000);
     } else {
-      alert(`${res.data.message}`);
+      setMessage(res.data.message);
     }
   };
   const items = [
@@ -86,7 +87,7 @@ export default function PropertyEdit() {
       setImageName(res.data.property.image);
     } else {
       //   navigate("/dashboard/my-property");
-      setProperty([]);
+      // setProperty([]);
     }
   };
 
@@ -231,6 +232,9 @@ export default function PropertyEdit() {
           >
             Save
           </button>
+        </div>
+        <div className="font-medium text-blue-600 mt-3 flex items-center justify-center">
+          {message}
         </div>
       </div>
     </div>

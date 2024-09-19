@@ -5,8 +5,10 @@ import TextArea from "../../../components/textarea/TextArea";
 import { InputNumber, Select } from "antd";
 import axios from "axios";
 import BreadCrumbs from "../../../components/breadcrumbs/BreadCrumbs";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatProperty() {
+  const navigate = useNavigate();
   const id = localStorage.getItem("email");
   const [title, setTitle] = useState("");
   const [contact, setContact] = useState("");
@@ -17,16 +19,16 @@ export default function CreatProperty() {
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
   const [isButtonDisable, setIsButtonDisable] = useState(true);
+  const [message, setMessage] = useState("");
 
   const handleChange = (value) => {
     setPrice(value);
   };
   const onChange = (value) => {
-    console.log(value);
     setServices(value);
   };
 
-  console.log("services", services);
+  "services", services;
   const onSearch = (value) => {};
   const imageChange = (e) => {
     setImage(e.target.files[0]);
@@ -54,9 +56,12 @@ export default function CreatProperty() {
           },
         }
       );
-      alert(`${result.data.message}`);
+      setMessage(result.data.message, ", Redirecting to my properties page");
+      setTimeout(() => {
+        navigate("/seller-dashboard/my-property");
+      }, 2000);
     } else {
-      alert(`${res.data.message}`);
+      setMessage(res.data.message);
     }
   };
   const items = [
@@ -194,6 +199,9 @@ export default function CreatProperty() {
           >
             Create
           </button>
+        </div>
+        <div className="font-medium text-blue-600 mt-3 flex items-center justify-center">
+          {message}
         </div>
       </div>
     </div>

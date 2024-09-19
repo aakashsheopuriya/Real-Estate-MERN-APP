@@ -22,7 +22,6 @@ export default function Login() {
         }
       );
       if (res.data.status === 0) {
-        // alert(`${res.data.message}`);
         setMessage(res.data.message);
         setMessageColor(false);
       } else {

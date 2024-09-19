@@ -26,6 +26,10 @@ export default function PropertyDetails() {
     getSpecificPropertyDetails();
   };
 
+  const handleNavigate = () => {
+    navigate(`/seller-dashboard/property/${id}/edit`);
+  };
+
   const cancel = (e) => {
     message.error("Click on No");
   };
@@ -60,12 +64,13 @@ export default function PropertyDetails() {
             <Popconfirm
               title="Edit property details?"
               description=""
+              onConfirm={() => handleNavigate()}
               onCancel={cancel}
               okText="Yes"
               cancelText="No"
             >
               <Button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-                <Link to={`/seller-dashboard/property/${id}/edit`}>Edit</Link>
+                Edit
               </Button>
             </Popconfirm>
           </div>

@@ -1,16 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DataCard from "../../components/card/DataCard";
+import { useNavigate } from "react-router-dom";
 
 export default function UserDashboard() {
   const email = localStorage.getItem("email");
   const [user, setUser] = useState({});
   const [property, setProperty] = useState([]);
+  const navigate = useNavigate();
+
   const getSpecificUserDetails = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/user/api/user/${email}`
     );
-    console.log(res);
     setUser(res.data.user);
   };
 
@@ -19,11 +21,10 @@ export default function UserDashboard() {
       `${process.env.REACT_APP_BACKEND_URL}/seller/api/get-property/${email}`
     );
     if (property.data.status) {
-      setProperty(property.data.property);
+      setProperty(property.data.property.slice(0, 4));
     }
   };
 
-  console.log("properties", property);
 
   const seller = {
     properties: [
@@ -36,7 +37,8 @@ export default function UserDashboard() {
       { id: 2, name: "Cozy Villa", location: "Uptown", price: "$350,000" },
     ],
     wishlistedProperties: [
-      { id: 1, name: "Luxury Apartment", location: "Downtown", wishlists: 45 },
+      { id: 1, name: "Luxury Apartment", location: "Indore", wishlists: 45 },
+      { id: 2, name: "Luxury Apartment", location: "Dewas", wishlists: 45 },
     ],
     reviews: [
       { user: "Alice", comment: "Great experience!", rating: 5 },
@@ -64,12 +66,25 @@ export default function UserDashboard() {
 
       {/* Properties Section */}
       <section className="py-12 px-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
-          {property?.length>0?property.map((data ,index) => {
-            return <DataCard key={index} data={data} />;
-          }):"No property found ,create first"}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
+          {property?.length > 0
+            ? property.map((data, index) => {
+                return <DataCard key={index} data={data} />;
+              })
+            : "No property found ,create first"}
         </div>
       </section>
+
+      <div className="flex justify-center mb-4">
+        <button
+          className={`bg-blue-700 text-white p-3 rounded-xl hover:bg-blue-500 transition-all cursor-pointer`}
+          onClick={() => {
+            navigate("/seller-dashboard/my-property");
+          }}
+        >
+          View all properties
+        </button>
+      </div>
 
       {/* Wishlisted Properties Section */}
       <section className="py-12 px-6 bg-gray-200">

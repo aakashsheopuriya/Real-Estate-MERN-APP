@@ -28,7 +28,7 @@ const BuyerDashboard = () => {
   useEffect(() => {
     getAllProperty();
     getAllSellers();
-  }, []);
+  },[]);
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Welcome Section */}

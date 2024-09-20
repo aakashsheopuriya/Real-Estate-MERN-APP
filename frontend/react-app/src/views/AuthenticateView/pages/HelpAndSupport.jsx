@@ -22,7 +22,7 @@ const HelpAndSupport = () => {
             Email: <a href="mailto:support@realestatesite.com" className="text-blue-600">support@realestatesite.com</a>
           </p>
           <p className="text-gray-700">
-            Phone: <a href="tel:+1234567890" className="text-blue-600">+1 (234) 567-890</a>
+            Phone: <a href="tel:+1234567890" className="text-blue-600">+91 9996565000</a>
           </p>
         </div>
 

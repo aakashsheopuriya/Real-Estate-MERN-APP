@@ -5,7 +5,7 @@ export default function SearchInput(props) {
   const [data, setData] = useState([]);
   const [value, setValue] = useState();
   const handleSearch = (newValue) => {
-    //   fetch(newValue, setData);
+      // fetch(newValue, setData);
     const filterData = props.data.filter((item) => {
       return item.title.includes(newValue);
     });

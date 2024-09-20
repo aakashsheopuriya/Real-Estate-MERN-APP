@@ -65,6 +65,7 @@ function BuyerNavBar() {
             <li>
               <NavLink
                 to="/buyer-dashboard"
+                end
                 className={({ isActive }) =>
                   `hover:text-blue-700 ${
                     isActive ? "text-blue-500" : "text-black"

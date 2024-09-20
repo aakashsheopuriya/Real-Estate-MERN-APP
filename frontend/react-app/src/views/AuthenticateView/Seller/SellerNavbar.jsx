@@ -63,7 +63,8 @@ function SellerNavbar() {
           <ul className="flex justify-center gap-5  ">
             <li>
               <NavLink
-                to="/"
+                to="/seller-dashboard"
+                end
                 className={({ isActive }) =>
                   `hover:text-blue-700 ${
                     isActive ? "text-blue-500" : "text-black"

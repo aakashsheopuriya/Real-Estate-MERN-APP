@@ -3,10 +3,15 @@ import React, { useEffect, useState } from "react";
 import DataCard from "../../../components/card/DataCard";
 import SellerCard from "../../../components/card/SellerCard";
 import { useNavigate } from "react-router-dom";
+import SearchInput from "../../../components/searchdata/SearchInput";
 
 const BuyerDashboard = () => {
   const [property, setProperty] = useState([]);
   const [allSeller, setAllSeller] = useState([]);
+  const [searchData, setSearchData] = useState([]);
+  const [isSearch, setIsSearch] = useState(false);
+  const [allProperty, setAllProperty] = useState([]);
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
   const navigate = useNavigate();
 
   const getAllProperty = async () => {
@@ -15,6 +20,7 @@ const BuyerDashboard = () => {
     );
     if (property.data.status) {
       setProperty(property.data.property.slice(0, 4));
+      setAllProperty(property.data.property);
     }
   };
 
@@ -28,7 +34,18 @@ const BuyerDashboard = () => {
   useEffect(() => {
     getAllProperty();
     getAllSellers();
-  },[]);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Welcome Section */}
@@ -49,11 +66,23 @@ const BuyerDashboard = () => {
           </div>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
             {/* Search Input */}
-            <input
+            <SearchInput
+              className="border border-gray-300 flex-1  w-full md:w-1/2  rounded-md"
+              placeholder="input search text"
+              style={{
+                width: "100%",
+                height: 50,
+                minWidth: isLargeScreen ? "500px" : "100%",
+              }}
+              data={allProperty}
+              getSearchData={setSearchData}
+              isSearch={setIsSearch}
+            />
+            {/* <input
               type="text"
               placeholder="Search by property name or type"
               className="border border-gray-300 p-3 w-full md:w-1/2 rounded-md"
-            />
+            /> */}
             {/* Location Filter */}
             <select className="border border-gray-300 p-3 w-full md:w-1/4 rounded-md">
               <option value="">Filter by Location</option>
@@ -77,11 +106,22 @@ const BuyerDashboard = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {/* Example Property Card */}
-            {property?.length > 0
+            {searchData?.length > 0
+              ? searchData.map((data, index) => {
+                  return <DataCard key={index} data={data} />;
+                })
+              : isSearch
+              ? "property no found"
+              : property?.length > 0
               ? property.map((data, index) => {
                   return <DataCard key={index} data={data} />;
                 })
               : "No property found ,create first"}
+            {/* {property?.length > 0
+              ? property.map((data, index) => {
+                  return <DataCard key={index} data={data} />;
+                })
+              : "No property found ,create first"} */}
           </div>
         </div>
       </section>

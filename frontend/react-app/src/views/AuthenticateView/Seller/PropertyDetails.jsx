@@ -39,8 +39,7 @@ export default function PropertyDetails() {
   return (
     <div className="">
       <div>
-        property details
-        <div className="">{/* <BreadCrumbs items={items} /> */}</div>
+        <div className="mt-5">{/* <BreadCrumbs items={items} /> */}</div>
         <div>
           {/* <DataCard data={property} /> */}
           <SinglePropertyPage data={property} />

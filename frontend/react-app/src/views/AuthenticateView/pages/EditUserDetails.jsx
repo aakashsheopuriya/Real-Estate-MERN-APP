@@ -25,20 +25,23 @@ export default function EditUserDetails() {
       { firstname, lastname, address }
     );
     if (res.data.status) {
-      const result = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/user/api/upload/${id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      setMessage(res.data.message);
+      if (imagePreview) {
+        const result = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/user/api/upload/${id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (result.data.status) {
+          setMessage("User detais updated successfully");
+          setImageNameData(result.data.image);
+        } else {
+          setMessage(result.data.message);
         }
-      );
-      if (result.data.status) {
-        setMessage(result.data.message);
-        setImageNameData(result.data.image);
-      } else {
-        setMessage(result.data.message);
       }
     }
   };

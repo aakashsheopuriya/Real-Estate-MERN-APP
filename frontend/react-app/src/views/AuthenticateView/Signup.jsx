@@ -136,7 +136,7 @@ export default function Signup() {
             className=" mt-2 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
             onClick={() => handleSubmit()}
             disabledStatus={
-              firstname && lastname && username && password ? false : true
+              firstname && lastname && username && password && role ? false : true
             }
           />
           <div

@@ -4,37 +4,46 @@ const bcrypt = require("bcryptjs");
 const { ObjectId } = require("mongodb");
 const emailSend = require("../helper/email-send");
 const User = require("../models/user.model");
+const jwt = require("jsonwebtoken");
 
 const login = async function (req, res) {
-  const { username, password } = req.body;
-  if (username && password) {
-    const userFind = await User.findOne({ username });
-    if (userFind) {
-      bcrypt.compare(password, userFind.password, function (err, result) {
-        if (result) {
-          res.send({
-            message: "user login successfully",
-            status: 1,
-            role: userFind.role,
-          });
-        } else {
-          res.send({
-            message: "Entered Username or Password is invalid, please try again",
-            status: 0,
-          });
-        }
-      });
+  try {
+    const { username, password } = req.body;
+    if (username && password) {
+      const userFind = await User.findOne({ username });
+      if (userFind) {
+        bcrypt.compare(password, userFind.password, function (err, result) {
+          if (result) {
+            var token = jwt.sign({ username: username }, "realState",{expiresIn:"1d"});
+            console.log("token in login route", token);
+            res.send({
+              message: "user login successfully",
+              status: 1,
+              role: userFind.role,
+              token:token
+            });
+          } else {
+            res.send({
+              message:
+                "Entered Username or Password is invalid, please try again",
+              status: 0,
+            });
+          }
+        });
+      } else {
+        res.send({
+          message: "user not found, please register first",
+          status: 0,
+        });
+      }
     } else {
       res.send({
-        message: "user not found, please register first",
+        message: message.error.loginMessage + "all fields are mandatory",
         status: 0,
       });
     }
-  } else {
-    res.send({
-      message: message.error.loginMessage + "all fields are mandatory",
-      status: 0,
-    });
+  } catch (err) {
+    console.log("error in catch block", err.message);
   }
 };
 
@@ -152,7 +161,7 @@ const resetPassword = async function (req, res) {
     );
     if (userUpdate.modifiedCount > 0) {
       res.send({
-        message:`Verification OPT is successfully sent to ${email},  please verify.`,
+        message: `Verification OPT is successfully sent to ${email},  please verify.`,
         status: true,
       });
     } else {
@@ -196,9 +205,15 @@ const otpVerify = async function (req, res) {
 
   const userFind = await User.findOne({ username: email });
   if (userFind.forgotOtp == otp) {
-    res.send({ message: "OTP verified successfully, Create new password.", status: true });
+    res.send({
+      message: "OTP verified successfully, Create new password.",
+      status: true,
+    });
   } else {
-    res.send({ message: "Entered OTP is incorrect, please check or try agein later.", status: false });
+    res.send({
+      message: "Entered OTP is incorrect, please check or try agein later.",
+      status: false,
+    });
   }
 };
 

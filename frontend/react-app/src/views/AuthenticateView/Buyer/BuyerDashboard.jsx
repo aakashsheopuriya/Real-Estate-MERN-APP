@@ -162,18 +162,27 @@ const BuyerDashboard = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {/* Service Card */}
-            {[1, 2, 3].map((service) => (
-              <div
-                key={service}
-                className="bg-white p-6 shadow-md rounded-lg text-center"
-              >
-                <h3 className="text-xl font-bold mb-4">Service {service}</h3>
-                <p className="text-gray-600">
-                  We provide a comprehensive range of real estate services
-                  including buying, selling, and leasing.
-                </p>
-              </div>
-            ))}
+
+            <div className="bg-white p-6 shadow-md rounded-lg text-center">
+              <h3 className="text-xl font-bold mb-4">Parking</h3>
+              <p className="text-gray-600">
+                Two wheeler and four wheeler parking space available in
+                residance.
+              </p>
+            </div>
+            <div className="bg-white p-6 shadow-md rounded-lg text-center">
+              <h3 className="text-xl font-bold mb-4">Park</h3>
+              <p className="text-gray-600">
+                Play ground for kids , walkways for walkind & running, badminton
+                court.
+              </p>
+            </div>
+            <div className="bg-white p-6 shadow-md rounded-lg text-center">
+              <h3 className="text-xl font-bold mb-4">Shops </h3>
+              <p className="text-gray-600">
+                Important Shops like medical, groseries,nearby Shopping mall
+              </p>
+            </div>
           </div>
         </div>
       </section>

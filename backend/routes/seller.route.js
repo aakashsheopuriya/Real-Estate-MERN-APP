@@ -2,8 +2,9 @@ const express = require("express");
 const Router = express.Router();
 const sellerController = require("../controllers/seller.controller");
 const upload = require("../helper/multer");
+const verifyToken = require("../helper/verify");
 
-Router.post("/api/create/:id", sellerController.createProperty);
+Router.post("/api/create/:id",verifyToken, sellerController.createProperty);
 
 Router.post(
   "/api/upload/:id",

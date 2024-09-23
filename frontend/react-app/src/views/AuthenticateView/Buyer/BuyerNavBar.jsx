@@ -55,13 +55,13 @@ function BuyerNavBar() {
 
   return (
     <>
-      <div className="sticky z-10 top-0 w-full flex justify-between items-center bg-white  h-12 text-sm drop-shadow-md">
+      <div className="sticky z-10 top-0 w-full flex justify-between items-center bg-white  h-20 text-sm drop-shadow-md">
         <div className="text-blue-700 text-3xl hover:text-blue-500 hover:cursor-pointer pl-2">
-          {/* <img src={`${process.env.PUBLIC_URL}/logo.jpg`} alt="" className="h-6 rounded-lg " /> */}
-          logo
+          <img src={`${process.env.PUBLIC_URL}/HomeLogo.png`} alt="" className="h-10 rounded-lg " />
+          {/* logo */}
         </div>
         <div>
-          <ul className="flex justify-center gap-5  ">
+          <ul className="flex justify-center text-xl gap-5  ">
             <li>
               <NavLink
                 to="/buyer-dashboard"
@@ -109,7 +109,7 @@ function BuyerNavBar() {
                 <img
                   src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageNameData}`}
                   alt="Preview"
-                  className="relative top-1 w-6 h-6 object-cover rounded-full"
+                  className="relative top-1 w-8 h-8 object-cover rounded-full"
                 />
               ) : (
                 <div className="w-4 m-2 hover:cursor-pointer">

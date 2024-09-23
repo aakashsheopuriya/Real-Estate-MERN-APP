@@ -41,6 +41,7 @@ export default function CreatProperty() {
       {
         headers: {
           "Content-Type": "application/json",
+          "Authorization":localStorage.getItem("token")
         },
       }
     );

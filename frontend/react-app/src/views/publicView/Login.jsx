@@ -21,12 +21,14 @@ export default function Login() {
           password: values.password,
         }
       );
+      console.log("res in login",res);
       if (res.data.status === 0) {
         setMessage(res.data.message);
         setMessageColor(false);
       } else {
         localStorage.setItem("email", values.username);
         localStorage.setItem("role", res.data.role);
+        localStorage.setItem("token",res.data.token);
 
         if (res.data.role === "buyer") {
           navigate("/buyer-dashboard");

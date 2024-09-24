@@ -12,6 +12,8 @@ const BuyerDashboard = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [allProperty, setAllProperty] = useState([]);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+  const [city, setCity] = useState("");
+  const [cityData, setCityData] = useState([]);
   const navigate = useNavigate();
 
   const getAllProperty = async () => {
@@ -31,6 +33,13 @@ const BuyerDashboard = () => {
     setAllSeller(allSeller.data.seller.slice(0, 4));
   };
 
+  const handleclick = async () => {
+    const propertiesByCity = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/buyer/api/get-property-by-city/${city}`
+    );
+    setCityData(propertiesByCity.data.property);
+  };
+
   useEffect(() => {
     getAllProperty();
     getAllSellers();
@@ -46,6 +55,7 @@ const BuyerDashboard = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Welcome Section */}
@@ -59,7 +69,7 @@ const BuyerDashboard = () => {
       </section>
 
       {/* Search Box & Filter Section */}
-      <section className="py-10 bg-white">
+      <section className="py-10 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-6">
             <h2 className="text-3xl font-semibold">Search Properties</h2>
@@ -84,14 +94,20 @@ const BuyerDashboard = () => {
               className="border border-gray-300 p-3 w-full md:w-1/2 rounded-md"
             /> */}
             {/* Location Filter */}
-            <select className="border border-gray-300 p-3 w-full md:w-1/4 rounded-md">
+            <select
+              className="border border-gray-300 p-3 w-full md:w-1/4 rounded-md"
+              onChange={(e) => setCity(e.target.value)}
+            >
               <option value="">Filter by Location</option>
-              <option value="Indore">Indore</option>
-              <option value="Dewas">Dewas</option>
-              <option value="Bhopal">Bhopal</option>
+              <option value="indore">Indore</option>
+              <option value="dewas">Dewas</option>
+              <option value="bhopal">Bhopal</option>
             </select>
             {/* Search Button */}
-            <button className="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700">
+            <button
+              className="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700"
+              onClick={handleclick}
+            >
               Search
             </button>
           </div>
@@ -106,15 +122,19 @@ const BuyerDashboard = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {/* Example Property Card */}
-            {searchData?.length > 0
-              ? searchData.map((data, index) => {
-                  return <DataCard key={index} data={data} />;
+            {cityData?.length > 0
+              ? cityData.map((data, index) => {
+                  return <DataCard key={data._id} data={data} />;
                 })
               : isSearch
-              ? "property no found"
+              ? searchData?.length > 0
+                ? searchData.map((data, index) => {
+                    return <DataCard key={data._id} data={data} />;
+                  })
+                : "no property"
               : property?.length > 0
               ? property.map((data, index) => {
-                  return <DataCard key={index} data={data} />;
+                  return <DataCard key={data._id} data={data} />;
                 })
               : "No property found ,create first"}
             {/* {property?.length > 0

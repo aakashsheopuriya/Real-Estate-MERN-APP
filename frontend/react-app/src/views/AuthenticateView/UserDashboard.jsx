@@ -2,12 +2,23 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DataCard from "../../components/card/DataCard";
 import { useNavigate } from "react-router-dom";
+import RequestedPropertyCard from "../../components/card/RequestedPropertyCard";
 
 export default function UserDashboard() {
   const email = localStorage.getItem("email");
   const [user, setUser] = useState({});
   const [property, setProperty] = useState([]);
+  const [RequestedProperty, setRequestedProperty] = useState([]);
   const navigate = useNavigate();
+
+  const getRequestedProperties = async () => {
+    const RequestedProperties = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/seller/api/get-requested-properties/${email}`
+    );
+    if (RequestedProperties) {
+      setRequestedProperty(RequestedProperties.data.property);
+    }
+  };
 
   const getSpecificUserDetails = async () => {
     const res = await axios.get(
@@ -25,31 +36,32 @@ export default function UserDashboard() {
     }
   };
 
-
   const seller = {
-    properties: [
-      {
-        id: 1,
-        name: "Luxury Apartment",
-        location: "Downtown",
-        price: "$200,000",
-      },
-      { id: 2, name: "Cozy Villa", location: "Uptown", price: "$350,000" },
-    ],
-    wishlistedProperties: [
-      { id: 1, name: "Luxury Apartment", location: "Indore", wishlists: 45 },
-      { id: 2, name: "Luxury Apartment", location: "Dewas", wishlists: 45 },
-    ],
     reviews: [
-      { user: "Alice", comment: "Great experience!", rating: 5 },
-      { user: "Bob", comment: "Very professional!", rating: 4 },
+      {
+        user: "Lakhan Tailor",
+        comment: "Great experience! Good Price",
+        rating: 5,
+      },
+      { user: "Pravleen Kaur", comment: "Very professional!", rating: 4 },
     ],
-    facilities: ["Swimming Pool", "Gym", "Parking", "Garden"],
+    facilities: [
+      "Swimming Pool",
+      "Gym/Fitness Centers",
+      "Parking Spaces (dedicated or shared)",
+      "Water Supply (24/7 or specified hours)",
+      "24/7 Security (CCTV surveillance, security guards",
+      "Playgrounds and Parks (children’s play areas)",
+      "Shopping Complex/Stores nearby or within the complex",
+      "Healthcare Facilities (clinics, pharmacy within the complex)",
+      "High-Speed Internet Connectivity",
+    ],
   };
 
   useEffect(() => {
     getSpecificUserDetails();
     getPropertiesById();
+    getRequestedProperties();
   }, []);
 
   return (
@@ -89,19 +101,12 @@ export default function UserDashboard() {
       {/* Wishlisted Properties Section */}
       <section className="py-12 px-6 bg-gray-200">
         <h2 className="text-3xl font-semibold mb-6">Wishlisted Properties</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {seller.wishlistedProperties.map((property) => (
-            <div
-              key={property.id}
-              className="bg-white shadow-md p-6 rounded-lg"
-            >
-              <h3 className="text-xl font-semibold">{property.name}</h3>
-              <p className="text-gray-600">Location: {property.location}</p>
-              <p className="text-gray-600">
-                Wishlisted by: {property.wishlists} users
-              </p>
-            </div>
-          ))}
+        <div className="container mx-auto p-4">
+          <div className="space-y-4">
+            {RequestedProperty.map((property, index) => (
+              <RequestedPropertyCard property={property} index={index} />
+            ))}
+          </div>
         </div>
       </section>
 

@@ -20,4 +20,7 @@ Router.get("/api/property-delete/:id", sellerController.propertyDelete);
 
 Router.get("/api/get-all-seller", sellerController.getAllSeller);
 
+Router.get("/api/get-requested-properties/:email", sellerController.getRequestedProperties);
+
+
 module.exports = Router;

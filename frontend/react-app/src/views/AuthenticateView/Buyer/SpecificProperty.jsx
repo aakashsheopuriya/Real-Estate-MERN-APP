@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, Popconfirm, message } from "antd";
 import SinglePropertyPage from "../Seller/SinglePropertyPage";
 
@@ -11,12 +11,17 @@ export default function SpecificProperty() {
   const [property, setProperty] = useState({});
   const [propertyId, setPropertyId] = useState("");
   const [propertyStatus, setPropertyStatus] = useState("");
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
   const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [sellerId, setSellerId] = useState("");
   const [requestedStatus, setRequestedStatus] = useState("");
   const [confirmMessage, setConfirmMessage] = useState("");
+  const [propertyTitle, setPropertyTitle] = useState("");
+  const [propertyImage, setPropertyImage] = useState("");
+  const [propertyPrice, setPropertyPrice] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
 
   const getSpecificPropertyDetails = async () => {
     const res = await axios.get(
@@ -27,6 +32,9 @@ export default function SpecificProperty() {
       setPropertyId(res.data.property._id);
       setPropertyStatus(res.data.property.status);
       setSellerId(res.data.property.sellerId);
+      setPropertyTitle(res.data.property.title);
+      setPropertyImage(res.data.property.image);
+      setPropertyPrice(res.data.property.price);
     } else {
       navigate("/dashboard/my-property");
       setProperty([]);
@@ -47,8 +55,9 @@ export default function SpecificProperty() {
       `${process.env.REACT_APP_BACKEND_URL}/user/api/user/${email}`
     );
     if (res.data.user) {
-      setUser(res.data.user);
       setUsername(res.data.user.username);
+      setFirstname(res.data.user.firstname);
+      setLastname(res.data.user.lastname);
       setUserId(res.data.user._id);
       getRequestedPropertyStatus(res.data.user._id);
     }
@@ -57,7 +66,16 @@ export default function SpecificProperty() {
   const handleRequestToBuy = async (id) => {
     const res = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/buyer/api/add-to-request`,
-      { propertyId: id, userId, username, sellerId: sellerId },
+      {
+        propertyId: id,
+        userId,
+        firstname,
+        lastname,
+        sellerId: sellerId,
+        image: propertyImage,
+        price: propertyPrice,
+        title: propertyTitle,
+      },
       {
         headers: {
           "Content-Type": "application/json",

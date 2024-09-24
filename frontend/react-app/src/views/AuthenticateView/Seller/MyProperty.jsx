@@ -36,7 +36,7 @@ export default function MyProperty() {
             <div className="">
               <BreadCrumbs items={items} />
             </div>
-            <div className="fixed top-14 right-10 z-10">
+            <div className="fixed top-18 right-10 z-10">
               <SearchInput
                 placeholder="input search text"
                 style={{

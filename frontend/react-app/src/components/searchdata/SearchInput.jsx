@@ -5,7 +5,7 @@ export default function SearchInput(props) {
   const [data, setData] = useState([]);
   const [value, setValue] = useState();
   const handleSearch = (newValue) => {
-      // fetch(newValue, setData);
+    // fetch(newValue, setData);
     const filterData = props.data.filter((item) => {
       return item.title.includes(newValue);
     });
@@ -17,20 +17,29 @@ export default function SearchInput(props) {
       setData([]);
       props.getSearchData([]);
     }
-    props.isSearch(true);
-  };
-  const handleChange = (newValue) => {
-    setValue(newValue);
-    const filterData = props.data.filter((item) => {
-      return item.title.includes(newValue);
-    });
 
-    if (filterData?.length > 0) {
-      setData(filterData);
-      props.getSearchData(filterData);
+    if(newValue.length>0){
+      props.isSearch(true);
     }
-    // props.getSearchData()
+    else{
+    props.isSearch(false);
+    }
   };
+  // const handleChange = (newValue) => {
+  //   setValue(newValue);
+  //   const filterData = props.data.filter((item) => {
+  //     return item.title.includes(newValue);
+  //   });
+
+  //   if (filterData?.length > 0) {
+  //     setData(filterData);
+  //     props.getSearchData(filterData);
+  //     props.isSearch(true);
+  //   } else {
+  //     props.isSearch(false);
+  //   }
+  //   // props.getSearchData()
+  // };
   return (
     <div>
       <Select
@@ -42,7 +51,7 @@ export default function SearchInput(props) {
         suffixIcon={null}
         // filterOption={false}
         onSearch={handleSearch}
-        onChange={handleChange}
+        // onChange={handleChange}
         notFoundContent={null}
         options={(data || []).map((d) => ({
           value: d.title,

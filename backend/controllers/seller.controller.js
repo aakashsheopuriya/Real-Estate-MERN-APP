@@ -1,6 +1,7 @@
 const Property = require("../models/property.model");
 const User = require("../models/user.model");
 const { ObjectId } = require("mongodb");
+const requestedProperties = require("../models/request.property.model");
 
 const createProperty = async (req, res) => {
   const { title, contact, description, address, price, services } = req.body;
@@ -100,6 +101,21 @@ const getAllSeller = async (req, res) => {
   }
 };
 
+const getRequestedProperties = async (req, res) => {
+  const email = req.params.email;
+  const isPropertyFind = await requestedProperties.find({
+    sellerId: email,
+  });
+  if (isPropertyFind) {
+    res.send({
+      message: "fetched All requested properties",
+      status: true,
+      property: isPropertyFind,
+    });
+  } else {
+    res.send({ message: "failed", status: false });
+  }
+};
 module.exports = {
   createProperty,
   propertyImageUpload,
@@ -107,4 +123,5 @@ module.exports = {
   getPropertyById,
   propertyDelete,
   getAllSeller,
+  getRequestedProperties,
 };

@@ -12,6 +12,21 @@ const requestPropertySchema = new mongoose.Schema({
   status: {
     type: String,
   },
+  image: {
+    type: String,
+  },
+  price: {
+    type: String,
+  },
+  title: {
+    type: String,
+  },
+  firstname: {
+    type: String,
+  },
+  lastname: {
+    type: String,
+  },
 });
 
 const RequestProperty = new mongoose.model(

@@ -20,6 +20,7 @@ import AllProperty from "./views/AuthenticateView/Buyer/AllProperty";
 import Wishlist from "./views/AuthenticateView/Buyer/Wishlist";
 import SpecificProperty from "./views/AuthenticateView/Buyer/SpecificProperty";
 import BuyerDashboard from "./views/AuthenticateView/Buyer/BuyerDashboard";
+import RequestedProperties from "./views/AuthenticateView/Seller/RequestedProperties";
 
 function App() {
   return (
@@ -46,6 +47,10 @@ function App() {
           <Route
             path="privacy-and-policies"
             element={<PrivacyAndPolicies />}
+          ></Route>
+          <Route
+            path="requested-properties"
+            element={<RequestedProperties />}
           ></Route>
 
           <Route path="edit-details" element={<EditUserDetails />}></Route>

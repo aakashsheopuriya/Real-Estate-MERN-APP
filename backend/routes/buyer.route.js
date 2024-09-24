@@ -44,15 +44,27 @@ Router.post("/api/add-to-wishlist", async (req, res) => {
   }
 });
 
-
 Router.post("/api/add-to-request", async (req, res) => {
-  const { propertyId, userId, username,sellerId } = req.body;
+  const {
+    propertyId,
+    userId,
+    firstname,
+    lastname,
+    sellerId,
+    image,
+    price,
+    title,
+  } = req.body;
   const insertToRequestProperty = new RequestProperty({
-    username: username,
+    firstname,
+    lastname,
     propertyId: propertyId,
     buyerId: userId,
     status: "Requested",
-    sellerId
+    sellerId,
+    image,
+    price,
+    title,
   });
   const isInserted = await insertToRequestProperty.save();
   if (isInserted) {
@@ -88,19 +100,39 @@ Router.get("/api/get-wishlist/:email", async (req, res) => {
   return;
 });
 
-
-Router.get("/api/get-requested-property-status/:email/:propertyId", async (req, res) => {
-  const {email,propertyId} = req.params;
-  const requestProperty = await RequestProperty.find({buyerId:email,propertyId});
-  if (requestProperty.length > 0) {
-    res.send({
-      message: "fetched property successfully",
-      status: true,
-      property: requestProperty,
+Router.get(
+  "/api/get-requested-property-status/:email/:propertyId",
+  async (req, res) => {
+    const { email, propertyId } = req.params;
+    const requestProperty = await RequestProperty.find({
+      buyerId: email,
+      propertyId,
     });
+    if (requestProperty.length > 0) {
+      res.send({
+        message: "fetched property successfully",
+        status: true,
+        property: requestProperty,
+      });
+    }
+    return;
   }
-  return;
-});
+);
 
+Router.get("/api/get-property-by-city/:city", async (req, res) => {
+  const allProperty = await Property.aggregate([
+    {
+      $match: {
+        address: req.params.city,
+      },
+    },
+  ]);
+
+  res.send({
+    message: "fetched specific property successfully",
+    status: true,
+    property: allProperty,
+  });
+});
 
 module.exports = Router;

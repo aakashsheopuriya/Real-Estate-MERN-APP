@@ -5,12 +5,19 @@ import {
   SettingOutlined,
   UserOutlined,
   LoginOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 import { ImageContextData } from "../../../context/ImageContextData";
 import axios from "axios";
 function SellerNavbar() {
   const { imageNameData, setImageNameData } = useContext(ImageContextData);
   const [open, setOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -54,16 +61,25 @@ function SellerNavbar() {
 
   return (
     <>
-      <div className="sticky z-10 top-0 w-full flex justify-between items-center bg-white  h-20 text-sm drop-shadow-md">
+      <div className="sticky z-10 top-0 w-full flex justify-between items-center bg-white h-16 text-sm drop-shadow-md">
         <div className="text-blue-700 text-3xl hover:text-blue-500 hover:cursor-pointer pl-2">
           <img
             src={`${process.env.PUBLIC_URL}/HomeLogo.png`}
             alt=""
-            className="h-10 rounded-lg "
+            className="h-12 rounded-lg"
           />
         </div>
-        <div>
-          <ul className="flex justify-center text-xl gap-5  ">
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden pr-4">
+          <button onClick={toggleMobileMenu}>
+            <MenuOutlined className="text-2xl" />
+          </button>
+        </div>
+
+        {/* Links - hidden on small screens */}
+        <div className="hidden md:flex">
+          <ul className="flex justify-center text-lg gap-5">
             <li>
               <NavLink
                 to="/seller-dashboard"
@@ -89,7 +105,6 @@ function SellerNavbar() {
                 Create Property
               </NavLink>
             </li>
-
             <li>
               <NavLink
                 to="/seller-dashboard/my-property"
@@ -104,29 +119,32 @@ function SellerNavbar() {
             </li>
           </ul>
         </div>
-        <div className="flex gap-1">
-          <Link to="/seller-dashboard/account-information">
-            <div className="">
+
+        {/* User Icon & Settings */}
+        <div className="flex items-center gap-4 pr-4">
+          <Link to="/buyer-dashboard/account-information">
+            <div className="flex items-center">
               {imageNameData ? (
                 <img
                   src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageNameData}`}
                   alt="Preview"
-                  className="relative top-1 m-1 w-8 h-8 object-cover rounded-full"
+                  className="w-8 h-8 object-cover rounded-full"
                 />
               ) : (
-                <div className="w-8 h-8 top-1 m-2 hover:cursor-pointer">
-                  <UserOutlined />
+                <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200">
+                  <UserOutlined className="text-lg" />
                 </div>
               )}
             </div>
           </Link>
           <div
-            className="inline-flex h-8 w-8 text-xl m-2 hover:cursor-pointer"
+            className="flex items-center justify-center w-8 h-8 cursor-pointer rounded-full bg-gray-200"
             onClick={showDrawer}
           >
-            <SettingOutlined />
+            <SettingOutlined className="text-xl" />
           </div>
         </div>
+
         <Drawer
           title="Settings"
           onClose={onClose}
@@ -162,6 +180,11 @@ function SellerNavbar() {
                 Privacy & Policies
               </li>
             </Link>
+            <Link to="/seller-dashboard/requested-properties">
+              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
+                View Requested Properties
+              </li>
+            </Link>
             <li className="bg-slate-500 hover:bg-slate-300 p-3 m-2 gap-2 rounded-2xl text-white absolute bottom-2 right-2">
               <Popover
                 content={
@@ -186,6 +209,51 @@ function SellerNavbar() {
           </ul>
         </Drawer>
       </div>
+
+      {/* Mobile Menu - hidden by default */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white">
+          <ul className="flex flex-col text-base gap-5 p-5">
+            <li>
+              <NavLink
+                to="/seller-dashboard"
+                end
+                className={({ isActive }) =>
+                  `hover:text-blue-700 ${
+                    isActive ? "text-blue-500" : "text-black"
+                  }`
+                }
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/seller-dashboard/create"
+                className={({ isActive }) =>
+                  `hover:text-blue-700 ${
+                    isActive ? "text-blue-500" : "text-black"
+                  }`
+                }
+              >
+                Create Property
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/seller-dashboard/my-property"
+                className={({ isActive }) =>
+                  `hover:text-blue-700 ${
+                    isActive ? "text-blue-500" : "text-black"
+                  }`
+                }
+              >
+                My Property
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      )}
     </>
   );
 }

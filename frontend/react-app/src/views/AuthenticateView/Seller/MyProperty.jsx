@@ -12,7 +12,10 @@ export default function MyProperty() {
   const id = localStorage.getItem("email");
   const getSpecificProperty = async () => {
     const property = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/seller/api/get-property/${id}`
+      `${process.env.REACT_APP_BACKEND_URL}/seller/api/get-property/${id}`,{headers:{
+        "Authorization":localStorage.getItem("token"),
+        "Content-Type":"application/json"
+      }}
     );
     if (property.data.status) {
       setProperty(property.data.property);

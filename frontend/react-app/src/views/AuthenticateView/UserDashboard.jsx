@@ -9,7 +9,14 @@ export default function UserDashboard() {
   const [user, setUser] = useState({});
   const [property, setProperty] = useState([]);
   const [RequestedProperty, setRequestedProperty] = useState([]);
+  const [randomFourProperties, setRandomfourProperties] = useState([]);
   const navigate = useNavigate();
+
+  const getRandomItems = (arr, num) => {
+    const shuffled = [...arr]?.sort(() => 0.5 - Math.random());
+    setRandomfourProperties(shuffled.slice(0, num));
+    return shuffled.slice(0, num);
+  };
 
   const getRequestedProperties = async () => {
     const RequestedProperties = await axios.get(
@@ -28,11 +35,12 @@ export default function UserDashboard() {
   };
 
   const getPropertiesById = async () => {
-    const property = await axios.get(
+    const properties = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/seller/api/get-property/${email}`
     );
-    if (property.data.status) {
-      setProperty(property.data.property.slice(0, 4));
+    if (properties.data.status) {
+      setProperty(properties.data.property);
+      getRandomItems(properties.data.property, 4);
     }
   };
 
@@ -80,7 +88,7 @@ export default function UserDashboard() {
       <section className="py-12 px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
           {property?.length > 0
-            ? property.map((data, index) => {
+            ? randomFourProperties.map((data, index) => {
                 return <DataCard key={index} data={data} />;
               })
             : "No property found ,create first"}
@@ -100,11 +108,15 @@ export default function UserDashboard() {
 
       {/* Wishlisted Properties Section */}
       <section className="py-12 px-6 bg-gray-200">
-        <h2 className="text-3xl font-semibold mb-6">Wishlisted Properties</h2>
+        <h2 className="text-3xl font-semibold mb-6">Requested Properties</h2>
         <div className="container mx-auto p-4">
           <div className="space-y-4">
             {RequestedProperty.map((property, index) => (
-              <RequestedPropertyCard property={property} index={index} />
+              <RequestedPropertyCard
+                key={property.title}
+                property={property}
+                index={index}
+              />
             ))}
           </div>
         </div>

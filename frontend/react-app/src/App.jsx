@@ -34,7 +34,6 @@ function App() {
         <Route path="/seller-dashboard" element={<WebsiteLayout />}>
           <Route index element={<UserDashboard />}></Route>
           <Route path="profile" element={<UserProfile />}></Route>
-          <Route path="profile" element={<UserProfile />}></Route>
           <Route path="create" element={<CreatProperty />}></Route>
           <Route path="my-property" element={<MyProperty />}></Route>
           <Route

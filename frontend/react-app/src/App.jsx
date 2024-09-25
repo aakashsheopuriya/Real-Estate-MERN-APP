@@ -2,7 +2,6 @@ import "./App.css";
 import "./index.css";
 import Login from "./views/publicView/Login";
 import Signup from "./views/AuthenticateView/Signup";
-import UserProfile from "./views/AuthenticateView/UserProfile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WebsiteLayout from "./views/AuthenticateView/WebsiteLayout";
 import UserDashboard from "./views/AuthenticateView/UserDashboard";
@@ -21,19 +20,21 @@ import Wishlist from "./views/AuthenticateView/Buyer/Wishlist";
 import SpecificProperty from "./views/AuthenticateView/Buyer/SpecificProperty";
 import BuyerDashboard from "./views/AuthenticateView/Buyer/BuyerDashboard";
 import RequestedProperties from "./views/AuthenticateView/Seller/RequestedProperties";
+import LandingPage from "./views/AuthenticateView/pages/LandingPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />}></Route>
+        <Route path="/" element={<LandingPage />}></Route>
+
+        <Route path="/login" element={<Login />}></Route>
         <Route path="/forgot-password" element={<Forgot />}></Route>
         <Route path="/Signup-Now" element={<Signup />}></Route>
 
         {/* seller website layout start */}
         <Route path="/seller-dashboard" element={<WebsiteLayout />}>
           <Route index element={<UserDashboard />}></Route>
-          <Route path="profile" element={<UserProfile />}></Route>
           <Route path="create" element={<CreatProperty />}></Route>
           <Route path="my-property" element={<MyProperty />}></Route>
           <Route
@@ -60,7 +61,6 @@ function App() {
         {/* buyer website layout start */}
         <Route path="/buyer-dashboard" element={<WebsiteLayout />}>
           <Route index element={<BuyerDashboard />}></Route>
-          <Route path="profile" element={<UserProfile />}></Route>
           <Route
             path="specific/get-specific-property/:id"
             element={<SpecificProperty />}

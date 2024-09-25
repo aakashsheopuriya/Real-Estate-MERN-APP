@@ -11,7 +11,9 @@ export default function DataCard({ data }) {
           <div className="bg-white p-4 shadow-md rounded-lg transform transition-transform duration-300 hover:shadow-2xl hover:text-blue-500">
             <Link
               to={
-                role === "seller"
+                !role
+                  ? "/login"
+                  : role === "seller"
                   ? `/seller-dashboard/get-specific-property/${data?._id}`
                   : `/buyer-dashboard/specific/get-specific-property/${data?._id}`
               }

@@ -11,7 +11,9 @@ const SellerCard = ({ data }) => {
         alt={``}
         className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
       />
-      <h3 className="text-lg font-bold mb-2">Seller {data?.firstname}</h3>
+      <h3 className="text-lg font-bold mb-2">
+        {data?.firstname}  {data?.lastname}
+      </h3>
       <p className="text-gray-600">Top-rated real estate agent</p>
     </div>
   );

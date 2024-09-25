@@ -4,8 +4,9 @@ import DataCard from "../../../components/card/DataCard";
 import SellerCard from "../../../components/card/SellerCard";
 import { useNavigate } from "react-router-dom";
 import SearchInput from "../../../components/searchdata/SearchInput";
+import Footer from "../Footer";
 
-const BuyerDashboard = () => {
+const LandingPage = () => {
   const [property, setProperty] = useState([]);
   const [allSeller, setAllSeller] = useState([]);
   const [searchData, setSearchData] = useState([]);
@@ -14,8 +15,9 @@ const BuyerDashboard = () => {
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
   const [city, setCity] = useState("");
   const [cityData, setCityData] = useState([]);
-  const navigate = useNavigate();
   const [randomFourProperties, setRandomfourProperties] = useState([]);
+
+  const navigate = useNavigate();
 
   const getRandomItems = (arr, num) => {
     const shuffled = [...arr]?.sort(() => 0.5 - Math.random());
@@ -63,10 +65,41 @@ const BuyerDashboard = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Welcome Section */}
+      <div className="bg-slate-50 h-16 flex justify-between items-center w-full sticky top-0 z-20 drop-shadow-lg">
+        <div className="flex gap-3 top-3">
+          <img
+            src={`${process.env.PUBLIC_URL}/HomeLogo.png`}
+            alt=""
+            className="h-10 rounded-lg"
+          />
+        </div>
+        {/* Welcome Section */}
+        <div className=" flex gap-3 top-3 right-3">
+          <div>
+            <button
+              className="bg-slate-200 drop-shadow-lg font-medium text-xl text-black px-5 p-2 rounded-full hover:bg-white transition-all cursor-pointer hover:scale-105 hover:drop-shadow-2xl hover:text-blue-400"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Login
+            </button>
+          </div>
+          <div>
+            <button
+              className="bg-slate-200 drop-shadow-lg font-medium text-xl text-black px-5 p-2 rounded-full hover:bg-white transition-all cursor-pointer hover:scale-105 hover:drop-shadow-2xl hover:text-blue-400"
+              onClick={() => {
+                navigate("/Signup-Now");
+              }}
+            >
+              SignUp
+            </button>
+          </div>
+        </div>
+      </div>
+
       <section className="bg-blue-600 text-white py-20 text-center">
         <h1 className="text-4xl md:text-5xl font-bold">
           Welcome to Your Dream Home
@@ -75,6 +108,57 @@ const BuyerDashboard = () => {
           Find the perfect property that fits your needs
         </p>
       </section>
+
+      {/* hero section */}
+      <div className="py-16 bg-gray-100">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+            Our Services
+          </h2>
+
+          {/* Seller Section */}
+          <div className="flex flex-col md:flex-row items-center mb-16">
+            <div className="md:w-1/2">
+              <img
+                src="https://via.placeholder.com/400x300?text=For+Sellers"
+                alt="Services for Sellers"
+                className="rounded-lg w-full h-auto object-cover"
+              />
+            </div>
+            <div className="md:w-1/2 md:pl-8">
+              <h3 className="text-2xl font-semibold text-gray-800">
+                For Sellers
+              </h3>
+              <p className="mt-4 text-gray-600">
+                We offer expert guidance to help you sell your property quickly
+                and at the best price. Our services include home staging,
+                marketing strategies, and negotiations.
+              </p>
+            </div>
+          </div>
+
+          {/* Buyer Section */}
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="md:w-1/2 md:pr-8">
+              <h3 className="text-2xl font-semibold text-gray-800">
+                For Buyers
+              </h3>
+              <p className="mt-4 text-gray-600">
+                Our team helps you find the perfect home that fits your needs
+                and budget. We provide market analysis, property tours, and
+                negotiation support.
+              </p>
+            </div>
+            <div className="md:w-1/2">
+              <img
+                src="https://via.placeholder.com/400x300?text=For+Buyers"
+                alt="Services for Buyers"
+                className="rounded-lg w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Search Box & Filter Section */}
       <section className="py-10 bg-gray-50">
@@ -96,7 +180,6 @@ const BuyerDashboard = () => {
               getSearchData={setSearchData}
               isSearch={setIsSearch}
             />
-            {/* Location Filter */}
             <select
               className="border border-gray-300 p-3 w-full md:w-1/4 rounded-md"
               onChange={(e) => setCity(e.target.value)}
@@ -156,10 +239,10 @@ const BuyerDashboard = () => {
         <button
           className={`bg-blue-700 text-white p-3 rounded-xl hover:bg-blue-500 transition-all cursor-pointer`}
           onClick={() => {
-            navigate("/buyer-dashboard/all-property");
+            navigate("/login");
           }}
         >
-          View all properties
+          Please Login to view more properties
         </button>
       </div>
 
@@ -212,8 +295,9 @@ const BuyerDashboard = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
 
-export default BuyerDashboard;
+export default LandingPage;

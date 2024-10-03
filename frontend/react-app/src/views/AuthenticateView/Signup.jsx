@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Label from "../../components/label/Label";
 import InputField from "../../components/inputfield/InputField";
 import AddButton from "../../components/buttons/AddButton";
@@ -20,8 +20,6 @@ export default function Signup() {
   const [successMessage, setSuccessMessage] = useState("");
   const [messageColor, setMessageColor] = useState(false);
 
-
-
   const handleSubmit = async () => {
     try {
       const res = await axios.post(
@@ -38,7 +36,7 @@ export default function Signup() {
         setSuccessMessage(res.data.message);
       }
       if (res.data.status) {
-        setMessageColor(true)
+        setMessageColor(true);
         setTimeout(() => {
           navigate("/");
         }, 5000);
@@ -56,7 +54,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-50">
+    <div className="bg-[url('./images/wellcome.jpg')] h-screen w-full bg-cover bg-no-repeat min-h-screen flex items-center justify-center bg-blue-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
           Signup
@@ -136,7 +134,9 @@ export default function Signup() {
             className=" mt-2 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
             onClick={() => handleSubmit()}
             disabledStatus={
-              firstname && lastname && username && password && role ? false : true
+              firstname && lastname && username && password && role
+                ? false
+                : true
             }
           />
           <div
@@ -150,7 +150,7 @@ export default function Signup() {
           </div>
           <div className=" mt-2">
             <Link
-              to="/"
+              to="/login"
               className=" font-bold hover:text-blue-500 transition-colors duration-200 "
             >
               <ArrowLeftOutlined /> Go to Login page

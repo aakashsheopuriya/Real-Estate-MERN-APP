@@ -50,8 +50,26 @@ export default function UserDashboard() {
         user: "Lakhan Tailor",
         comment: "Great experience! Good Price",
         rating: 5,
+        star: "★ ★ ★ ★ ☆",
       },
-      { user: "Pravleen Kaur", comment: "Very professional!", rating: 4 },
+      {
+        user: "Anil Kumar",
+        comment: "Great experience! Good Price",
+        rating: 5,
+        star: "★ ★ ★ ★ ☆",
+      },
+      {
+        user: "Yogesh Tailor",
+        comment: "Great experience! Good Price",
+        rating: 5,
+        star: "★ ★ ★ ★ ☆",
+      },
+      {
+        user: "Pravleen Kaur",
+        comment: "Very professional!",
+        rating: 4,
+        star: "★ ★ ★ ★ ☆",
+      },
     ],
     facilities: [
       "Swimming Pool",
@@ -70,18 +88,28 @@ export default function UserDashboard() {
     getSpecificUserDetails();
     getPropertiesById();
     getRequestedProperties();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Welcome Section */}
-      <section className="bg-blue-600 text-white py-12 px-6 text-center">
-        <h1 className="text-4xl font-bold">
+      <section
+        className={` bg-[url('./images/house.jpg')] bg-cover bg-center text-white py-20 text-center`}
+      >
+        <h1 className="drop-shadow-sm text-4xl md:text-5xl font-bold">
           Welcome, {user.firstname} {user.lastname}!
         </h1>
-        <p className="mt-4 text-xl">
-          Manage your properties and view your performance.
-        </p>
+        <div className="min-w-full flex justify-center items-center ">
+          <p className="text-justify backdrop-blur-md border border-white/40 rounded-xl p-6  drop-shadow-md italic w-11/12 md:w-3/4 mt-4 text-lg md:text-xl">
+            "Thinking of selling your home? You’ve come to the right place! Our
+            dedicated team is here to guide you through the selling process,
+            ensuring you get the best value for your property. With our
+            extensive market knowledge and personalized service, we’ll help you
+            every step of the way. Let’s get started on your successful sale
+            today!"
+          </p>
+        </div>
       </section>
 
       {/* Properties Section */}
@@ -143,6 +171,7 @@ export default function UserDashboard() {
               <h4 className="text-xl font-semibold">{review.user}</h4>
               <p className="text-gray-600">Rating: {review.rating} / 5</p>
               <p className="text-gray-600 mt-2">"{review.comment}"</p>
+              <p className="text-yellow-600 mt-2">"{review.star}"</p>
             </div>
           ))}
         </div>

@@ -21,6 +21,7 @@ import SpecificProperty from "./views/AuthenticateView/Buyer/SpecificProperty";
 import BuyerDashboard from "./views/AuthenticateView/Buyer/BuyerDashboard";
 import RequestedProperties from "./views/AuthenticateView/Seller/RequestedProperties";
 import LandingPage from "./views/AuthenticateView/pages/LandingPage";
+import RequestedUserPropertyDetails from "./views/AuthenticateView/Seller/RequestedUserPropertyDetails";
 
 function App() {
   return (
@@ -54,6 +55,11 @@ function App() {
           ></Route>
 
           <Route path="edit-details" element={<EditUserDetails />}></Route>
+          <Route
+            path="requested-user-Property-details/:id"
+            element={<RequestedUserPropertyDetails />}
+          ></Route>
+
           <Route path="*" element={<NoPage />}></Route>
         </Route>
         {/* seller website layout end */}

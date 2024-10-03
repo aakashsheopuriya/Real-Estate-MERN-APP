@@ -42,15 +42,20 @@ const BuyerDashboard = () => {
   };
 
   const handleclick = async () => {
-    const propertiesByCity = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/buyer/api/get-property-by-city/${city}`
-    );
-    setCityData(propertiesByCity.data.property);
+    if (city) {
+      const propertiesByCity = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/buyer/api/get-property-by-city/${city}`
+      );
+      if (propertiesByCity) {
+        setCityData(propertiesByCity.data.property.slice(0, 4));
+      }
+    }
   };
 
   useEffect(() => {
     getAllProperty();
     getAllSellers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -67,20 +72,31 @@ const BuyerDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Welcome Section */}
-      <section className="bg-blue-600 text-white py-20 text-center">
+      <section
+        className={`bg-[url('./images/house.jpg')] text-white py-20 text-center`}
+      >
         <h1 className="text-4xl md:text-5xl font-bold">
           Welcome to Your Dream Home
         </h1>
-        <p className="mt-4 text-lg md:text-xl">
-          Find the perfect property that fits your needs
-        </p>
+        <div className="min-w-full flex justify-center items-center">
+          <p className="text-justify backdrop-blur-md border border-white/40 rounded-xl p-6  drop-shadow-md italic w-11/12 md:w-3/4 mt-4 text-lg md:text-xl">
+            "Finding your dream home starts here! We understand that buying a
+            property is one of the most significant decisions you’ll ever make.
+            Our dedicated team is here to support you at every step, from
+            browsing listings to closing the deal. Explore our wide selection of
+            homes tailored to fit your needs and lifestyle. Your dream home
+            awaits!"
+          </p>
+        </div>
       </section>
 
       {/* Search Box & Filter Section */}
-      <section className="py-10 bg-gray-50">
+      <section className="bg-slate-200 py-10 ">
         <div className="container mx-auto px-4">
           <div className="text-center mb-6">
-            <h2 className="text-3xl font-semibold">Search Properties</h2>
+            <h2 className="text-3xl text-black font-semibold">
+              Search Properties
+            </h2>
           </div>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
             {/* Search Input */}
@@ -108,7 +124,9 @@ const BuyerDashboard = () => {
             </select>
             {/* Search Button */}
             <button
-              className="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700"
+              className={`bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 ${
+                !city ? `cursor-not-allowed` : ``
+              } `}
               onClick={handleclick}
             >
               Search
@@ -118,13 +136,12 @@ const BuyerDashboard = () => {
       </section>
 
       {/* Featured Properties Section */}
-      <section className="py-10 bg-gray-100">
+      {/* <section className="py-10 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-6">
             <h2 className="text-3xl font-semibold">Featured Properties</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {/* Example Property Card */}
             {cityData?.length > 0 ? (
               cityData.map((data, index) => {
                 return <DataCard key={data._id} data={data} />;
@@ -132,6 +149,38 @@ const BuyerDashboard = () => {
             ) : isSearch ? (
               searchData?.length > 0 ? (
                 searchData.map((data, index) => {
+                  return <DataCard key={data._id} data={data} />;
+                })
+              ) : (
+                <div className="flex w-full justify-center items-center text-xl text-red-500 font-medium">
+                  "Did not match any property, try again!"
+                </div>
+              )
+            ) : property?.length > 0 ? (
+              randomFourProperties.map((data, index) => {
+                return <DataCard key={data._id} data={data} />;
+              })
+            ) : (
+              <div className="flex w-full justify-center items-center text-xl text-red-500 font-medium">
+                "No property found ,create first"
+              </div>
+            )}
+          </div>
+        </div>
+      </section> */}
+      <section className="py-10 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-semibold">Featured Properties</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {isSearch || city ? (
+              searchData?.length > 0 ? (
+                searchData.map((data, index) => {
+                  return <DataCard key={data._id} data={data} />;
+                })
+              ) : cityData?.length > 0 ? (
+                cityData.map((data, index) => {
                   return <DataCard key={data._id} data={data} />;
                 })
               ) : (

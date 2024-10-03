@@ -108,6 +108,7 @@ export default function SpecificProperty() {
   useEffect(() => {
     getSpecificPropertyDetails();
     getSpecificUserDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestedStatus]);
 
   return (

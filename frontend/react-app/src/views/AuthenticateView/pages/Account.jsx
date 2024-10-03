@@ -21,6 +21,7 @@ export default function Account() {
   };
   useEffect(() => {
     getSpecificUserDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email]);
   return (
     <section className="p-6 bg-white rounded-xl shadow-lg max-w-md mx-auto mt-6 space-y-6">

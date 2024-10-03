@@ -29,6 +29,9 @@ function SellerNavbar() {
   const hideSignoutPopup = () => {
     setOpenSignoutPopup(false);
     localStorage.removeItem("email");
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+
   };
   const handleOpenSignoutPopupChange = (newOpen) => {
     setOpenSignoutPopup(newOpen);

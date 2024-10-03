@@ -6,6 +6,7 @@ import axios from "axios";
 import { ImageContextData } from "../../../context/ImageContextData";
 
 export default function EditUserDetails() {
+  // eslint-disable-next-line no-unused-vars
   const { imageNameData, setImageNameData } = useContext(ImageContextData);
   const email = localStorage.getItem("email");
   const [firstname, setFirstname] = useState("");
@@ -65,6 +66,7 @@ export default function EditUserDetails() {
 
   useEffect(() => {
     getSpecificUserDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email]);
   return (
     <>

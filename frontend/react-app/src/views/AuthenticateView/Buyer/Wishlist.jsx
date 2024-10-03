@@ -23,7 +23,7 @@ export default function Wishlist() {
         ? property?.map((property, index) => {
             return (
               <div key={index} className="flex justify-center">
-                <DataCard data={property} />
+                <DataCard data={property} onClick={getWishListProperty} />
               </div>
             );
           })

@@ -15,7 +15,6 @@ const login = async function (req, res) {
         bcrypt.compare(password, userFind.password, function (err, result) {
           if (result) {
             var token = jwt.sign({ username: username }, "realState",{expiresIn:"1d"});
-            console.log("token in login route", token);
             res.send({
               message: "user login successfully",
               status: 1,

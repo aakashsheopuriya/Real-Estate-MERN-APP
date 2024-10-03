@@ -3,46 +3,39 @@ import React, { useState } from "react";
 
 export default function SearchInput(props) {
   const [data, setData] = useState([]);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
 
-  
-  const handleSearch = (newValue) => {
-    fetch(newValue, setData);
+  // Async function to handle search and fetch results
+  const handleSearch = async (newValue) => {
     setValue(newValue);
-    const filterData = props.data.filter((item) => {
-      return item.title.includes(newValue);
-    });
 
-    if (filterData?.length > 0) {
+    if (!newValue) {
+      setData([]); // Clear data if no search value
+      props.getSearchData([]);
+      props.isSearch(false);
+      return;
+    }
+
+    // Filter local data or fetch data from server
+    const filterData = props.data.filter((item) =>
+      item.title.toLowerCase().includes(newValue.toLowerCase())
+    );
+
+    if (filterData.length > 0) {
       setData(filterData);
       props.getSearchData(filterData);
+      props.isSearch(true);
     } else {
       setData([]);
       props.getSearchData([]);
-    }
-
-    if(newValue.length>0){
-      props.isSearch(true);
-    }
-    else{
-    props.isSearch(false);
+      props.isSearch(false);
     }
   };
+
   const handleChange = (newValue) => {
-    setValue(newValue);
-    // const filterData = props.data.filter((item) => {
-    //   return item.title.includes(newValue);
-    // });
-
-    // if (filterData?.length > 0) {
-    //   setData(filterData);
-    //   props.getSearchData(filterData);
-    //   props.isSearch(true);
-    // } else {
-    //   props.isSearch(false);
-    // }
-    // props.getSearchData()
+    setValue(newValue); // Set selected value
   };
+
   return (
     <div>
       <Select
@@ -50,13 +43,12 @@ export default function SearchInput(props) {
         value={value}
         placeholder={props.placeholder}
         style={props.style}
-        defaultActiveFirstOption={false}
+        defaultActiveFirstOption={true}
         suffixIcon={null}
-        // filterOption={false}
         onSearch={handleSearch}
         onChange={handleChange}
-        notFoundContent={null}
-        options={(data || []).map((d) => ({
+        notFoundContent={"we can not find any property maching this key word"} // Can also add custom 'not found' message if needed
+        options={data.map((d) => ({
           value: d.title,
           label: d.title,
         }))}

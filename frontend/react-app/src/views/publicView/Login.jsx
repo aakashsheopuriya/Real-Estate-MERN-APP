@@ -7,8 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState(true);
 
@@ -21,14 +19,13 @@ export default function Login() {
           password: values.password,
         }
       );
-      console.log("res in login",res);
       if (res.data.status === 0) {
         setMessage(res.data.message);
         setMessageColor(false);
       } else {
         localStorage.setItem("email", values.username);
         localStorage.setItem("role", res.data.role);
-        localStorage.setItem("token",res.data.token);
+        localStorage.setItem("token", res.data.token);
 
         if (res.data.role === "buyer") {
           navigate("/buyer-dashboard");
@@ -39,8 +36,6 @@ export default function Login() {
     } catch (err) {
       console.log("backend error", err.message);
     }
-    setUsername(values.username);
-    setPassword(values.password);
   };
 
   const email = localStorage.getItem("email");
@@ -58,9 +53,10 @@ export default function Login() {
     ) {
       navigate("/seller-dashboard");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, role]);
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-50">
+    <div className=" bg-[url('./images/wellcome.jpg')] h-screen w-full bg-cover bg-no-repeat min-h-screen flex items-center justify-center bg-blue-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
           Login

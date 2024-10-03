@@ -135,4 +135,22 @@ Router.get("/api/get-property-by-city/:city", async (req, res) => {
   });
 });
 
+Router.get("/remove-from-wishlist/:id", async (req, res) => {
+  const id = req.params.id;
+  const isDeleted = await Wishlist.deleteOne({
+    propertyId: new ObjectId(id),
+  });
+  if (isDeleted) {
+    res.send({
+      message: "Removed from wishlist",
+      status: true,
+    });
+  } else {
+    res.send({
+      message: "Faild to remove from wishlist",
+      status: true,
+    });
+  }
+});
+
 module.exports = Router;

@@ -1,5 +1,4 @@
 import React from "react";
-import AddButton from "../../components/buttons/AddButton";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function NoPage() {
@@ -14,7 +13,7 @@ export default function NoPage() {
         <p className="text-xl text-gray-600 mb-8">Oops! Page not found.</p>
         <Link
           onClick={handleBack}
-          to="/"
+          to="/login"
           className="px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition duration-300"
         >
           Back

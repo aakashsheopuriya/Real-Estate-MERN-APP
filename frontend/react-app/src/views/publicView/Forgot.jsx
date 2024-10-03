@@ -54,7 +54,7 @@ export default function Forgot() {
       setMessage(res.data.message);
       setMessageColor(true);
       setTimeout(() => {
-        navigate("/");
+        navigate("/login");
       }, 5000);
     } else {
       setMessage(res.data.message);
@@ -75,7 +75,7 @@ export default function Forgot() {
   }, [username]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-50">
+    <div className="bg-[url('./images/wellcome.jpg')] h-screen w-full bg-cover bg-no-repeat  min-h-screen flex items-center justify-center bg-blue-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
           Forgot Password
@@ -150,7 +150,7 @@ export default function Forgot() {
 
           <div className=" mt-2">
             <Link
-              to="/"
+              to="/login"
               className=" font-bold hover:text-blue-500 transition-colors duration-200 "
             >
               <ArrowLeftOutlined /> Go to Login page

@@ -11,12 +11,12 @@ const RequestedProperties = () => {
     );
     if (RequestedProperties) {
       setRequestedProperty(RequestedProperties.data.property);
-    } 
+    }
   };
   useEffect(() => {
     getRequestedProperties();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   return (
     <>
@@ -26,7 +26,11 @@ const RequestedProperties = () => {
         </h1>
         <div className="space-y-4">
           {RequestedProperty.map((property, index) => (
-            <RequestedPropertyCard property={property} index={index} />
+            <RequestedPropertyCard
+              key={index}
+              property={property}
+              index={index}
+            />
           ))}
         </div>
       </div>

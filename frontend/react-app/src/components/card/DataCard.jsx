@@ -1,9 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { EnvironmentOutlined } from "@ant-design/icons";
+import axios from "axios";
 
-export default function DataCard({ data }) {
+export default function DataCard({ data, onClick }) {
   const role = localStorage.getItem("role");
+  const [message, setMessage] = useState();
+  // const navigate = useNavigate();
+
+  const handleClick = async () => {
+    const isDeleted = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/buyer/remove-from-wishlist/${data._id}`
+    );
+    if (isDeleted) {
+      setMessage("Removed From Wishlist");
+      setTimeout(() => {
+        onClick();
+        setMessage("");
+      }, 3000);
+
+      // navigate("/buyer-dashboard/my-wishlist");
+    }
+  };
+  const location = useLocation();
   return (
     <>
       <div className="flex justify-center w-full p-4 cursor-pointer">
@@ -37,6 +56,17 @@ export default function DataCard({ data }) {
             <p className="text-blue-600 mt-2 font-semibold">
               &#8377;{data?.price}/- INR
             </p>
+            <div>
+              {location.pathname === `/buyer-dashboard/my-wishlist` && (
+                <button
+                  onClick={handleClick}
+                  className="mt-2 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                >
+                  Remove From Wishlist
+                </button>
+              )}
+            </div>
+            <div className="text-center m-2">{message && message}</div>
           </div>
         ) : (
           <p>No Property Found</p>

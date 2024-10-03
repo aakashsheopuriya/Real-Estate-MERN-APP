@@ -24,6 +24,7 @@ export default function MyProperty() {
 
   useEffect(() => {
     getSpecificProperty();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const items = [
     { title: "home" },
@@ -65,15 +66,6 @@ export default function MyProperty() {
                   })
                 : "No property found ,create first"}
             </div>
-          </div>
-
-          {/* </div> */}
-          <div className="flex justify-center items-center p-3">
-            {/* <AddButton
-            name="More"
-            className="flex justify-center items-center bg-blue-700 text-white p-2 w-20 rounded-xl hover:bg-blue-400"
-            onClick={handleMoreData}
-          /> */}
           </div>
         </div>
       </div>

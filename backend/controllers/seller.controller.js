@@ -116,6 +116,22 @@ const getRequestedProperties = async (req, res) => {
     res.send({ message: "failed", status: false });
   }
 };
+
+const getRequestedUserPopertyDetail = async (req, res) => {
+  const id = req.params.id;
+  const isPropertyFind = await requestedProperties.find({
+    _id: new ObjectId(id),
+  });
+  if (isPropertyFind) {
+    res.send({
+      message: "fetched All requested properties",
+      status: true,
+      property: isPropertyFind,
+    });
+  } else {
+    res.send({ message: "failed", status: false });
+  }
+};
 module.exports = {
   createProperty,
   propertyImageUpload,
@@ -124,4 +140,5 @@ module.exports = {
   propertyDelete,
   getAllSeller,
   getRequestedProperties,
+  getRequestedUserPopertyDetail,
 };

@@ -5,6 +5,7 @@ const User = require("../models/user.model");
 const emailSend = require("../helper/email-send");
 const otpGenerator = require("otp-generator");
 const { ObjectId } = require("mongodb");
+
 const getUsers = async (req, res) => {
   res.send({
     message: "all users data fetched successfully",
@@ -13,9 +14,22 @@ const getUsers = async (req, res) => {
   }); //json data response
 };
 
+const getUserByUsername = async (req, res) => {
+  const id = req.params.username;
+  const userFind = await User.findOne({ username: id });
+  if (userFind) {
+    res.send({
+      message: "specific user fetched successfully",
+      status: 1,
+      user: userFind,
+    });
+  } else {
+    res.send({ message: "specific user not found successfully", status: 0 });
+  }
+};
 const getUserById = async (req, res) => {
   const id = req.params.id;
-  const userFind = await User.findOne({ username: id });
+  const userFind = await User.findOne({ _id: new ObjectId(id) });
   if (userFind) {
     res.send({
       message: "specific user fetched successfully",
@@ -120,6 +134,7 @@ const profileDelete = async (req, res) => {
 };
 module.exports = {
   getUsers,
+  getUserByUsername,
   getUserById,
   userDelete,
   resetPassword,

@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 const RequestedPropertyCard = ({ property, index }) => {
   return (
     <>
-      {/* <Link
-        to={`/seller-dashboard/requested-user-Property-details/${property?._id}`}
-      > */}
       <div
         key={property.id}
         className="flex flex-col md:flex-row bg-white rounded-lg shadow-lg overflow-hidden md:h-32"
@@ -39,9 +36,17 @@ const RequestedPropertyCard = ({ property, index }) => {
               className="object-cover w-full h-[105px] rounded-lg hover:scale-105"
             />
           </div>
+          <div className="flex justify-center items-center">
+            <Link
+              to={`/seller-dashboard/requested-user-Property-details/${property._id}`}
+            >
+              <button className="w-full bg-blue-500 text-white p-2 px-4 m-2 rounded-md hover:bg-blue-700 transition">
+                View Details
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
-      {/* </Link> */}
     </>
   );
 };

@@ -24,5 +24,9 @@ Router.get(
   "/api/get-requested-properties/:email",
   sellerController.getRequestedProperties
 );
+Router.get(
+  "/api/requested-user-Property-details/:id",
+  sellerController.getRequestedUserPopertyDetail
+);
 
 module.exports = Router;

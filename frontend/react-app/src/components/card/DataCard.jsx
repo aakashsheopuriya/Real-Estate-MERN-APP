@@ -6,7 +6,7 @@ import axios from "axios";
 export default function DataCard({ data, onClick }) {
   const role = localStorage.getItem("role");
   const [message, setMessage] = useState();
-  // const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = async () => {
     const isDeleted = await axios.get(
@@ -22,7 +22,7 @@ export default function DataCard({ data, onClick }) {
       // navigate("/buyer-dashboard/my-wishlist");
     }
   };
-  const location = useLocation();
+
   return (
     <>
       <div className="flex justify-center w-full p-4 cursor-pointer">

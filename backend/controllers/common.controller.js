@@ -14,12 +14,14 @@ const login = async function (req, res) {
       if (userFind) {
         bcrypt.compare(password, userFind.password, function (err, result) {
           if (result) {
-            var token = jwt.sign({ username: username }, "realState",{expiresIn:"1d"});
+            var token = jwt.sign({ username: username }, "realState", {
+              expiresIn: "1d",
+            });
             res.send({
               message: "user login successfully",
               status: 1,
               role: userFind.role,
-              token:token
+              token: token,
             });
           } else {
             res.send({
@@ -154,24 +156,31 @@ const resetPassword = async function (req, res) {
   const message = await emailSend(email, otp, "reset");
   if (message) {
     const userFind = await User.findOne({ username: email });
-    const userUpdate = await User.updateOne(
-      { username: email },
-      { $set: { forgotOtp: otp } }
-    );
-    if (userUpdate.modifiedCount > 0) {
-      res.send({
-        message: `Verification OPT is successfully sent to ${email},  please verify.`,
-        status: true,
-      });
+    if (userFind) {
+      const userUpdate = await User.updateOne(
+        { username: email },
+        { $set: { forgotOtp: otp } }
+      );
+      if (userUpdate.modifiedCount > 0) {
+        res.send({
+          message: `Verification OPT is successfully sent to ${email},  please verify.`,
+          status: true,
+        });
+      } else {
+        res.send({
+          message: "Entered usernme or email is incorrect, try again!",
+          status: false,
+        });
+      }
     } else {
       res.send({
-        message: "Entered usernme or email is incorrect, try again!",
+        message: "User not found, try again!",
         status: false,
       });
     }
   } else {
     res.send({
-      message: "Entered usernme or email is incorrect, try again!",
+      message: "Entered usernme or email is incorrect, try again!!",
       status: false,
     });
   }

@@ -7,8 +7,9 @@ const bodyParser = require("body-parser"); //parse the req.body.parameter or par
 const sellerRouter = require("./routes/seller.route");
 const commonRouter = require("./routes/common.route");
 const userRouter = require("./routes/user.route");
-const buyerRouter=require("./routes/buyer.route");
-const port = 9000;
+const buyerRouter = require("./routes/buyer.route");
+require("dotenv").config();
+const port = process.env.PORT || 9000;
 const app = express();
 
 app.use(cors({ origin: "*" }));
@@ -22,7 +23,6 @@ dbConnect();
 // parse incoming body data in the form of application/json
 app.use(bodyParser.json());
 
-
 //common router endpoint
 app.use("/common", commonRouter);
 
@@ -34,7 +34,6 @@ app.use("/user", userRouter);
 
 //buyer router endpoint
 app.use("/buyer", buyerRouter);
-
 
 app.listen(port, function () {
   console.log(`listening on port http://localhost:${port}`);

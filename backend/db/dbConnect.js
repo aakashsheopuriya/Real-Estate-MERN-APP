@@ -1,18 +1,7 @@
-const { MongoClient } = require("mongodb");
-const mongoose=require("mongoose");
+require("dotenv").config();
+const mongoose = require("mongoose");
 
-const url = "mongodb://127.0.0.1:27017/Realstate";
-
-// const dbConnect = async () => {
-//   const connect = await MongoClient.connect(url);
-
-//   const db = await connect.db("Realstate"); //database connect
-
-//   const collection = db.collection("users"); //collection join with db
-
-//   return collection; //return collection as users
-// };
-
+const url = process.env.DATABASE_URL;
 const dbConnect = async () => {
   mongoose
     .connect(url)

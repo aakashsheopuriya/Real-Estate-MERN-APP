@@ -38,7 +38,7 @@ export default function Signup() {
       if (res.data.status) {
         setMessageColor(true);
         setTimeout(() => {
-          navigate("/");
+          navigate("/login");
         }, 5000);
       }
     } catch (err) {

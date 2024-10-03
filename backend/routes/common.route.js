@@ -1,6 +1,7 @@
 const express = require("express");
 const Router = express.Router();
-const dbConnect = require("../db/dbConnect");
+
+
 const commonController = require("../controllers/common.controller");
 
 Router.post("/api/login", commonController.login);

@@ -5,12 +5,12 @@ const emailSend = async (user, otp, type) => {
       host: "smtp.gmail.com", //gmail hostname
       port: 465,
       auth: {
-        user: "durgeshuniversal1037@gmail.com", //user email address
-        pass: "tidcpbqyntbxhhif", //app password
+        user: process.env.SMTP_USER, //user email address
+        pass: process.env.SMTP_PASS, //app password
       },
     });
     const info = await transport.sendMail({
-      from: "durgeshuniversal1037@gmail.com", // sender address
+      from: "akashmlhare@gamil.com", // sender address
       to: user, // list of receivers
       subject:
         type == "reset" ? "Request For Reset Password ✔" : "Welcome Message", // Subject line

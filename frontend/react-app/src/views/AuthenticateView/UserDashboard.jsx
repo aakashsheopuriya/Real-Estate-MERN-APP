@@ -95,7 +95,7 @@ export default function UserDashboard() {
     <div className="bg-gray-100 min-h-screen">
       {/* Welcome Section */}
       <section
-        className={` bg-[url('./images/house.jpg')] bg-cover bg-center text-white py-20 text-center`}
+        className={` bg-[url('./images/house.jpg')] text-white py-20 text-center`}
       >
         <h1 className="drop-shadow-sm text-4xl md:text-5xl font-bold">
           Welcome, {user.firstname} {user.lastname}!

@@ -10,7 +10,7 @@ const emailSend = async (user, otp, type) => {
       },
     });
     const info = await transport.sendMail({
-      from: "akashmlhare@gamil.com", // sender address
+      from: process.env.SMTP_USER, // sender address
       to: user, // list of receivers
       subject:
         type == "reset" ? "Request For Reset Password ✔" : "Welcome Message", // Subject line

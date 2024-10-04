@@ -20,6 +20,7 @@ export default function PropertyDetails() {
     }
   };
   const handleDelete = async (id) => {
+    // eslint-disable-next-line no-unused-vars
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/seller/api/property-delete/${id}`
     );
@@ -35,6 +36,7 @@ export default function PropertyDetails() {
   };
   useEffect(() => {
     getSpecificPropertyDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="">

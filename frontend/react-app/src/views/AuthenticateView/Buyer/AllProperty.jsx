@@ -7,6 +7,7 @@ import AddButton from "../../../components/buttons/AddButton";
 
 export default function AllProperty() {
   const [property, setProperty] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [item, setItem] = useState(8);
   const [page, setPage] = useState(1);
   const [totalProperty, setTotalProperty] = useState(1);
@@ -27,6 +28,7 @@ export default function AllProperty() {
   };
   useEffect(() => {
     getAllProperty();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, item]);
   const items = [
     { title: "home" },

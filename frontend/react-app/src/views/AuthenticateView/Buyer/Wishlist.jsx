@@ -16,6 +16,7 @@ export default function Wishlist() {
 
   useEffect(() => {
     getWishListProperty();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email]);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

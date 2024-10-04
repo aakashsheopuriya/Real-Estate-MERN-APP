@@ -21,7 +21,6 @@ export default function PropertyEdit() {
   const [imageName, setImageName] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  // const [property, setProperty] = useState([]);
 
   const handleChange = (value) => {
     setPrice(value);
@@ -109,6 +108,7 @@ export default function PropertyEdit() {
 
   useEffect(() => {
     getSpecificPropertyDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

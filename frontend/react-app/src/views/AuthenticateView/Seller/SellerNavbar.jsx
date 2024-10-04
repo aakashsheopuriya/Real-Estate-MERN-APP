@@ -60,6 +60,7 @@ function SellerNavbar() {
       navigate("/");
     }
     getSpecificUserDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, navigate]);
 
   return (

@@ -108,7 +108,7 @@ export default function PropertyEdit() {
 
   useEffect(() => {
     getSpecificPropertyDetails();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -211,12 +211,7 @@ export default function PropertyEdit() {
               height={100}
             ></img>
           ) : (
-            <img
-              src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageName}`}
-              alt="not found"
-              width={100}
-              height={100}
-            ></img>
+            <img src={imageName} alt="not found" width={100} height={100}></img>
           )}
         </div>
 

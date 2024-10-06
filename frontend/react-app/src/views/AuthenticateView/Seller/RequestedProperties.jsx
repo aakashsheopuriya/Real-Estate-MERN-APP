@@ -15,14 +15,16 @@ const RequestedProperties = () => {
   };
   useEffect(() => {
     getRequestedProperties();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4 text-blue-600">
-          Requested Properties
+          {RequestedProperty.length !== 0
+            ? "Requested Properties"
+            : "You don't have any requests"}
         </h1>
         <div className="space-y-4">
           {RequestedProperty.map((property, index) => (

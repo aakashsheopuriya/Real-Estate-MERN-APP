@@ -36,7 +36,7 @@ export default function SpecificProperty() {
       setPropertyImage(res.data.property.image);
       setPropertyPrice(res.data.property.price);
     } else {
-      navigate("/dashboard/my-property");
+      navigate("/seller-dashboard/my-property");
       setProperty([]);
     }
   };

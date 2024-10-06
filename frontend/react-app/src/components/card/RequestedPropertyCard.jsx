@@ -31,7 +31,7 @@ const RequestedPropertyCard = ({ property, index }) => {
           {/* Property Image */}
           <div className="w-full md:w-40 h-40">
             <img
-              src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${property.image}`}
+              src={property.image}
               alt={property.title}
               className="object-cover w-full h-[105px] rounded-lg hover:scale-105"
             />

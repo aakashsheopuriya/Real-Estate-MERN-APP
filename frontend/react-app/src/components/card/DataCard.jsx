@@ -43,7 +43,7 @@ export default function DataCard({ data, onClick }) {
                     width: "300px",
                     height: "240px",
                   }}
-                  src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${data.image}`}
+                  src={data.image}
                   alt=""
                   className="w-full h-48 object-cover transform transition-transform duration-300 hover:scale-105"
                 />

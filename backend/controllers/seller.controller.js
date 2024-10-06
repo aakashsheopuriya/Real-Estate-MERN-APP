@@ -30,13 +30,13 @@ const createProperty = async (req, res) => {
 const propertyImageUpload = async (req, res) => {
   const propertyUpdate = await Property.updateOne(
     { _id: new ObjectId(req.params.id) },
-    { $set: { image: req.params.id + "-" + req.file.originalname } }
+    { $set: { image: req.file.path } }
   );
   if (propertyUpdate) {
     res.send({
       message: "Updated Successfully, Redirecting to my properties page",
       status: 1,
-      image: req.params.email + "-" + req.file.originalname,
+      image: req.file.path,
     });
   } else {
     res.send({ message: "Failed, try again later", status: 0 });
@@ -82,11 +82,18 @@ const getPropertyById = async (req, res) => {
 const propertyDelete = async (req, res) => {
   const id = req.params.id;
   const isPropertyFind = await Property.find({ _id: new ObjectId(id) });
-  const propertyDelete = await Property.deleteOne({ _id: new ObjectId(id) });
-  res.send({
-    message: "delete property successfully",
-    status: true,
-  });
+  if (isPropertyFind) {
+    const isPropertyDelete = await Property.deleteOne({
+      _id: new ObjectId(id),
+    });
+    if (isPropertyDelete) {
+      res.send({
+        message: "delete property successfully",
+        status: true,
+      });
+    }
+  }
+  
 };
 const getAllSeller = async (req, res) => {
   const isFind = await User.find({ role: "seller" });

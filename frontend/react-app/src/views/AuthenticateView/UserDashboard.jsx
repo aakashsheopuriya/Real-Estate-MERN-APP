@@ -134,9 +134,13 @@ export default function UserDashboard() {
         </button>
       </div>
 
-      {/* Wishlisted Properties Section */}
+      {/* Requested Properties */}
       <section className="py-12 px-6 bg-gray-200">
-        <h2 className="text-3xl font-semibold mb-6">Requested Properties</h2>
+        <h2 className="text-3xl font-semibold mb-6">
+          {RequestedProperty.length !== 0
+            ? "Requested Properties"
+            : "You don't have any requests"}
+        </h2>
         <div className="container mx-auto p-4">
           <div className="space-y-4">
             {RequestedProperty.map((property, index) => (

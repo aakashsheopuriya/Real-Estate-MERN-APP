@@ -17,6 +17,11 @@ function BuyerNavBar() {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
+  const handleClickmobileMenuOpen = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -31,14 +36,15 @@ function BuyerNavBar() {
     localStorage.removeItem("role");
     localStorage.removeItem("token");
   };
-  const handleOpenSignoutPopupChange = (newOpen) => {
-    setOpenSignoutPopup(newOpen);
+  const handleOpenSignoutPopupChange = () => {
+    setOpenSignoutPopup(true);
   };
 
   const [openLanguage, setOpenLanguage] = useState(false);
   const hideLanguage = () => {
     setOpenLanguage(false);
   };
+
   const handleOpenLanguageChange = (newOpen) => {
     setOpenLanguage(newOpen);
   };
@@ -58,19 +64,21 @@ function BuyerNavBar() {
       navigate("/");
     }
     getSpecificUserDetails();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, navigate]);
 
   return (
     <>
-      <div className="sticky z-10 top-0 w-full flex justify-between items-center bg-white  h-16 text-sm drop-shadow-md">
+      <div className="sticky z-20 top-0 w-full flex justify-between items-center bg-white  h-16 text-sm drop-shadow-md">
         {/* Logo Section */}
         <div className="text-blue-700 text-3xl hover:text-blue-500 hover:cursor-pointer pl-2">
-          <img
-            src={`${process.env.PUBLIC_URL}/HomeLogo.png`}
-            alt=""
-            className="h-10 rounded-lg"
-          />
+          <NavLink to="/buyer-dashboard">
+            <img
+              src={`${process.env.PUBLIC_URL}/HomeLogo.png`}
+              alt=""
+              className="h-10 rounded-lg"
+            />
+          </NavLink>
         </div>
 
         {/* Mobile Menu Button */}
@@ -129,7 +137,7 @@ function BuyerNavBar() {
             <div className="flex items-center">
               {imageNameData ? (
                 <img
-                  src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageNameData}`}
+                  src={imageNameData}
                   alt="Preview"
                   className="w-8 h-8 object-cover rounded-full"
                 />
@@ -157,7 +165,10 @@ function BuyerNavBar() {
         >
           <ul type="none">
             <Link to="/buyer-dashboard/account-information">
-              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
+              <li
+                onClick={onClose}
+                className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white"
+              >
                 Account Information
               </li>
             </Link>
@@ -175,11 +186,14 @@ function BuyerNavBar() {
               </Link>
             </Popover>
             <Link to="/buyer-dashboard/help-and-support">
-              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
+              <li
+                onClick={onClose}
+                className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white"
+              >
                 Help & Support
               </li>
             </Link>
-            <Link to="/buyer-dashboard/privacy-and-policies">
+            <Link onClick={onClose} to="/buyer-dashboard/privacy-and-policies">
               <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
                 Privacy & Policies
               </li>
@@ -211,7 +225,7 @@ function BuyerNavBar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white">
+        <div className="md:hidden sticky top-16 z-10 bg-white">
           <ul className="flex flex-col text-base gap-5 p-5">
             <li>
               <NavLink
@@ -222,6 +236,7 @@ function BuyerNavBar() {
                     isActive ? "text-blue-500" : "text-black"
                   }`
                 }
+                onClick={handleClickmobileMenuOpen}
               >
                 Home
               </NavLink>
@@ -234,6 +249,7 @@ function BuyerNavBar() {
                     isActive ? "text-blue-500" : "text-black"
                   }`
                 }
+                onClick={handleClickmobileMenuOpen}
               >
                 All Property
               </NavLink>
@@ -246,6 +262,7 @@ function BuyerNavBar() {
                     isActive ? "text-blue-500" : "text-black"
                   }`
                 }
+                onClick={handleClickmobileMenuOpen}
               >
                 Wishlist
               </NavLink>

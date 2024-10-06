@@ -4,8 +4,11 @@ import InputField from "../../../components/inputfield/InputField";
 import AddButton from "../../../components/buttons/AddButton";
 import axios from "axios";
 import { ImageContextData } from "../../../context/ImageContextData";
+import { useNavigate } from "react-router-dom";
 
 export default function EditUserDetails() {
+  const navigate = useNavigate();
+  const role = localStorage.getItem("role");
   // eslint-disable-next-line no-unused-vars
   const { imageNameData, setImageNameData } = useContext(ImageContextData);
   const email = localStorage.getItem("email");
@@ -40,6 +43,13 @@ export default function EditUserDetails() {
         if (result.data.status) {
           setMessage("User detais updated successfully");
           setImageNameData(result.data.image);
+          setTimeout(() => {
+            if (role === "seller") {
+              navigate("/seller-dashboard/account-information");
+            } else {
+              navigate("/seller-dashboard/account-information");
+            }
+          }, 2000);
         } else {
           setMessage(result.data.message);
         }
@@ -140,7 +150,7 @@ export default function EditUserDetails() {
               />
             ) : (
               <img
-                src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageName}`}
+                src={imageName}
                 alt="Preview"
                 className="w-24 h-24 object-cover rounded"
               />

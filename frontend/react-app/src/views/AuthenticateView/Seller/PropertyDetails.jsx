@@ -15,7 +15,7 @@ export default function PropertyDetails() {
     if (res.data.property) {
       setProperty(res.data.property);
     } else {
-      navigate("/dashboard/my-property");
+      navigate("/seller-dashboard/my-property");
       setProperty([]);
     }
   };
@@ -24,7 +24,10 @@ export default function PropertyDetails() {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/seller/api/property-delete/${id}`
     );
-    getSpecificPropertyDetails();
+    if (res) {
+      navigate("/seller-dashboard/my-property");
+      getSpecificPropertyDetails();
+    }
   };
 
   const handleNavigate = () => {
@@ -36,7 +39,7 @@ export default function PropertyDetails() {
   };
   useEffect(() => {
     getSpecificPropertyDetails();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="">

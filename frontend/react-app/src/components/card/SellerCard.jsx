@@ -7,7 +7,7 @@ const SellerCard = ({ data }) => {
       className="bg-gray-100 p-4 shadow-md rounded-lg text-center"
     >
       <img
-        src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${data?.image}`}
+        src={data?.image}
         alt={``}
         className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
       />

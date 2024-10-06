@@ -33,7 +33,7 @@ const AccountCard = ({ userData, profileImage }) => {
       <div className="flex flex-col items-center sm:flex-row sm:items-center sm:space-x-4 space-y-4 sm:space-y-0">
         <p className="font-semibold text-gray-800 text-lg">Profile Image:</p>
         <img
-          src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${profileImage}`}
+          src={profileImage}
           alt="Profile"
           className="h-28 w-28 rounded-full border-2 border-gray-200 object-cover"
         />

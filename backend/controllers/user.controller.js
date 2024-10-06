@@ -90,17 +90,17 @@ const userEmailSend = async function (req, res) {
 };
 
 const userUpload = async (req, res) => {
-  const userFind = await User.findOne({ _id: new ObjectId(req.params.email) });
+  const userFind = await User.findOne({ _id: new ObjectId(req.params.id) });
   if (userFind) {
     const userUpdate = await User.updateOne(
-      { _id: new ObjectId(req.params.email) },
-      { $set: { image: userFind._id.toString() + "-" + req.file.originalname } }
+      { _id: new ObjectId(req.params.id) },
+      { $set: { image: req.file.path } }
     );
     if (userUpdate) {
       res.send({
         message: "Updated successfully",
         status: 1,
-        image: req.params.email + "-" + req.file.originalname,
+        image: req.file.path,
       });
     } else {
       res.send({ message: " failed", status: 0 });

@@ -18,6 +18,10 @@ function SellerNavbar() {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const handleClickmobileMenuOpen = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -31,10 +35,9 @@ function SellerNavbar() {
     localStorage.removeItem("email");
     localStorage.removeItem("role");
     localStorage.removeItem("token");
-
   };
-  const handleOpenSignoutPopupChange = (newOpen) => {
-    setOpenSignoutPopup(newOpen);
+  const handleOpenSignoutPopupChange = () => {
+    setOpenSignoutPopup(true);
   };
 
   const [openLanguage, setOpenLanguage] = useState(false);
@@ -60,18 +63,20 @@ function SellerNavbar() {
       navigate("/");
     }
     getSpecificUserDetails();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, navigate]);
 
   return (
     <>
-      <div className="sticky z-10 top-0 w-full flex justify-between items-center bg-white h-16 text-sm drop-shadow-md">
+      <div className="sticky z-20 top-0 w-full flex justify-between items-center bg-white h-16 text-sm drop-shadow-md">
         <div className="text-blue-700 text-3xl hover:text-blue-500 hover:cursor-pointer pl-2">
-          <img
-            src={`${process.env.PUBLIC_URL}/HomeLogo.png`}
-            alt=""
-            className="h-12 rounded-lg"
-          />
+          <NavLink to="/buyer-dashboard">
+            <img
+              src={`${process.env.PUBLIC_URL}/HomeLogo.png`}
+              alt=""
+              className="h-10 rounded-lg"
+            />
+          </NavLink>
         </div>
 
         {/* Mobile Menu Button */}
@@ -130,7 +135,7 @@ function SellerNavbar() {
             <div className="flex items-center">
               {imageNameData ? (
                 <img
-                  src={`${process.env.REACT_APP_BACKEND_URL}/user/api/download/${imageNameData}`}
+                  src={imageNameData}
                   alt="Preview"
                   className="w-8 h-8 object-cover rounded-full"
                 />
@@ -216,12 +221,13 @@ function SellerNavbar() {
 
       {/* Mobile Menu - hidden by default */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white">
+        <div className="md:hidden sticky top-16 z-10 bg-white">
           <ul className="flex flex-col text-base gap-5 p-5">
             <li>
               <NavLink
                 to="/seller-dashboard"
                 end
+                onClick={handleClickmobileMenuOpen}
                 className={({ isActive }) =>
                   `hover:text-blue-700 ${
                     isActive ? "text-blue-500" : "text-black"
@@ -239,6 +245,7 @@ function SellerNavbar() {
                     isActive ? "text-blue-500" : "text-black"
                   }`
                 }
+                onClick={handleClickmobileMenuOpen}
               >
                 Create Property
               </NavLink>
@@ -251,6 +258,7 @@ function SellerNavbar() {
                     isActive ? "text-blue-500" : "text-black"
                   }`
                 }
+                onClick={handleClickmobileMenuOpen}
               >
                 My Property
               </NavLink>

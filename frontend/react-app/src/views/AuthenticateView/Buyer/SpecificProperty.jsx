@@ -22,6 +22,7 @@ export default function SpecificProperty() {
   const [propertyPrice, setPropertyPrice] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const getSpecificPropertyDetails = async () => {
     const res = await axios.get(
@@ -35,6 +36,7 @@ export default function SpecificProperty() {
       setPropertyTitle(res.data.property.title);
       setPropertyImage(res.data.property.image);
       setPropertyPrice(res.data.property.price);
+      setIsLoaded(true);
     } else {
       navigate("/seller-dashboard/my-property");
       setProperty([]);
@@ -108,17 +110,14 @@ export default function SpecificProperty() {
   useEffect(() => {
     getSpecificPropertyDetails();
     getSpecificUserDetails();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestedStatus]);
 
   return (
     <div className="py-5">
       <div>
         <div className="">{/* <BreadCrumbs items={items} /> */}</div>
-        <div>
-          {/* <DataCard data={property} /> */}
-          <SinglePropertyPage data={property} />
-        </div>
+        <div>{isLoaded && <SinglePropertyPage data={property} />}</div>
         <div className="flex justify-center items-center p-5">
           <div>
             <Popconfirm

@@ -5,6 +5,8 @@ import AddButton from "../../../components/buttons/AddButton";
 import axios from "axios";
 import { ImageContextData } from "../../../context/ImageContextData";
 import { useNavigate } from "react-router-dom";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 
 export default function EditUserDetails() {
   const navigate = useNavigate();
@@ -20,8 +22,10 @@ export default function EditUserDetails() {
   const [imageName, setImageName] = useState("");
   const [id, setId] = useState("");
   const [message, setMessage] = useState("");
+  const [loader, setLoader] = useState(false);
 
   const handleSaveDetails = async () => {
+    setLoader(true);
     const formData = new FormData();
     formData.append("image", image);
     const res = await axios.post(
@@ -29,7 +33,6 @@ export default function EditUserDetails() {
       { firstname, lastname, address }
     );
     if (res.data.status) {
-      setMessage(res.data.message);
       if (imagePreview) {
         const result = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/user/api/upload/${id}`,
@@ -41,6 +44,7 @@ export default function EditUserDetails() {
           }
         );
         if (result.data.status) {
+          setLoader(false);
           setMessage("User detais updated successfully");
           setImageNameData(result.data.image);
           setTimeout(() => {
@@ -159,11 +163,20 @@ export default function EditUserDetails() {
         </div>
 
         {/* Save Button */}
-        <AddButton
-          name="Save"
-          className="bg-blue-700 text-white p-3 mt-6 rounded-xl w-full"
-          onClick={handleSaveDetails}
-        />
+        {loader ? (
+          <Spin
+            indicator={<LoadingOutlined spin />}
+            size="large"
+            className=" w-full "
+          />
+        ) : (
+          <AddButton
+            name="Save"
+            className="bg-blue-700 text-white p-3 mt-6 rounded-xl w-full"
+            onClick={handleSaveDetails}
+          />
+        )}
+
         <div className="font-medium text-blue-600 mt-3">{message}</div>
       </div>
     </>

@@ -12,6 +12,9 @@ Router.post(
   sellerController.propertyImageUpload
 );
 
+Router.post("/api/property/update/remove-services/:id", sellerController.propertyUpdateRemoveServices);
+
+
 Router.post("/api/property/update/:id", sellerController.propertyUpdate);
 
 Router.get("/api/get-property/:id", sellerController.getPropertyById);

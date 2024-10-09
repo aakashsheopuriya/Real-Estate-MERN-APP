@@ -43,10 +43,30 @@ const propertyImageUpload = async (req, res) => {
   }
 };
 
+const propertyUpdateRemoveServices = async (req, res) => {
+  const propertyUpdate = await Property.updateOne(
+    { _id: new ObjectId(req.params.id) },
+    {
+      $unset: {
+        services: "",
+      },
+    }
+  );
+  console.log(propertyUpdate);
+  if (propertyUpdate) {
+    res.send({
+      message: "removed previous services",
+      status: true,
+    });
+  } else {
+    res.send({ message: "failed", status: false });
+  }
+};
+
 const propertyUpdate = async (req, res) => {
   const { title, description, contact, address, price, services } = req.body;
 
-  const propertyUpdate = await Property.updateOne(
+  await Property.updateOne(
     { _id: new ObjectId(req.params.id) },
     {
       $set: {
@@ -93,7 +113,6 @@ const propertyDelete = async (req, res) => {
       });
     }
   }
-  
 };
 const getAllSeller = async (req, res) => {
   const isFind = await User.find({ role: "seller" });
@@ -148,4 +167,5 @@ module.exports = {
   getAllSeller,
   getRequestedProperties,
   getRequestedUserPopertyDetail,
+  propertyUpdateRemoveServices,
 };

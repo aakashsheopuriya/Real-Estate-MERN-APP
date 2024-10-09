@@ -1,7 +1,19 @@
-import React from "react";
+import { LoginOutlined } from "@ant-design/icons";
+import { Popover } from "antd";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const AccountCard = ({ userData, profileImage }) => {
+  const [openSignoutPopup, setOpenSignoutPopup] = useState(false);
+  const hideSignoutPopup = () => {
+    setOpenSignoutPopup(false);
+    localStorage.removeItem("email");
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+  };
+  const handleOpenSignoutPopupChange = () => {
+    setOpenSignoutPopup(true);
+  };
   const location = useLocation();
   const currentLocation = location.pathname;
   return (
@@ -41,12 +53,35 @@ const AccountCard = ({ userData, profileImage }) => {
       {currentLocation.includes("requested-user-Property-details") ? (
         ""
       ) : (
-        <Link
-          to="/seller-dashboard/edit-details"
-          className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 text-center"
-        >
-          Edit
-        </Link>
+        <div className="flex justify-between">
+          <Link
+            to="/seller-dashboard/edit-details"
+            className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 text-center"
+          >
+            Edit
+          </Link>
+          <div className="bg-slate-500 hover:bg-slate-300 px-3 py-3 transition-colors duration-300 rounded-lg shadow-md text-white">
+            <Popover
+              content={
+                <Link
+                  onClick={hideSignoutPopup}
+                  className="text-white bg-red-500 px-3 py-3 rounded-lg flex justify-center items-center "
+                >
+                  Yes
+                </Link>
+              }
+              title="Do you want to Signout?"
+              trigger="click"
+              open={openSignoutPopup}
+              onOpenChange={() => handleOpenSignoutPopupChange()}
+            >
+              <Link className="hover:text-red-700 font-semibold p-4">
+                <span>SignOut</span>
+                <LoginOutlined className="ml-3" />
+              </Link>
+            </Popover>
+          </div>
+        </div>
       )}
     </section>
   );

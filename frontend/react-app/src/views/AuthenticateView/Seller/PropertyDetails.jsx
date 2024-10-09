@@ -8,12 +8,14 @@ export default function PropertyDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [property, setProperty] = useState({});
+  const [isLoaded, setIsLoaded] = useState(false);
   const getSpecificPropertyDetails = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/common/api/get-property/${id}`
     );
     if (res.data.property) {
       setProperty(res.data.property);
+      setIsLoaded(true);
     } else {
       navigate("/seller-dashboard/my-property");
       setProperty([]);
@@ -45,10 +47,7 @@ export default function PropertyDetails() {
     <div className="">
       <div>
         <div className="mt-5">{/* <BreadCrumbs items={items} /> */}</div>
-        <div>
-          {/* <DataCard data={property} /> */}
-          <SinglePropertyPage data={property} />
-        </div>
+        <div>{isLoaded && <SinglePropertyPage data={property} />}</div>
         <div className="flex justify-center items-center p-5">
           <div>
             <Popconfirm

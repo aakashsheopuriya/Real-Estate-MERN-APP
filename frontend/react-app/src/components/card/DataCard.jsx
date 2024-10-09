@@ -2,17 +2,22 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { EnvironmentOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 
 export default function DataCard({ data, onClick }) {
   const role = localStorage.getItem("role");
   const [message, setMessage] = useState();
   const location = useLocation();
+  const [loader, setLoader] = useState(false);
 
   const handleClick = async () => {
+    setLoader(true);
     const isDeleted = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/buyer/remove-from-wishlist/${data._id}`
     );
     if (isDeleted) {
+      setLoader(false);
       setMessage("Removed From Wishlist");
       setTimeout(() => {
         onClick();
@@ -57,14 +62,21 @@ export default function DataCard({ data, onClick }) {
               &#8377;{data?.price}/- INR
             </p>
             <div>
-              {location.pathname === `/buyer-dashboard/my-wishlist` && (
-                <button
-                  onClick={handleClick}
-                  className="mt-2 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
-                >
-                  Remove From Wishlist
-                </button>
-              )}
+              {location.pathname === `/buyer-dashboard/my-wishlist` &&
+                (loader ? (
+                  <Spin
+                    indicator={<LoadingOutlined spin />}
+                    size="large"
+                    className="w-full"
+                  />
+                ) : (
+                  <button
+                    onClick={handleClick}
+                    className="mt-2 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                  >
+                    Remove From Wishlist
+                  </button>
+                ))}
             </div>
             <div className="text-center m-2">{message && message}</div>
           </div>

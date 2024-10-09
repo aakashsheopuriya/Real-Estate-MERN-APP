@@ -1,6 +1,7 @@
 import React from "react";
 
 const SinglePropertyPage = ({ data }) => {
+  const propertyservices = data?.services;
   return (
     <div className="flex flex-col w-11/12 md:flex-row max-w-4xl mx-auto p-4 bg-white shadow-lg rounded-lg">
       {/* Image Section */}
@@ -20,7 +21,7 @@ const SinglePropertyPage = ({ data }) => {
 
           <h3 className="text-lg font-semibold">Services</h3>
           <p className="text-gray-600 mb-4">
-            {data?.services?.map((service, index) => (
+            {propertyservices.map((service, index) => (
               <li key={index}>{service}</li>
             ))}
           </p>

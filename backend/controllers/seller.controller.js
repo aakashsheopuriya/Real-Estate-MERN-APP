@@ -52,7 +52,6 @@ const propertyUpdateRemoveServices = async (req, res) => {
       },
     }
   );
-  console.log(propertyUpdate);
   if (propertyUpdate) {
     res.send({
       message: "removed previous services",

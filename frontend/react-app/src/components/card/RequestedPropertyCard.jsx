@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const RequestedPropertyCard = ({ property, index }) => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+      mirror: false,
+    });
+  });
   return (
     <>
       <div
+        data-aos="fade-up"
+        data-aos-offset="300"
         key={property.id}
         className="flex flex-col md:flex-row bg-white rounded-lg shadow-lg overflow-hidden md:h-32"
       >

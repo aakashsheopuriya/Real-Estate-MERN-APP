@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { EnvironmentOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function DataCard({ data, onClick }) {
   const role = localStorage.getItem("role");
@@ -28,9 +30,19 @@ export default function DataCard({ data, onClick }) {
     }
   };
 
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+    });
+  });
+
   return (
     <>
-      <div className="flex justify-center w-full p-4 cursor-pointer">
+      <div
+        data-aos="fade-up"
+        data-aos-offset="300"
+        className="flex justify-center w-full p-4 cursor-pointer"
+      >
         {data ? (
           <div className="bg-white p-4 shadow-md rounded-lg transform transition-transform duration-300 hover:shadow-2xl hover:text-blue-500">
             <Link

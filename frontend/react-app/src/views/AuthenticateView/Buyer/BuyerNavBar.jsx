@@ -9,6 +9,9 @@ import {
 } from "@ant-design/icons";
 import { ImageContextData } from "../../../context/ImageContextData";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 function BuyerNavBar() {
   const { imageNameData, setImageNameData } = useContext(ImageContextData);
   const [open, setOpen] = useState(false);
@@ -48,7 +51,6 @@ function BuyerNavBar() {
   const handleOpenLanguageChange = (newOpen) => {
     setOpenLanguage(newOpen);
   };
-
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
 
@@ -60,6 +62,9 @@ function BuyerNavBar() {
   };
 
   useEffect(() => {
+    AOS.init({
+      duration: 1200,
+    });
     if (!email) {
       navigate("/");
     }
@@ -225,7 +230,10 @@ function BuyerNavBar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden sticky top-16 z-10 bg-white">
+        <div
+          data-aos="slide-down"
+          className="  md:hidden sticky top-16 z-10 bg-white "
+        >
           <ul className="flex flex-col text-base gap-5 p-5">
             <li>
               <NavLink

@@ -1,7 +1,9 @@
 import { LoginOutlined } from "@ant-design/icons";
 import { Popover } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const AccountCard = ({ userData, profileImage }) => {
   const [openSignoutPopup, setOpenSignoutPopup] = useState(false);
@@ -16,8 +18,20 @@ const AccountCard = ({ userData, profileImage }) => {
   };
   const location = useLocation();
   const currentLocation = location.pathname;
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+      mirror: false,
+    });
+  });
+
   return (
-    <section className="p-6 bg-white rounded-xl shadow-lg max-w-md mx-auto mt-6 space-y-6">
+    <section
+      data-aos="zoom-in"
+      data-aos-offset="300"
+      className="p-6 bg-white rounded-xl shadow-lg max-w-md mx-auto mt-6 space-y-6"
+    >
       {currentLocation.includes("requested-user-Property-details") ? (
         <h2 className="text-2xl font-bold text-gray-900">Buyer Informations</h2>
       ) : (

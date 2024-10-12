@@ -19,7 +19,7 @@ export default function Forgot() {
 
   const handleOtp = async () => {
     const res = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/common/api/otp-sent`,
+      `${process.env.REACT_APP_BACKEND_URL}/common/api/otp-sent-forgot-password`,
       { email: username }
     );
     if (res.data.status) {
@@ -33,7 +33,7 @@ export default function Forgot() {
   };
   const handleOtpVerify = async () => {
     const res = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/common/api/otp-verify`,
+      `${process.env.REACT_APP_BACKEND_URL}/common/api/otp-verify-forgot-password`,
       { email: username, otp }
     );
     if (res.data.status) {

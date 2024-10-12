@@ -333,8 +333,6 @@ const LandingPage = () => {
             <h2 className="text-3xl font-semibold">Featured Properties</h2>
           </div>
           <div
-            data-aos="fade-up"
-            data-aos-offset="300"
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
           >
             {isSearch || city ? (
@@ -382,8 +380,6 @@ const LandingPage = () => {
             <h2 className="text-3xl font-semibold">Our Best Sellers</h2>
           </div>
           <div
-            data-aos="fade-up"
-            data-aos-offset="300"
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
           >
             {/* Example Seller Card */}

@@ -107,7 +107,7 @@ export default function PropertyEdit() {
       setPrice(res.data.property.price);
       // setServices(res.data.property.services);
       setExistService(res.data.property.services);
-      console.log("existServices", typeof existServices, existServices);
+      // console.log("existServices", typeof existServices, existServices);
       setIsLoadingDone(true);
       setImageName(res.data.property.image);
     } else {

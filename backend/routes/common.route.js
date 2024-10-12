@@ -16,9 +16,11 @@ Router.get("/api/delete/:email", commonController.userDelete);
 
 Router.get("/api/get-property/:id", commonController.getPropertyById);
 
-Router.post("/api/otp-sent", commonController.resetPassword);
+Router.post("/api/otp-sent-forgot-password", commonController.resetPassword);
 
-Router.post("/api/otp-verify", commonController.otpVerify);
+// Router.post("/api/otp-sent-email-verify", commonController.verifyEmail);
+
+Router.post("/api/otp-verify-forgot-password", commonController.otpVerify);
 
 Router.post("/api/newpassword-update", commonController.newPasswordUpdate);
 

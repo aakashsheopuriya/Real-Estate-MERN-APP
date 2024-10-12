@@ -9,6 +9,9 @@ import {
 } from "@ant-design/icons";
 import { ImageContextData } from "../../../context/ImageContextData";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 function SellerNavbar() {
   const { imageNameData, setImageNameData } = useContext(ImageContextData);
   const [open, setOpen] = useState(false);
@@ -59,6 +62,9 @@ function SellerNavbar() {
   };
 
   useEffect(() => {
+    AOS.init({
+      duration: 1200,
+    });
     if (!email) {
       navigate("/");
     }
@@ -162,7 +168,10 @@ function SellerNavbar() {
         >
           <ul type="none">
             <Link to="/seller-dashboard/account-information">
-              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white ">
+              <li
+                onClick={onClose}
+                className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white "
+              >
                 Account Information
               </li>
             </Link>
@@ -180,12 +189,18 @@ function SellerNavbar() {
               </Link>
             </Popover>
             <Link to="/seller-dashboard/help-and-support">
-              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
+              <li
+                onClick={onClose}
+                className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white"
+              >
                 Help & Support
               </li>
             </Link>
             <Link to="/seller-dashboard/privacy-and-policies">
-              <li className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white">
+              <li
+                onClick={onClose}
+                className="bg-blue-500 hover:bg-blue-600 p-3 m-2 gap-2 rounded-2xl text-white"
+              >
                 Privacy & Policies
               </li>
             </Link>
@@ -221,7 +236,10 @@ function SellerNavbar() {
 
       {/* Mobile Menu - hidden by default */}
       {mobileMenuOpen && (
-        <div className="md:hidden sticky top-16 z-10 bg-white">
+        <div
+          data-aos="slide-down"
+          className="  md:hidden sticky top-16 z-10 bg-white"
+        >
           <ul className="flex flex-col text-base gap-5 p-5">
             <li>
               <NavLink

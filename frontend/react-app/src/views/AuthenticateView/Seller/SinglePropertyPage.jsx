@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const SinglePropertyPage = ({ data }) => {
   const propertyservices = data?.services;
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+    });
+  });
   return (
-    <div className="flex flex-col w-11/12 md:flex-row max-w-4xl mx-auto p-4 bg-white shadow-lg rounded-lg">
+    <div
+      data-aos="zoom-in"
+      data-aos-offset="300"
+      className="flex flex-col w-11/12 md:flex-row max-w-4xl mx-auto p-4 bg-white shadow-lg rounded-lg"
+    >
       {/* Image Section */}
       <div className="w-full md:w-1/2 flex items-center justify-center">
         <img
@@ -21,7 +32,7 @@ const SinglePropertyPage = ({ data }) => {
 
           <h3 className="text-lg font-semibold">Services</h3>
           <p className="text-gray-600 mb-4">
-            {propertyservices.map((service, index) => (
+            {propertyservices?.map((service, index) => (
               <li key={index}>{service}</li>
             ))}
           </p>

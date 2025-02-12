@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { LockOutlined, UserOutlined, LoadingOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Form, Input, Spin } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState(true);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const onFinish = async (values) => {
+    setLoading(true); // Start loading
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/common/api/login`,
@@ -35,11 +36,12 @@ export default function Login() {
       }
     } catch (err) {
       console.log("backend error", err.message);
+      setMessage("Login failed. Please try again.");
+      setMessageColor(false);
+    } finally {
+      setLoading(false); // Stop loading after request completion
     }
   };
-
-  const email = localStorage.getItem("email");
-  const role = localStorage.getItem("role");
 
   useEffect(() => {
     if (
@@ -53,91 +55,71 @@ export default function Login() {
     ) {
       navigate("/seller-dashboard");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, role]);
+  }, []);
+
   return (
-    <div className=" bg-[url('./images/wellcome.jpg')] h-screen w-full bg-cover bg-no-repeat min-h-screen flex items-center justify-center bg-blue-50">
+    <div className="bg-[url('./images/wellcome.jpg')] h-screen w-full bg-cover bg-no-repeat flex items-center justify-center bg-blue-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
           Login
         </h2>
-        <div>
-          <Form
-            name="normal_login"
-            className="login-form"
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={onFinish}
+        <Form
+          name="normal_login"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+        >
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: "Please input your Username!" }]}
           >
-            <Form.Item
-              name="username"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Username!",
-                },
-              ]}
-            >
-              <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username"
-              />
+            <Input prefix={<UserOutlined />} placeholder="Username" />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: "Please input your Password!" }]}
+          >
+            <Input
+              prefix={<LockOutlined />}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Form.Item name="remember" valuePropName="checked" noStyle>
+              <Checkbox>Remember me</Checkbox>
             </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Password!",
-                },
-              ]}
+            <Link
+              to="/forgot-password"
+              className="login-form-forgot font-medium"
             >
-              <Input
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="Password"
-              />
-            </Form.Item>
-            <Form.Item>
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-
-              <Link
-                to="/forgot-password"
-                className="login-form-forgot font-medium"
-              >
-                Forgot Password
+              Forgot Password
+            </Link>
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+              loading={loading} // Shows a spinner when loading
+              disabled={loading} // Disables the button while loading
+            >
+              {loading ? "Logging in..." : "Login"}
+            </Button>
+            <span className="ml-2">
+              Or{" "}
+              <Link to="/Signup-Now" className="font-medium">
+                Register Now
               </Link>
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-              >
-                Login
-              </Button>
-              <span className="ml-2 gap-2">
-                Or{" "}
-                <Link to="/Signup-Now" className="font-medium">
-                  Register Now
-                </Link>
-              </span>
-            </Form.Item>
-            <div
-              className={
-                messageColor
-                  ? "font-medium text-blue-600 mt-3"
-                  : "font-medium text-red-500 mt-3"
-              }
-            >
-              {message}
-            </div>
-          </Form>
-        </div>
+            </span>
+          </Form.Item>
+          <div
+            className={`font-medium mt-3 ${
+              messageColor ? "text-blue-600" : "text-red-500"
+            }`}
+          >
+            {message}
+          </div>
+        </Form>
       </div>
     </div>
   );

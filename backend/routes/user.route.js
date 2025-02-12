@@ -2,16 +2,7 @@ const express = require("express");
 const userController = require("../controllers/user.controller");
 const Router = express.Router();
 
-// const multer = require("multer");
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "uploads/");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, req.params.email + "-" + file.originalname);
-//   },
-// });
-const upload = require("../helper/multer")
+const upload = require("../helper/multer");
 
 Router.get("/", function (req, res) {
   res.send({

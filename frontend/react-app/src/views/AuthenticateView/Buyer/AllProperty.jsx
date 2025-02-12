@@ -72,7 +72,6 @@ export default function AllProperty() {
             </div>
           </div>
 
-          {/* </div> */}
           <div className="flex justify-center items-center p-3">
             {isSearch
               ? searchData.length > item * page && (

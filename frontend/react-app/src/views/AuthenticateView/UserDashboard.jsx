@@ -8,6 +8,8 @@ export default function UserDashboard() {
   const email = localStorage.getItem("email");
   const [user, setUser] = useState({});
   const [property, setProperty] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const [RequestedProperty, setRequestedProperty] = useState([]);
   const [randomFourProperties, setRandomfourProperties] = useState([]);
   const navigate = useNavigate();
@@ -19,11 +21,13 @@ export default function UserDashboard() {
   };
 
   const getRequestedProperties = async () => {
+    setLoading(true);
     const RequestedProperties = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/seller/api/get-requested-properties/${email}`
     );
     if (RequestedProperties) {
       setRequestedProperty(RequestedProperties.data.property);
+      setLoading(false);
     }
   };
 
@@ -90,6 +94,14 @@ export default function UserDashboard() {
     getRequestedProperties();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <div className="w-16 h-16 border-4 border-t-transparent border-b-transparent border-black rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-100 min-h-screen">

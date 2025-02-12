@@ -7,6 +7,8 @@ import SearchInput from "../../../components/searchdata/SearchInput";
 
 const BuyerDashboard = () => {
   const [property, setProperty] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const [allSeller, setAllSeller] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [isSearch, setIsSearch] = useState(false);
@@ -24,6 +26,7 @@ const BuyerDashboard = () => {
   };
 
   const getAllProperty = async () => {
+    setLoading(true);
     const properties = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/buyer/api/get-all-property`
     );
@@ -31,6 +34,7 @@ const BuyerDashboard = () => {
       setProperty(properties.data.property.slice(0, 4));
       setAllProperty(properties.data.property);
       getRandomItems(properties.data.property, 4);
+      setLoading(false);
     }
   };
 
@@ -68,6 +72,14 @@ const BuyerDashboard = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <div className="w-16 h-16 border-4 border-t-transparent border-b-transparent border-black rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -135,39 +147,6 @@ const BuyerDashboard = () => {
         </div>
       </section>
 
-      {/* Featured Properties Section */}
-      {/* <section className="py-10 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-semibold">Featured Properties</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {cityData?.length > 0 ? (
-              cityData.map((data, index) => {
-                return <DataCard key={data._id} data={data} />;
-              })
-            ) : isSearch ? (
-              searchData?.length > 0 ? (
-                searchData.map((data, index) => {
-                  return <DataCard key={data._id} data={data} />;
-                })
-              ) : (
-                <div className="flex w-full justify-center items-center text-xl text-red-500 font-medium">
-                  "Did not match any property, try again!"
-                </div>
-              )
-            ) : property?.length > 0 ? (
-              randomFourProperties.map((data, index) => {
-                return <DataCard key={data._id} data={data} />;
-              })
-            ) : (
-              <div className="flex w-full justify-center items-center text-xl text-red-500 font-medium">
-                "No property found ,create first"
-              </div>
-            )}
-          </div>
-        </div>
-      </section> */}
       <section className="py-10 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-6">

@@ -14,6 +14,7 @@ const LandingPage = () => {
   const [searchData, setSearchData] = useState([]);
   const [isSearch, setIsSearch] = useState(false);
   const [allProperty, setAllProperty] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
   const [city, setCity] = useState("");
   const [cityData, setCityData] = useState([]);
@@ -28,9 +29,7 @@ const LandingPage = () => {
 
   const email = localStorage.getItem("email");
   const getAllProperty = async () => {
-    if (email) {
-      navigate("/login");
-    }
+    setLoading(true);
     const properties = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/buyer/api/get-all-property`
     );
@@ -38,9 +37,12 @@ const LandingPage = () => {
       setProperty(properties.data.property.slice(0, 4));
       setAllProperty(properties.data.property);
       getRandomItems(properties.data.property, 4);
+      setLoading(false);
     }
   };
-
+  if (email) {
+    navigate("/login");
+  }
   const getAllSellers = async () => {
     const allSeller = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/seller/api/get-all-seller`
@@ -80,6 +82,15 @@ const LandingPage = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <div className="w-16 h-16 border-4 border-t-transparent border-b-transparent border-black rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
   return (
     <div className=" min-h-screen bg-gray-50">
       <div className="bg-slate-50 h-16 flex justify-between items-center w-full sticky top-0 z-20 drop-shadow-sm">
@@ -140,7 +151,11 @@ const LandingPage = () => {
 
           {/* Seller Section */}
           <div className="flex flex-col md:flex-row items-center mb-16">
-            <div data-aos="fade-right"  data-aos-mirror="true" className="md:w-1/2">
+            <div
+              data-aos="fade-right"
+              data-aos-mirror="true"
+              className="md:w-1/2"
+            >
               <img
                 src={process.env.PUBLIC_URL + "/seller1.jpg"}
                 alt="Services for Sellers"
@@ -294,47 +309,12 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Featured Properties Section */}
-      {/* <section className="py-10 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-semibold">Featured Properties</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {isSearch ? (
-              searchData?.length > 0 ? (
-                searchData.map((data, index) => {
-                  return <DataCard key={data._id} data={data} />;
-                })
-              ) : cityData?.length > 0 ? (
-                cityData.map((data, index) => {
-                  return <DataCard key={data._id} data={data} />;
-                })
-              ) : (
-                <div className="flex w-full justify-center items-center text-xl text-red-500 font-medium">
-                  "Did not match any property, try again!"
-                </div>
-              )
-            ) : property?.length > 0 ? (
-              randomFourProperties.map((data, index) => {
-                return <DataCard key={data._id} data={data} />;
-              })
-            ) : (
-              <div className="flex w-full justify-center items-center text-xl text-red-500 font-medium">
-                "No property found ,create first"
-              </div>
-            )}
-          </div>
-        </div>
-      </section> */}
       <section className="py-10 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-6">
             <h2 className="text-3xl font-semibold">Featured Properties</h2>
           </div>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {isSearch || city ? (
               searchData?.length > 0 ? (
                 searchData.map((data, index) => {
@@ -379,9 +359,7 @@ const LandingPage = () => {
           <div className="text-center mb-6">
             <h2 className="text-3xl font-semibold">Our Best Sellers</h2>
           </div>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {/* Example Seller Card */}
             {allSeller?.length > 0
               ? allSeller.map((data, index) => {

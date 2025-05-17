@@ -3,6 +3,7 @@ import Label from "../../components/label/Label";
 import InputField from "../../components/inputfield/InputField";
 import AddButton from "../../components/buttons/AddButton";
 import axios from "axios";
+import { message } from "antd";
 import {
   ArrowLeftOutlined,
   EyeInvisibleOutlined,
@@ -17,10 +18,12 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
   const [role, setRole] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [messageColor, setMessageColor] = useState(false);
+  // const [successMessage, setSuccessMessage] = useState("");
+  // const [messageColor, setMessageColor] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/common/api/register`,
@@ -32,17 +35,16 @@ export default function Signup() {
           role,
         }
       );
-      if (res) {
-        setSuccessMessage(res.data.message);
-      }
+      setLoading(false);
       if (res.data.status) {
-        setMessageColor(true);
-        setTimeout(() => {
-          navigate("/login");
-        }, 5000);
+        message.success(res.data.message);
+        navigate("/login");
+      } else {
+        message.error(res.data.message);
       }
     } catch (err) {
       console.log("error in backend", err);
+      message.error("Something went wrong, try agian!");
     }
   };
 
@@ -63,7 +65,7 @@ export default function Signup() {
         <div>
           <div>
             <Label
-              title="Firstname"
+              title="First Name"
               className=" font-bold block text-gray-700"
             />
             <InputField
@@ -76,7 +78,7 @@ export default function Signup() {
             />
           </div>
           <div>
-            <Label title="Lastname" className="block text-gray-700" />
+            <Label title="Last Name" className="block text-gray-700" />
             <InputField
               className="w-full px-4 py-2 border border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="text"
@@ -87,7 +89,7 @@ export default function Signup() {
             />
           </div>
           <div>
-            <Label title="Username" className="block text-gray-700" />
+            <Label title="User Name / Email" className="block text-gray-700" />
             <InputField
               className="w-full px-4 py-2 border border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="text"
@@ -130,24 +132,15 @@ export default function Signup() {
             </select>
           </div>
           <AddButton
-            name="Submit"
+            name={loading ? "Loading..." : "Sign Up"}
             className=" mt-2 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
             onClick={() => handleSubmit()}
             disabledStatus={
-              firstname && lastname && username && password && role
+              firstname && lastname && username && password && role && !loading
                 ? false
                 : true
             }
           />
-          <div
-            className={
-              messageColor
-                ? "font-medium text-blue-600 mt-3"
-                : "font-medium text-red-500 mt-3"
-            }
-          >
-            {successMessage}
-          </div>
           <div className=" mt-2">
             <Link
               to="/login"

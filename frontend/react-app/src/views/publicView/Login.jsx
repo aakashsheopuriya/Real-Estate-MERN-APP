@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { LockOutlined, UserOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Spin } from "antd";
+import { Button, Checkbox, Form, Input, Spin, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
-  const [messageColor, setMessageColor] = useState(true);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
     setLoading(true); // Start loading
@@ -21,12 +19,12 @@ export default function Login() {
         }
       );
       if (res.data.status === 0) {
-        setMessage(res.data.message);
-        setMessageColor(false);
+        message.error(res.data.message);
       } else {
         localStorage.setItem("email", values.username);
         localStorage.setItem("role", res.data.role);
         localStorage.setItem("token", res.data.token);
+        message.success("Login successful!");
 
         if (res.data.role === "buyer") {
           navigate("/buyer-dashboard");
@@ -35,11 +33,9 @@ export default function Login() {
         }
       }
     } catch (err) {
-      console.log("backend error", err.message);
-      setMessage("Login failed. Please try again.");
-      setMessageColor(false);
+      message.error("Login failed. Please try again.");
     } finally {
-      setLoading(false); // Stop loading after request completion
+      setLoading(false);
     }
   };
 
@@ -100,8 +96,8 @@ export default function Login() {
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              loading={loading} // Shows a spinner when loading
-              disabled={loading} // Disables the button while loading
+              loading={loading}
+              disabled={loading}
             >
               {loading ? "Logging in..." : "Login"}
             </Button>
@@ -112,13 +108,6 @@ export default function Login() {
               </Link>
             </span>
           </Form.Item>
-          <div
-            className={`font-medium mt-3 ${
-              messageColor ? "text-blue-600" : "text-red-500"
-            }`}
-          >
-            {message}
-          </div>
         </Form>
       </div>
     </div>

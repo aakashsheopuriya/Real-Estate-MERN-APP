@@ -4,6 +4,7 @@ import InputField from "../../components/inputfield/InputField";
 import Label from "../../components/label/Label";
 import AddButton from "../../components/buttons/AddButton";
 import axios from "axios";
+import { message } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 
 export default function Forgot() {
@@ -13,51 +14,55 @@ export default function Forgot() {
   const [password, setPassword] = useState("");
   const [isOtpReceived, setIsOtpReceived] = useState(false);
   const [isOtpVerify, setIsVerify] = useState(false);
-  const [message, setMessage] = useState("");
-  const [messageColor, setMessageColor] = useState(false);
+  // const [message, setMessage] = useState("");
+  // const [messageColor, setMessageColor] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleOtp = async () => {
+    setLoading(true);
     const res = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/common/api/otp-sent-forgot-password`,
       { email: username }
     );
+    setLoading(false);
     if (res.data.status) {
-      setMessage(res.data.message);
+      message.success(res.data.message);
       setIsOtpReceived(true);
-      setMessageColor(true);
     } else {
       setIsOtpReceived(false);
-      setMessage(res.data.message);
+      message.error(res.data.message);
     }
   };
   const handleOtpVerify = async () => {
+    setLoading(true);
     const res = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/common/api/otp-verify-forgot-password`,
       { email: username, otp }
     );
+    setLoading(false);
     if (res.data.status) {
       setIsVerify(true);
-      setMessage(res.data.message);
-      setMessageColor(true);
+      message.success(res.data.message);
     } else {
-      setMessage(res.data.message);
+      message.error(res.data.message);
     }
   };
 
   const handleReset = async () => {
+    setLoading(true);
     const res = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/common/api/newpassword-update`,
       { email: username, password }
     );
+    setLoading(false);
     if (res.data.status) {
-      setMessage(res.data.message);
-      setMessageColor(true);
+      message.success(res.data.message);
       setTimeout(() => {
         navigate("/login");
-      }, 5000);
+      }, 3000);
     } else {
-      setMessage(res.data.message);
+      message.error(res.data.message);
     }
   };
 
@@ -81,7 +86,7 @@ export default function Forgot() {
           Forgot Password
         </h2>
         <div>
-          <Label title="Username" />
+          <Label title="User Name / Email" />
           <InputField
             type="email"
             value={username}
@@ -122,7 +127,9 @@ export default function Forgot() {
           </div>
           <AddButton
             name={
-              isOtpReceived
+              loading
+                ? "Loading..."
+                : isOtpReceived
                 ? isOtpVerify
                   ? "Reset Password"
                   : "Verify OTP"
@@ -138,15 +145,6 @@ export default function Forgot() {
                 : () => handleOtp()
             }
           />
-          <div
-            className={
-              messageColor
-                ? "font-medium text-blue-600 mt-3"
-                : "font-medium text-red-500 mt-3"
-            }
-          >
-            {message}
-          </div>
 
           <div className=" mt-2">
             <Link
